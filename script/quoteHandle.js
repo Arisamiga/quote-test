@@ -46,6 +46,10 @@ if (quotes === null) {
     for (var i = 0; i < quotes.length; i++) {
         var template = document.createElement("div");
         template.setAttribute("class", "quoteShow");
+        // Check if it has a enter character in it
+        if (quotes[i].includes("\n")) {
+            quotes[i] = quotes[i].replaceAll("\n", "<br>");
+        }
         template.innerHTML = quotes[i];
         quoteList.appendChild(template);
     }
