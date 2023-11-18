@@ -1,0 +1,98 @@
+body {
+    background-image: linear-gradient(270deg, rgb(84, 68, 143), rgb(115, 124, 224));
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.border-box {
+    position: relative;
+    outline: ridge;
+    outline-color: rgb(45, 45, 168);
+    color: aliceblue;
+    background-color: rgb(87, 62, 230);
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+    font-size: 30px;
+}
+
+.description {
+    font-size: 16px;
+}
+
+.quoteForm {
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(87, 62, 230);
+    color: aliceblue;
+    font-family: "Nunito", sans-serif;
+    font-size: 30px;
+}
+
+#addQuote {
+    width: 30%;
+    background-color: white;
+    border-radius: 10px;
+    font-family: "Nunito", sans-serif;
+    border: 2px solid rgb(87, 62, 230);
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#submitQuotes {
+    width: 30%;
+    background-color: white;
+    border-radius: 10px;
+    font-family: "Nunito", sans-serif;
+    border: 2px solid rgb(87, 62, 230);
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.quote {
+    text-align: center;
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+.lear {
+    position: absolute;
+    left: 10%;
+    outline: ridge;
+    outline-color: rgb(50, 50, 180);
+    margin-top: 10px;
+    font-family: "Nunito", sans-serif;
+    text-align: center;
+    font-size: 30px;
+    width: 80%;
+    height: 100px;
+    border-radius: 20px;
+    background-color: rgb(126, 178, 223);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s;
+}
+
+.lear:hover {
+    transform: rotateZ(-1deg);
+}
+
+.quoteShow {
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    color: black;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
