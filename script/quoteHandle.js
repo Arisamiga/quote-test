@@ -18,6 +18,27 @@ var url = new URL(window.location.href);
 var quotes = url.searchParams.get("quotes");
 
 if (quotes === null) {
+    // Check if LocalStorage has any quotes
+    var data = localStorage.getItem('quotes') ?? null;
+    if (data !== null) {
+        // Quotes Exist show them
+        // First empty the quoteList
+        var quoteList = document.getElementById("quoteList");
+        quoteList.innerHTML = "";
+
+        var quotes = JSON.parse(atob(data));
+        var quoteList = document.getElementById("quoteList");
+        for (var i = 0; i < quotes.length; i++) {
+            var template = document.createElement("textarea");
+            template.setAttribute("class", "quote");
+            template.setAttribute("rows", "4");
+            template.setAttribute("cols", "50");
+            template.setAttribute("placeholder", "Quote");
+            template.value = quotes[i];
+            quoteList.appendChild(template);
+        }
+    }
+
     document.getElementById("addQuote").addEventListener("click", function () {
         var quoteList = document.getElementById("quoteList");
         // var template = '<textarea class="quote" rows="4" cols="50" placeholder="Quote"></textarea>'
@@ -44,13 +65,28 @@ if (quotes === null) {
     var quotes = JSON.parse(data);
     var quoteList = document.getElementById("quoteList");
     for (var i = 0; i < quotes.length; i++) {
+        // Quote text show
         var template = document.createElement("div");
         template.setAttribute("class", "quoteShow");
+        // Input checking element
+        var input = document.createElement("textarea");
+        input.setAttribute("class", "quoteCheck");
+        input.setAttribute("id", "quoteCheck" + i);
+        input.setAttribute("placeholder", "Enter Quote")
+        input.setAttribute("cols", "50");
         // Check if it has a enter character in it
         if (quotes[i].includes("\n")) {
             quotes[i] = quotes[i].replaceAll("\n", "<br>");
         }
-        template.innerHTML = quotes[i];
+        var elementQuote = quotes[i].split(" ");
+
+        // Randomly remove 1 word from the quote
+        var random = Math.floor(Math.random() * elementQuote.length);
+        var removedWord = elementQuote[random];
+        elementQuote[random] = "_____";
+        var quote = elementQuote.join(" ");
+        template.innerHTML = (i + 1) + ". " + quote;
         quoteList.appendChild(template);
+        quoteList.appendChild(input)
     }
 }

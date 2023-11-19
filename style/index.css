@@ -89,10 +89,40 @@ body {
 .quoteShow {
     text-align: center;
     box-sizing: border-box;
-    border: 2px solid #ccc;
     color: black;
     border-radius: 4px;
     background-color: #f8f8f8;
     font-size: 16px;
     resize: none;
+    padding: 20px;
+    margin-top: 20px;
 }
+
+.quoteCheck {
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    color: black;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    width: 100%;
+}
+
+@media print {
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+    }
+    .border-box {
+        outline-color: transparent;
+    }
+  }
