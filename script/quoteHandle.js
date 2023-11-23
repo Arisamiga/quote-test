@@ -78,7 +78,7 @@ if (quotes === null) {
         elementQuote.forEach((word, index) => {
             if (word.includes("<br>")) {
                 console.log(index)
-                var splitWord = word.split("<br>");
+                var splitWord = word.replaceAll("<br>", "<br>,").split(",");
                 elementQuote = splitWord;
             }
         });
@@ -91,8 +91,10 @@ if (quotes === null) {
         if (inputLength < 5) {
             inputLength = 5;
         }
-
-        elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " >";
+        if (elementQuote[random].endsWith("<br>")) 
+            elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " ><br>";
+        else
+            elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " >";
         // TODO: learn more js and make this proportional to the length of the original word
         var quote = elementQuote.join(" ");
         template.innerHTML = (i + 1) + ". " + quote;
