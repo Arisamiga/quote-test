@@ -82,17 +82,23 @@ body {
     transition: transform 0.5s;
 }
 
+/* todo: cry */
+
 .lear:hover {
     transform: rotateZ(-1deg);
 }
 
 .quoteShow {
+    margin-left: 20vw;
+    margin-right: 20vw;
     text-align: center;
     box-sizing: border-box;
     color: black;
+    outline: ridge;
+    outline-color: rgb(45, 45, 168);
     border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
+    background-color: rgb(213, 216, 250);
+    font-size: 20px;
     resize: none;
     padding: 20px;
     margin-top: 20px;
@@ -102,26 +108,36 @@ body {
     text-align: center;
     box-sizing: border-box;
     border: 2px solid #ccc;
+    margin-top: 6px;
     color: black;
     border-radius: 4px;
     background-color: #f8f8f8;
     font-size: 16px;
 }
 
+/* wat is this */
 @media print {
-    ::-webkit-input-placeholder { /* WebKit browsers */
+    ::-webkit-input-placeholder {
+        /* WebKit browsers */
         color: transparent;
     }
-    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+
+    :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
         color: transparent;
     }
-    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+
+    ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
         color: transparent;
     }
-    :-ms-input-placeholder { /* Internet Explorer 10+ */
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
         color: transparent;
     }
+
     .border-box {
         outline-color: transparent;
     }
-  }
+}

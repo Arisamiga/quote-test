@@ -25,7 +25,6 @@ if (quotes === null) {
         // First empty the quoteList
         var quoteList = document.getElementById("quoteList");
         quoteList.innerHTML = "";
-
         var quotes = JSON.parse(atob(data));
         var quoteList = document.getElementById("quoteList");
         for (var i = 0; i < quotes.length; i++) {
@@ -68,7 +67,12 @@ if (quotes === null) {
         // Quote text show
         var template = document.createElement("div");
         template.setAttribute("class", "quoteShow");
-
+        // Input checking element
+        var input = document.createElement("textarea");
+        input.setAttribute("class", "quoteCheck");
+        input.setAttribute("id", "quoteCheck" + i);
+        input.setAttribute("placeholder", "Enter Quote")
+        input.setAttribute("cols", "50");
         // Check if it has a enter character in it
         if (quotes[i].includes("\n")) {
             quotes[i] = quotes[i].replaceAll("\n", "<br>");
@@ -78,9 +82,11 @@ if (quotes === null) {
         // Randomly remove 1 word from the quote
         var random = Math.floor(Math.random() * elementQuote.length);
         var removedWord = elementQuote[random];
-        elementQuote[random] = "<input class='quoteCheck' id=quoteCheck"+ i + " >";
+        // github said i removed this so im putting it back just in case: elementQuote[random] = "<input class='quoteCheck' id=quoteCheck"+ i + " >";
+        elementQuote[random] = "_____"; // todo: learn more js and make this proportional to the length of the original word
         var quote = elementQuote.join(" ");
         template.innerHTML = (i + 1) + ". " + quote;
         quoteList.appendChild(template);
+        quoteList.appendChild(input)
     }
 }
