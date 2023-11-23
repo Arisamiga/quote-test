@@ -140,4 +140,8 @@ body {
     .border-box {
         outline-color: transparent;
     }
+
+    .quoteShow {
+        outline-color: transparent;
+    }
 }
