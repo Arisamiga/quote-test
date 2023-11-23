@@ -82,7 +82,7 @@ body {
     transition: transform 0.5s;
 }
 
-/* todo: cry */
+/* TODO: cry */
 
 .lear:hover {
     transform: rotateZ(-1deg);
