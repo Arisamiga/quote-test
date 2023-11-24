@@ -64,6 +64,8 @@ if (quotes === null) {
 } else {
     var data = atob(localStorage.getItem("quotes"));
     var inputdata = {};
+    var results = {};
+
     if (data === null) {
         // No Quotes
         return;
@@ -74,15 +76,31 @@ if (quotes === null) {
     var submitButton = document.getElementsByClassName("submitButton")[0];
     submitButton.addEventListener("click", function () {
         console.log("Click")
+        results = {};
         for (var i = 0; i < quotes.length; i++) {
             var quote = document.getElementById("quoteCheck-" + i);
             if (quote.value === "") {
                 alert("Please fill in all the words");
                 return;
             }
-
-
+            console.log(inputdata)
+            console.log(results)
+            if (quote.value !== inputdata[i]) {
+                results[i] = false;
+                continue;
+            }
+            results[i] = true;
+            continue;
         }
+        console.log(results)
+        var score = 0;
+        for (var i = 0; i < quotes.length; i++) {
+            if (results[i] === true) {
+                score++;
+            }
+        }
+        alert("You got a score of " + score + "/" + quotes.length);
+
     });
 
     var quotes = JSON.parse(data);
@@ -109,6 +127,12 @@ if (quotes === null) {
         console.log(elementQuote)
         // Randomly remove 1 word from the quote
         var random = Math.floor(Math.random() * elementQuote.length);
+
+
+        while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>") {
+            random = Math.floor(Math.random() * elementQuote.length);
+        }
+
         var removedWord = elementQuote[random];
         var inputLength = elementQuote[random].length;
 
@@ -120,8 +144,7 @@ if (quotes === null) {
         else
             elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " >";
         
-        inputdata[i] = removedWord;
-
+        inputdata[i] = removedWord.replaceAll("<br>", "");
         // TODO: learn more js and make this proportional to the length of the original word
         var quote = elementQuote.join(" ");
         template.innerHTML = (i + 1) + ". " + quote;
