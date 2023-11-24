@@ -14,6 +14,8 @@
 // quoteHandle();
 
 // Check if url has quotes
+(function () {
+
 var url = new URL(window.location.href);
 var quotes = url.searchParams.get("quotes");
 
@@ -61,6 +63,28 @@ if (quotes === null) {
     });
 } else {
     var data = atob(localStorage.getItem("quotes"));
+    var inputdata = {};
+    if (data === null) {
+        // No Quotes
+        return;
+    }
+    // Quotes Exist
+
+    // Setup Listeners
+    var submitButton = document.getElementsByClassName("submitButton")[0];
+    submitButton.addEventListener("click", function () {
+        console.log("Click")
+        for (var i = 0; i < quotes.length; i++) {
+            var quote = document.getElementById("quoteCheck-" + i);
+            if (quote.value === "") {
+                alert("Please fill in all the words");
+                return;
+            }
+
+
+        }
+    });
+
     var quotes = JSON.parse(data);
     var quoteList = document.getElementById("quoteList");
     for (var i = 0; i < quotes.length; i++) {
@@ -91,13 +115,18 @@ if (quotes === null) {
         if (inputLength < 5) {
             inputLength = 5;
         }
-        if (elementQuote[random].endsWith("<br>")) 
+        if (elementQuote[random].endsWith("<br>"))
             elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " ><br>";
         else
             elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " >";
+        
+        inputdata[i] = removedWord;
+
         // TODO: learn more js and make this proportional to the length of the original word
         var quote = elementQuote.join(" ");
         template.innerHTML = (i + 1) + ". " + quote;
         quoteList.appendChild(template);
     }
 }
+    
+})();

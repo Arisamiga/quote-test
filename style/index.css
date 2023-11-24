@@ -115,7 +115,23 @@ body {
     font-size: 16px;
 }
 
-/* wat is this */
+
+.submitButton {
+    width: 30%;
+    background-color: white;
+    border-radius: 10px;
+    font-family: "Nunito", sans-serif;
+    border: 2px solid rgb(87, 62, 230);
+    cursor: pointer;
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.quoteBox {
+    padding-bottom: 80px;
+}
+
+/* Changes to be made on elements when printing */
 @media print {
     ::-webkit-input-placeholder {
         /* WebKit browsers */
