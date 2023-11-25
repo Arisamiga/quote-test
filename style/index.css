@@ -159,6 +159,8 @@ body {
 
     .quoteShow {
         outline-color: transparent;
+        margin-left: 0vw;
+        width: 100%;
     }
     .submitButton {
         display: none;
