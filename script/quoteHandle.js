@@ -27,8 +27,9 @@ if (quotes === null) {
         // First empty the quoteList
         var quoteList = document.getElementById("quoteList");
         quoteList.innerHTML = "";
-        var quotes = JSON.parse(atob(data));
+        var quotes = JSON.parse(decodeURIComponent(atob(data)));
         var quoteList = document.getElementById("quoteList");
+
         for (var i = 0; i < quotes.length; i++) {
             var template = document.createElement("textarea");
             template.setAttribute("class", "quote");
@@ -51,18 +52,18 @@ if (quotes === null) {
         quoteList.appendChild(template);
     });
 
-    submitQuotes.addEventListener("click", function () {
+    document.getElementById("submitQuotes").addEventListener("click", function () {
         var quotes = document.getElementsByClassName("quote");
         var quoteArray = [];
         for (var i = 0; i < quotes.length; i++) {
             quoteArray.push(quotes[i].value);
         }
 
-        localStorage.setItem("quotes", btoa(JSON.stringify(quoteArray)));
+        localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
         window.location.href = "quoteTest.html?quotes=true";
     });
 } else {
-    var data = atob(localStorage.getItem("quotes"));
+    var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
     var inputdata = {};
     var results = {};
 
@@ -84,7 +85,7 @@ if (quotes === null) {
                 return;
             }
             console.log(inputdata)
-            console.log(results)
+            console.log("Quote: " + quote.value + " Input: " + inputdata[i]);
             if (quote.value !== inputdata[i]) {
                 results[i] = false;
                 continue;
@@ -92,7 +93,6 @@ if (quotes === null) {
             results[i] = true;
             continue;
         }
-        console.log(results)
         var score = 0;
         for (var i = 0; i < quotes.length; i++) {
             if (results[i] === true) {
@@ -114,16 +114,23 @@ if (quotes === null) {
             quotes[i] = quotes[i].replaceAll("\n", "<br>");
         }
         var elementQuote = quotes[i].split(" ");
-
+        console.log("---- elementQuote ----")
+        console.log(elementQuote)
         // If word includes <br> split 
-            console.log(elementQuote)
         elementQuote.forEach((word, index) => {
             if (word.includes("<br>")) {
                 console.log(index)
-                var splitWord = word.replaceAll("<br>", "<br>,").split(",");
-                elementQuote = splitWord;
+                var splitWord = word.split("<br>");
+                // Add ##BR## to the place of <br> so it can be replaced later
+                splitWord = splitWord.map(word => word + "##BR##");
+                elementQuote.splice(index, 1, ...splitWord);
             }
         });
+
+        // Add special character to <br> so it can be replaced later
+        elementQuote = elementQuote.map(word => word.replace("<br>", "##BR##"));
+
+        console.log("---- elementQuote1 ----")
         console.log(elementQuote)
         // Randomly remove 1 word from the quote
         var random = Math.floor(Math.random() * elementQuote.length);
@@ -139,17 +146,22 @@ if (quotes === null) {
         if (inputLength < 5) {
             inputLength = 5;
         }
+        console.log("---- elementQuote2 ----")
+        console.log(elementQuote)
         if (elementQuote[random].endsWith("<br>"))
             elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " ><br>";
         else
             elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " >";
-        
-        inputdata[i] = removedWord.replaceAll("<br>", "");
+        console.log(removedWord)
+        // console.log(elementQuote)
+        inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
         // TODO: learn more js and make this proportional to the length of the original word
-        var quote = elementQuote.join(" ");
+        var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
         template.innerHTML = (i + 1) + ". " + quote;
         quoteList.appendChild(template);
     }
+    console.log("---- Quotes ----")
+    console.log(quotes)
 }
     
 })();
