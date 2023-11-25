@@ -160,4 +160,7 @@ body {
     .quoteShow {
         outline-color: transparent;
     }
+    .submitButton {
+        display: none;
+    }
 }
