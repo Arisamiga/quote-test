@@ -114,6 +114,10 @@ if (quotes === null) {
 
     });
 
+    document.getElementsByClassName("backButton")[0].addEventListener("click", function () {
+        window.location.href = "index.html";
+    });
+
     var quotes = JSON.parse(data);
     var quoteList = document.getElementById("quoteList");
     for (var i = 0; i < quotes.length; i++) {
