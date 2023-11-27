@@ -20,7 +20,11 @@ var url = new URL(window.location.href);
 var quotes = url.searchParams.get("quotes");
 
 function handleResults(score, length) {
-    alert("You got a score of " + score + "/" + length);
+    var quoteResults = document.getElementById("quoteResults");
+    quoteResults.innerHTML = "Score: " + score + "/" + length;
+    quoteResults.style.animation = "fadeIn 4s";
+    // Scroll to top slowly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 if (quotes === null) {

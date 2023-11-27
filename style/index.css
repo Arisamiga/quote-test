@@ -131,6 +131,20 @@ body {
     padding-bottom: 80px;
 }
 
+#quoteResults {
+    margin-top: 2%;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* Changes to be made on elements when printing */
 @media print {
     ::-webkit-input-placeholder {
