@@ -19,6 +19,10 @@
 var url = new URL(window.location.href);
 var quotes = url.searchParams.get("quotes");
 
+function handleResults(score, length) {
+    alert("You got a score of " + score + "/" + length);
+}
+
 if (quotes === null) {
     // Check if LocalStorage has any quotes
     var data = localStorage.getItem('quotes') ?? null;
@@ -86,10 +90,13 @@ if (quotes === null) {
             }
             console.log(inputdata)
             console.log("Quote: " + quote.value + " Input: " + inputdata[i]);
-            if (quote.value !== inputdata[i]) {
+            quote.value = quote.value.replaceAll(" ", "");
+            if (quote.value.toLowerCase() !== inputdata[i].toLowerCase()) {
                 results[i] = false;
+                quote.style.backgroundColor = "red";
                 continue;
             }
+            quote.style.backgroundColor = "green";
             results[i] = true;
             continue;
         }
@@ -99,7 +106,7 @@ if (quotes === null) {
                 score++;
             }
         }
-        alert("You got a score of " + score + "/" + quotes.length);
+        handleResults(score, quotes.length);
 
     });
 
@@ -136,7 +143,7 @@ if (quotes === null) {
         var random = Math.floor(Math.random() * elementQuote.length);
 
 
-        while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>") {
+        while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##") {
             random = Math.floor(Math.random() * elementQuote.length);
         }
 

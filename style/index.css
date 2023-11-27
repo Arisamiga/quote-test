@@ -41,7 +41,7 @@ body {
 }
 
 #submitQuotes {
-    width: 30%;
+    width: 100%;
     background-color: white;
     border-radius: 10px;
     font-family: "Nunito", sans-serif;
