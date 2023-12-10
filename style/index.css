@@ -93,6 +93,7 @@ body {
     width: 60%;
     height: 100px;
     margin-left: 18%;
+    display: none;
     /* this is not centered at all, i will do it when i have more than 3 braincells remaining */
 }
 
@@ -190,6 +191,14 @@ body {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     cursor: pointer;
 
+}
+
+.button {
+    cursor: pointer;
+}
+
+.active {
+    display: block;
 }
 
 @keyframes fadeIn {
