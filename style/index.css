@@ -246,4 +246,13 @@ body {
     .submitButton {
         display: none;
     }
+    .backButton {
+        display: none;
+    }
+    .quoteShow {
+        text-align: left;
+        padding-left: 20px;
+        font-size: 12px;
+        margin-top: 1px;
+    }
 }
