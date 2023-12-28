@@ -26,9 +26,10 @@
     </div>
     <div class="Text">
         Premade Quotes: 
-        <select class="selection" name="Sources">
+        <select class="selection" name="Sources" >
+            <option value="default" selected="selected" >Choose...</option>
+            <option value="Lear">👑 King Lear</option>
             <option value="More">More Soon..</option>
-            <option value="Lear">King Lear</option>
         </select>
         <div class="selection_items"></div>
     </div>
@@ -53,6 +54,11 @@
         </ul>
 
     </div> -->
+    <!-- Make a modal for comfirmations -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+        </div>
+    </div>
     <script src="/script/dropdownHandler.js"></script>
     <script src="/script/quoteHandle.js"></script>
 </body>
