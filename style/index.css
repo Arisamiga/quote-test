@@ -190,6 +190,7 @@ body {
 .backButton:hover {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     cursor: pointer;
+
 }
 
 .button {
@@ -199,6 +200,7 @@ body {
 .active {
     display: block;
 }
+
 .quoteContainer {
     position: relative;
 }
@@ -210,82 +212,6 @@ body {
 }
 
 .deleteButton:hover {
-    cursor: pointer;
-}
-
-.Text {
-    font-size: 20px;
-    font-family: "Nunito", sans-serif;
-    color: white;
-    background-color: #7777ff;
-    outline-color: rgb(45, 45, 168);
-    outline-style: ridge;
-    outline-width: initial;
-    border: none;
-    padding: 10px;
-    padding-right: 30px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    text-align: center;
-}
-
-.selection {
-    font-size: 20px;
-    font-family: "Nunito", sans-serif;
-    color: white;
-    background-color: #7777ff;
-    border: none;
-    border-bottom: 3px solid white;
-    margin-left: 10px;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 50px;
-    text-align-last: center;
-}
-
-.selection:focus {
-    outline: none;
-}
-
-.selection:hover {
-    cursor: pointer;
-}
-
-.headline {
-    text-align: left;
-    border-bottom: 3px solid white;
-    margin-left: 10px;
-}
-
-.headline > h1 {
-    margin-bottom: 10px;
-}
-
-.selection_items {
-    margin-bottom: 10px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
-}
-
-.grid_item {
-    text-align: center;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    color: black;
-    font-size: 16px;
-    resize: none;
-    padding: 20px;
-    margin-top: 20px;
-    font-family: "Nunito", sans-serif;
-}
-
-.grid_item:hover {
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
     cursor: pointer;
 }
 
