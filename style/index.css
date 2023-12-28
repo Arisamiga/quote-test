@@ -201,6 +201,20 @@ body {
     display: block;
 }
 
+.quoteContainer {
+    position: relative;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
