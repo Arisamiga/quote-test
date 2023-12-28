@@ -27,6 +27,33 @@ function handleResults(score, length) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function addQuoteElement(quoteList, quotes) {
+    var container = document.createElement("div");
+    container.setAttribute("class", "quoteContainer");
+    quoteList.appendChild(container);
+
+
+    var template = document.createElement("textarea");
+    template.setAttribute("class", "quote");
+    template.setAttribute("rows", "4");
+    template.setAttribute("cols", "50");
+    template.setAttribute("placeholder", "Quote");
+    template.value = quotes;
+    container.appendChild(template);
+
+    
+    // Add a button to also be able to delete the quote
+    var deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class", "deleteButton");
+    deleteButton.innerHTML = "🗑️";
+    deleteButton.addEventListener("click", function () {
+        var container = this.parentNode;
+        container.removeChild(this.previousSibling);
+        container.removeChild(this);
+    });
+    container.appendChild(deleteButton);
+}
+
 if (quotes === null) {
     // Check if LocalStorage has any quotes
     var data = localStorage.getItem('quotes') ?? null;
@@ -39,25 +66,14 @@ if (quotes === null) {
         var quoteList = document.getElementById("quoteList");
 
         for (var i = 0; i < quotes.length; i++) {
-            var template = document.createElement("textarea");
-            template.setAttribute("class", "quote");
-            template.setAttribute("rows", "4");
-            template.setAttribute("cols", "50");
-            template.setAttribute("placeholder", "Quote");
-            template.value = quotes[i];
-            quoteList.appendChild(template);
+            addQuoteElement(quoteList, quotes[i]);
         }
     }
 
     document.getElementById("addQuote").addEventListener("click", function () {
         var quoteList = document.getElementById("quoteList");
         // var template = '<textarea class="quote" rows="4" cols="50" placeholder="Quote"></textarea>'
-        var template = document.createElement("textarea");
-        template.setAttribute("class", "quote");
-        template.setAttribute("rows", "4");
-        template.setAttribute("cols", "50");
-        template.setAttribute("placeholder", "Quote");
-        quoteList.appendChild(template);
+        addQuoteElement(quoteList, "");
     });
 
     document.getElementById("submitQuotes").addEventListener("click", function () {
@@ -86,12 +102,20 @@ if (quotes === null) {
     submitButton.addEventListener("click", function () {
         console.log("Click")
         results = {};
+
+        // Check if all inputs are filled
+        var quotes = document.getElementsByClassName("quoteCheck");
+
         for (var i = 0; i < quotes.length; i++) {
             var quote = document.getElementById("quoteCheck-" + i);
             if (quote.value === "") {
-                alert("Please fill in all the words");
+                alert("Please fill in all the words to see your score.");
                 return;
             }
+        }
+
+        for (var i = 0; i < quotes.length; i++) {
+            var quote = document.getElementById("quoteCheck-" + i);
             console.log(inputdata)
             console.log("Quote: " + quote.value + " Input: " + inputdata[i]);
             quote.value = quote.value.replaceAll(" ", "");
