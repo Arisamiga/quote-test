@@ -54,6 +54,12 @@ function addQuoteElement(quoteList, quotes) {
     container.appendChild(deleteButton);
 }
 
+function containsSpecialCharacters(word){
+    var specialCharacters = /([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g;
+    return specialCharacters.test(word);
+
+}
+
 if (quotes === null) {
     // Check if LocalStorage has any quotes
     var data = localStorage.getItem('quotes') ?? null;
@@ -169,13 +175,22 @@ if (quotes === null) {
         // Add special character to <br> so it can be replaced later
         elementQuote = elementQuote.map(word => word.replace("<br>", "##BR##"));
 
+        // Split special characters from words and add them to the array but dont seperate each individual character
+        elementQuote.forEach((word, index) => {
+            if (containsSpecialCharacters(word)) {
+                var splitWord = word.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
+                console.log("-> " + splitWord)
+                elementQuote.splice(index, 1, ...splitWord.filter(Boolean));
+            }
+        });
+
         console.log("---- elementQuote1 ----")
         console.log(elementQuote)
         // Randomly remove 1 word from the quote
         var random = Math.floor(Math.random() * elementQuote.length);
 
 
-        while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##") {
+        while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##" || containsSpecialCharacters(elementQuote[random])) {
             random = Math.floor(Math.random() * elementQuote.length);
         }
 
@@ -194,7 +209,6 @@ if (quotes === null) {
         console.log(removedWord)
         // console.log(elementQuote)
         inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
-        // TODO: learn more js and make this proportional to the length of the original word
         var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
         template.innerHTML = (i + 1) + ". " + quote;
         quoteList.appendChild(template);
