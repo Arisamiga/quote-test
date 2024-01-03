@@ -22,6 +22,20 @@ body {
     font-size: 16px;
 }
 
+.optionText {
+    background-color: white;
+    border: inherit;
+}
+
+.options {
+    position: absolute;
+    width: fit-content;
+    background-color: #7777ff;
+    border: ridge;
+    border-color: rgb(45, 45, 168);
+    border-bottom-right-radius: 10px;
+}
+
 .quoteForm {
     margin-left: 30%;
     margin-right: 30%;

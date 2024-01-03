@@ -60,7 +60,19 @@
 
     }
 
+
+
     if (quotes === null) {
+        var intensity = document.getElementById("intensityRange")
+        var intensityOutput = document.getElementById("intensityValue")
+        intensityOutput.innerHTML = intensity.value;
+
+        intensity.oninput = function () {
+            intensityOutput.innerHTML = this.value;
+
+            console.log(this.value);
+
+        }
         // Check if LocalStorage has any quotes
         var data = localStorage.getItem('quotes') ?? null;
         if (data !== null) {
@@ -90,10 +102,13 @@
             }
 
             localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
+            localStorage.setItem("intensity", intensity.value)
+
             window.location.href = "quoteTest.html?quotes=true";
         });
     } else {
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
+        var intensity = localStorage.getItem("intensity")
         var inputdata = {};
         var results = {};
 
@@ -187,31 +202,47 @@
             console.log("---- elementQuote1 ----")
             console.log(elementQuote)
             // Randomly remove 1 word from the quote
-            var random = Math.floor(Math.random() * elementQuote.length);
 
 
-            while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##" || containsSpecialCharacters(elementQuote[random])) {
-                random = Math.floor(Math.random() * elementQuote.length);
+
+
+
+            var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100))
+            function removeWords(random) {
+
+                var removedWord = elementQuote[random];
+                var inputLength = elementQuote[random].length;
+
+
+
+                while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##" || containsSpecialCharacters(elementQuote[random])) {
+                    random = Math.floor(Math.random() * elementQuote.length);
+                }
+
+
+
+                if (inputLength < 5) {
+                    inputLength = 5;
+                }
+                console.log("---- elementQuote2 ----")
+                console.log(elementQuote)
+                if (elementQuote[random].endsWith("<br>"))
+                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " ><br>";
+                else
+                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " >";
+                console.log(removedWord)
+                // console.log(elementQuote)
+                inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
+                var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
+                template.innerHTML = (i + 1) + ". " + quote;
+                quoteList.appendChild(template);
+            }
+            for (var i = 0; i < wordsRemoved; i++) {
+                var random = Math.floor(Math.random() * elementQuote.length);
+                removeWords(random)
             }
 
-            var removedWord = elementQuote[random];
-            var inputLength = elementQuote[random].length;
 
-            if (inputLength < 5) {
-                inputLength = 5;
-            }
-            console.log("---- elementQuote2 ----")
-            console.log(elementQuote)
-            if (elementQuote[random].endsWith("<br>"))
-                elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " ><br>";
-            else
-                elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " >";
-            console.log(removedWord)
-            // console.log(elementQuote)
-            inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
-            var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
-            template.innerHTML = (i + 1) + ". " + quote;
-            quoteList.appendChild(template);
         }
         console.log("---- Quotes ----")
         console.log(quotes)
