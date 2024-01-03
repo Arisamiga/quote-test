@@ -66,64 +66,6 @@ body {
     resize: none;
 }
 
-.menu {
-    text-align: center;
-    position: relative;
-    left: 10%;
-    outline: ridge;
-    outline-color: rgb(50, 50, 180);
-    margin-top: 10px;
-    font-family: "Nunito", sans-serif;
-    font-size: 30px;
-    width: 80%;
-    height: 100px;
-    border-radius: 20px;
-    background-color: rgb(126, 178, 223);
-    /* WHY WILL THIS TEXT NOT CENTER */
-}
-
-/* TODO: cry harder */
-
-.menu:hover {}
-
-/* ik im using an empty ruleset ill fill it when i have the js figured out */
-
-.dropdown-menu {
-    padding-top: 2rem;
-    width: 60%;
-    height: 100px;
-    margin-left: 18%;
-    display: none;
-    /* this is not centered at all, i will do it when i have more than 3 braincells remaining */
-}
-
-.dropdown-menu>li {
-    position: relative;
-    display: block;
-    background-color: rgb(126, 178, 223);
-    margin-top: 1rem;
-    height: 80px;
-    border-radius: 20px;
-    outline: ridge;
-    outline-color: rgb(50, 50, 180);
-}
-
-.dropdown-menu-2 {
-    margin-left: 18%;
-}
-
-.dropdown-menu-2>li {
-    display: block;
-    background-color: rgb(126, 178, 223);
-    margin-top: 1rem;
-    width: 60%;
-    height: 60px;
-    border-radius: 20px;
-    outline: ridge;
-    outline-color: rgb(50, 50, 180);
-    margin-left: 6%;
-    /* neither is this centered. css developers punching the air rn. */
-}
 
 .quoteShow {
     margin-left: 20vw;
@@ -199,6 +141,7 @@ body {
 .active {
     display: block;
 }
+
 .quoteContainer {
     position: relative;
 }
@@ -257,7 +200,7 @@ body {
     margin-left: 10px;
 }
 
-.headline > h1 {
+.headline>h1 {
     margin-bottom: 10px;
 }
 
@@ -281,7 +224,7 @@ body {
     border-radius: 4px;
     background-color: #f8f8f8;
     color: black;
-    font-size: 16px;
+    font-size: 20px;
     resize: none;
     padding: 20px;
     margin-top: 20px;
@@ -312,7 +255,7 @@ body {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 2px solid #6A6DCA;
     width: 80%;
     border-radius: 10px;
     font-family: "Nunito", sans-serif;
@@ -409,9 +352,11 @@ body {
     .submitButton {
         display: none;
     }
+
     .backButton {
         display: none;
     }
+
     .quoteShow {
         text-align: left;
         padding-left: 20px;
