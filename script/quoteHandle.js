@@ -16,191 +16,205 @@
 // Check if url has quotes
 (function () {
 
-var url = new URL(window.location.href);
-var quotes = url.searchParams.get("quotes");
+    var url = new URL(window.location.href);
+    var quotes = url.searchParams.get("quotes");
 
-function handleResults(score, length) {
-    var quoteResults = document.getElementById("quoteResults");
-    quoteResults.innerHTML = "Score: " + score + "/" + length;
-    quoteResults.style.animation = "fadeIn 4s";
-    // Scroll to top slowly
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function addQuoteElement(quoteList, quotes) {
-    var container = document.createElement("div");
-    container.setAttribute("class", "quoteContainer");
-    quoteList.appendChild(container);
-
-
-    var template = document.createElement("textarea");
-    template.setAttribute("class", "quote");
-    template.setAttribute("rows", "4");
-    template.setAttribute("cols", "50");
-    template.setAttribute("placeholder", "Quote");
-    template.value = quotes;
-    container.appendChild(template);
-
-    
-    // Add a button to also be able to delete the quote
-    var deleteButton = document.createElement("button");
-    deleteButton.setAttribute("class", "deleteButton");
-    deleteButton.innerHTML = "🗑️";
-    deleteButton.addEventListener("click", function () {
-        var container = this.parentNode;
-        container.removeChild(this.previousSibling);
-        container.removeChild(this);
-    });
-    container.appendChild(deleteButton);
-}
-
-if (quotes === null) {
-    // Check if LocalStorage has any quotes
-    var data = localStorage.getItem('quotes') ?? null;
-    if (data !== null) {
-        // Quotes Exist show them
-        // First empty the quoteList
-        var quoteList = document.getElementById("quoteList");
-        quoteList.innerHTML = "";
-        var quotes = JSON.parse(decodeURIComponent(atob(data)));
-        var quoteList = document.getElementById("quoteList");
-
-        for (var i = 0; i < quotes.length; i++) {
-            addQuoteElement(quoteList, quotes[i]);
-        }
+    function handleResults(score, length) {
+        var quoteResults = document.getElementById("quoteResults");
+        quoteResults.innerHTML = "Score: " + score + "/" + length;
+        quoteResults.style.animation = "fadeIn 4s";
+        // Scroll to top slowly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    document.getElementById("addQuote").addEventListener("click", function () {
-        var quoteList = document.getElementById("quoteList");
-        // var template = '<textarea class="quote" rows="4" cols="50" placeholder="Quote"></textarea>'
-        addQuoteElement(quoteList, "");
-    });
+    function addQuoteElement(quoteList, quotes) {
+        var container = document.createElement("div");
+        container.setAttribute("class", "quoteContainer");
+        quoteList.appendChild(container);
 
-    document.getElementById("submitQuotes").addEventListener("click", function () {
-        var quotes = document.getElementsByClassName("quote");
-        var quoteArray = [];
-        for (var i = 0; i < quotes.length; i++) {
-            quoteArray.push(quotes[i].value);
-        }
 
-        localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
-        window.location.href = "quoteTest.html?quotes=true";
-    });
-} else {
-    var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
-    var inputdata = {};
-    var results = {};
+        var template = document.createElement("textarea");
+        template.setAttribute("class", "quote");
+        template.setAttribute("rows", "4");
+        template.setAttribute("cols", "50");
+        template.setAttribute("placeholder", "Quote");
+        template.value = quotes;
+        container.appendChild(template);
 
-    if (data === null) {
-        // No Quotes
-        return;
+
+        // Add a button to also be able to delete the quote
+        var deleteButton = document.createElement("button");
+        deleteButton.setAttribute("class", "deleteButton");
+        deleteButton.innerHTML = "🗑️";
+        deleteButton.addEventListener("click", function () {
+            var container = this.parentNode;
+            container.removeChild(this.previousSibling);
+            container.removeChild(this);
+        });
+        container.appendChild(deleteButton);
     }
-    // Quotes Exist
 
-    // Setup Listeners
-    var submitButton = document.getElementsByClassName("submitButton")[0];
-    submitButton.addEventListener("click", function () {
-        console.log("Click")
-        results = {};
+    function containsSpecialCharacters(word) {
+        var specialCharacters = /([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g;
+        return specialCharacters.test(word);
 
-        // Check if all inputs are filled
-        var quotes = document.getElementsByClassName("quoteCheck");
+    }
 
-        for (var i = 0; i < quotes.length; i++) {
-            var quote = document.getElementById("quoteCheck-" + i);
-            if (quote.value === "") {
-                alert("Please fill in all the words to see your score.");
-                return;
+    if (quotes === null) {
+        // Check if LocalStorage has any quotes
+        var data = localStorage.getItem('quotes') ?? null;
+        if (data !== null) {
+            // Quotes Exist show them
+            // First empty the quoteList
+            var quoteList = document.getElementById("quoteList");
+            quoteList.innerHTML = "";
+            var quotes = JSON.parse(decodeURIComponent(atob(data)));
+            var quoteList = document.getElementById("quoteList");
+
+            for (var i = 0; i < quotes.length; i++) {
+                addQuoteElement(quoteList, quotes[i]);
             }
         }
 
-        for (var i = 0; i < quotes.length; i++) {
-            var quote = document.getElementById("quoteCheck-" + i);
-            console.log(inputdata)
-            console.log("Quote: " + quote.value + " Input: " + inputdata[i]);
-            quote.value = quote.value.replaceAll(" ", "");
-            if (quote.value.toLowerCase() !== inputdata[i].toLowerCase()) {
-                results[i] = false;
-                quote.style.backgroundColor = "red";
-                continue;
-            }
-            quote.style.backgroundColor = "green";
-            results[i] = true;
-            continue;
-        }
-        var score = 0;
-        for (var i = 0; i < quotes.length; i++) {
-            if (results[i] === true) {
-                score++;
-            }
-        }
-        handleResults(score, quotes.length);
-
-    });
-
-    document.getElementsByClassName("backButton")[0].addEventListener("click", function () {
-        window.location.href = "index.html";
-    });
-
-    var quotes = JSON.parse(data);
-    var quoteList = document.getElementById("quoteList");
-    for (var i = 0; i < quotes.length; i++) {
-        // Quote text show
-        var template = document.createElement("div");
-        template.setAttribute("class", "quoteShow");
-        // Check if it has a enter character in it
-        if (quotes[i].includes("\n")) {
-            quotes[i] = quotes[i].replaceAll("\n", "<br>");
-        }
-        var elementQuote = quotes[i].split(" ");
-        console.log("---- elementQuote ----")
-        console.log(elementQuote)
-        // If word includes <br> split 
-        elementQuote.forEach((word, index) => {
-            if (word.includes("<br>")) {
-                console.log(index)
-                var splitWord = word.split("<br>");
-                // Add ##BR## to the place of <br> so it can be replaced later
-                splitWord = splitWord.map(word => word + "##BR##");
-                elementQuote.splice(index, 1, ...splitWord);
-            }
+        document.getElementById("addQuote").addEventListener("click", function () {
+            var quoteList = document.getElementById("quoteList");
+            // var template = '<textarea class="quote" rows="4" cols="50" placeholder="Quote"></textarea>'
+            addQuoteElement(quoteList, "");
         });
 
-        // Add special character to <br> so it can be replaced later
-        elementQuote = elementQuote.map(word => word.replace("<br>", "##BR##"));
+        document.getElementById("submitQuotes").addEventListener("click", function () {
+            var quotes = document.getElementsByClassName("quote");
+            var quoteArray = [];
+            for (var i = 0; i < quotes.length; i++) {
+                quoteArray.push(quotes[i].value);
+            }
 
-        console.log("---- elementQuote1 ----")
-        console.log(elementQuote)
-        // Randomly remove 1 word from the quote
-        var random = Math.floor(Math.random() * elementQuote.length);
+            localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
+            window.location.href = "quoteTest.html?quotes=true";
+        });
+    } else {
+        var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
+        var inputdata = {};
+        var results = {};
 
-
-        while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##") {
-            random = Math.floor(Math.random() * elementQuote.length);
+        if (data === null) {
+            // No Quotes
+            return;
         }
+        // Quotes Exist
 
-        var removedWord = elementQuote[random];
-        var inputLength = elementQuote[random].length;
+        // Setup Listeners
+        var submitButton = document.getElementsByClassName("submitButton")[0];
+        submitButton.addEventListener("click", function () {
+            console.log("Click")
+            results = {};
 
-        if (inputLength < 5) {
-            inputLength = 5;
+            // Check if all inputs are filled
+            var quotes = document.getElementsByClassName("quoteCheck");
+
+            for (var i = 0; i < quotes.length; i++) {
+                var quote = document.getElementById("quoteCheck-" + i);
+                if (quote.value === "") {
+                    alert("Please fill in all the words to see your score.");
+                    return;
+                }
+            }
+
+            for (var i = 0; i < quotes.length; i++) {
+                var quote = document.getElementById("quoteCheck-" + i);
+                console.log(inputdata)
+                console.log("Quote: " + quote.value + " Input: " + inputdata[i]);
+                quote.value = quote.value.replaceAll(" ", "");
+                if (quote.value.toLowerCase() !== inputdata[i].toLowerCase()) {
+                    results[i] = false;
+                    quote.style.backgroundColor = "red";
+                    continue;
+                }
+                quote.style.backgroundColor = "green";
+                results[i] = true;
+                continue;
+            }
+            var score = 0;
+            for (var i = 0; i < quotes.length; i++) {
+                if (results[i] === true) {
+                    score++;
+                }
+            }
+            handleResults(score, quotes.length);
+
+        });
+
+        document.getElementsByClassName("backButton")[0].addEventListener("click", function () {
+            window.location.href = "index.html";
+        });
+
+        var quotes = JSON.parse(data);
+        var quoteList = document.getElementById("quoteList");
+        for (var i = 0; i < quotes.length; i++) {
+            // Quote text show
+            var template = document.createElement("div");
+            template.setAttribute("class", "quoteShow");
+            // Check if it has a enter character in it
+            if (quotes[i].includes("\n")) {
+                quotes[i] = quotes[i].replaceAll("\n", "<br>");
+            }
+            var elementQuote = quotes[i].split(" ");
+            console.log("---- elementQuote ----")
+            console.log(elementQuote)
+            // If word includes <br> split 
+            elementQuote.forEach((word, index) => {
+                if (word.includes("<br>")) {
+                    console.log(index)
+                    var splitWord = word.split("<br>");
+                    // Add ##BR## to the place of <br> so it can be replaced later
+                    splitWord = splitWord.map(word => word + "##BR##");
+                    elementQuote.splice(index, 1, ...splitWord);
+                }
+            });
+
+            // Add special character to <br> so it can be replaced later
+            elementQuote = elementQuote.map(word => word.replace("<br>", "##BR##"));
+
+            // Split special characters from words and add them to the array but dont seperate each individual character
+            elementQuote.forEach((word, index) => {
+                if (containsSpecialCharacters(word)) {
+                    var splitWord = word.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
+                    console.log("-> " + splitWord)
+                    elementQuote.splice(index, 1, ...splitWord.filter(Boolean));
+                }
+            });
+
+            console.log("---- elementQuote1 ----")
+            console.log(elementQuote)
+            // Randomly remove 1 word from the quote
+            var random = Math.floor(Math.random() * elementQuote.length);
+
+
+            while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##" || containsSpecialCharacters(elementQuote[random])) {
+                random = Math.floor(Math.random() * elementQuote.length);
+            }
+
+            var removedWord = elementQuote[random];
+            var inputLength = elementQuote[random].length;
+
+            if (inputLength < 5) {
+                inputLength = 5;
+            }
+            console.log("---- elementQuote2 ----")
+            console.log(elementQuote)
+            if (elementQuote[random].endsWith("<br>"))
+                elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " ><br>";
+            else
+                elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " >";
+            console.log(removedWord)
+            // console.log(elementQuote)
+            inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
+            var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
+            template.innerHTML = (i + 1) + ". " + quote;
+            quoteList.appendChild(template);
         }
-        console.log("---- elementQuote2 ----")
-        console.log(elementQuote)
-        if (elementQuote[random].endsWith("<br>"))
-            elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " ><br>";
-        else
-            elementQuote[random] = "<input style='width:" + ( inputLength )+"em;' class='quoteCheck' placeholder='word' id=quoteCheck-"+ i + " >";
-        console.log(removedWord)
-        // console.log(elementQuote)
-        inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
-        // TODO: learn more js and make this proportional to the length of the original word
-        var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
-        template.innerHTML = (i + 1) + ". " + quote;
-        quoteList.appendChild(template);
+        console.log("---- Quotes ----")
+        console.log(quotes)
     }
-    console.log("---- Quotes ----")
-    console.log(quotes)
-}
-    
+
 })();
