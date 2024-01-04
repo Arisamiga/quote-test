@@ -126,32 +126,43 @@
 
             // Check if all inputs are filled
             var quotes = document.getElementsByClassName("quoteCheck");
-
             for (var i = 0; i < quotes.length; i++) {
-                var quote = document.getElementById("quoteCheck-" + i);
-                if (quote.value === "") {
+                if (quotes[i].value === "") {
                     alert("Please fill in all the words to see your score.");
                     return;
                 }
             }
 
-            for (var i = 0; i < quotes.length; i++) {
-                var quote = document.getElementById("quoteCheck-" + i);
-                console.log(inputdata)
-                console.log("Quote: " + quote.value + " Input: " + inputdata[i]);
-                quote.value = quote.value.replaceAll(" ", "");
-                if (quote.value.toLowerCase() !== inputdata[i].toLowerCase()) {
-                    results[i] = false;
-                    quote.style.backgroundColor = "red";
-                    continue;
+            for (var j = 0; j < quotes.length; j++) {
+                var quote = quotes[j];
+                console.log(quote.id.split("-"))
+                var index = quote.id.split("-")[2];
+                var i = quote.id.split("-")[1];
+
+                if (results[i] === undefined) {
+                    results[i] = {};
                 }
-                quote.style.backgroundColor = "green";
-                results[i] = true;
-                continue;
+
+                console.log(inputdata)
+                console.log("Quote: " + quote.value + " Input: " + inputdata[i][index]);
+                quote.value = quote.value.replaceAll(" ", "");
+                if (quote.value.toLowerCase() !== inputdata[i][index].toLowerCase()) {
+                    results[i][index] = false;
+                    quote.style.backgroundColor = "red";
+                }
+                else {
+                    quote.style.backgroundColor = "green";
+                    results[i][index] = true;
+                }
             }
+
             var score = 0;
-            for (var i = 0; i < quotes.length; i++) {
-                if (results[i] === true) {
+            for (var j = 0; j < quotes.length; j++) {
+                console.log("E")
+                var quote = quotes[j];
+                var index = quote.id.split("-")[2];
+                var i = quote.id.split("-")[1];
+                if (results[i][index] === true) {
                     score++;
                 }
             }
@@ -204,42 +215,54 @@
             // Randomly remove 1 word from the quote
 
 
-
-
-
             var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100))
-            function removeWords(random) {
+            function removeWords(randomInput, index, quoteIndex) {
+                var random = randomInput;
 
-                var removedWord = elementQuote[random];
-                var inputLength = elementQuote[random].length;
-
-
-
-                while (elementQuote[random] === "" || elementQuote[random] === " " || elementQuote[random] === "<br>" || elementQuote[random] === "##BR##" || containsSpecialCharacters(elementQuote[random])) {
+                while (elementQuote[random] === "" || 
+                        elementQuote[random] === " " || 
+                        elementQuote[random] === "<br>" || 
+                        elementQuote[random] === "##BR##" || 
+                        containsSpecialCharacters(elementQuote[random]) ||
+                        elementQuote[random].includes("<input")) {
                     random = Math.floor(Math.random() * elementQuote.length);
                 }
-
-
+                var removedWord = elementQuote[random];
+                var inputLength = elementQuote[random].length;
+                console.log("aaaa: " + elementQuote[random])
 
                 if (inputLength < 5) {
                     inputLength = 5;
                 }
+
                 console.log("---- elementQuote2 ----")
                 console.log(elementQuote)
+
                 if (elementQuote[random].endsWith("<br>"))
-                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " ><br>";
+                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " ><br>";
                 else
-                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + i + " >";
+                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index +  " >";
+
                 console.log(removedWord)
+                
                 // console.log(elementQuote)
-                inputdata[i] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
+
+                console.log("Includes input?? " + removedWord.includes("<input"))
+
+                console.log(quoteIndex, index)
+                inputdata[quoteIndex][index] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
                 var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
-                template.innerHTML = (i + 1) + ". " + quote;
+                template.innerHTML = (quoteIndex + 1) + ". " + quote;
                 quoteList.appendChild(template);
             }
-            for (var i = 0; i < wordsRemoved; i++) {
+            for (var j = 0; j < wordsRemoved; j++) {
                 var random = Math.floor(Math.random() * elementQuote.length);
-                removeWords(random)
+                // Initialise array
+                if (inputdata[i] === undefined) {
+                    inputdata[i] = {};
+                }
+
+                removeWords(random, j, i);
             }
 
 
