@@ -106,6 +106,24 @@
 
             window.location.href = "quoteTest.html?quotes=true";
         });
+
+        document.getElementsByClassName("optionText")[0].addEventListener("click", function (element) {
+            console.log("Click")
+            if (element.target.innerHTML.includes("▼")){
+                element.target.innerHTML = "⚙️ Options ▲";
+                document.getElementsByClassName("optionsField")[0].style.display = "block";
+                document.getElementsByClassName("optionText")[0].classList.remove("optionsClosed");
+                document.getElementsByClassName("optionText")[0].classList.add("optionsOpened");
+
+            }
+            else {
+                element.target.innerHTML = "⚙️ Options ▼";
+                document.getElementsByClassName("optionsField")[0].style.display = "none";
+                document.getElementsByClassName("optionText")[0].classList.remove("optionsOpened");
+                document.getElementsByClassName("optionText")[0].classList.add("optionsClosed");
+
+            }
+        });
     } else {
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
         var intensity = localStorage.getItem("intensity")
