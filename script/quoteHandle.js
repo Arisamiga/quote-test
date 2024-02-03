@@ -78,7 +78,7 @@
         // Check if LocalStorage has any quotes
         var data = localStorage.getItem('quotes') ?? null;
         
-        if (data !== null) {
+        if (data !== null && data.length > 0) {
             // Quotes Exist show them
             // First empty the quoteList
             var quoteList = document.getElementById("quoteList");
