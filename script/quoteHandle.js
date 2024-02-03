@@ -77,6 +77,7 @@
         }
         // Check if LocalStorage has any quotes
         var data = localStorage.getItem('quotes') ?? null;
+        
         if (data !== null) {
             // Quotes Exist show them
             // First empty the quoteList
@@ -102,6 +103,12 @@
             for (var i = 0; i < quotes.length; i++) {
                 quoteArray.push(quotes[i].value);
             }
+
+            // If quotes are empty
+            if (quoteArray.join("").trim().replaceAll(" ", "") === "") {
+                alert("Please make sure you submit some quotes.");
+                return;
+            }   
 
             localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
             localStorage.setItem("intensity", intensity.value)
