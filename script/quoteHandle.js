@@ -1,17 +1,4 @@
 // Check if LocalStorage has any quotes
-// function quoteHandle() {
-//     var data = localStorage.getItem('quotes') ?? null;
-//     console.log(data)
-//     if (data === null) {
-//         // No Quotes
-//         return;
-//     }
-
-//     // Quotes Exist
-
-// }
-
-// quoteHandle();
 
 // Check if url has quotes
 (function () {
