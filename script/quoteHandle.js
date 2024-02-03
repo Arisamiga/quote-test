@@ -18,7 +18,9 @@
 
     var url = new URL(window.location.href);
     var quotes = url.searchParams.get("quotes");
+    var currentPage = url.pathname.split("/").pop().split(".")[0];
 
+    console.log(quotes)
     function handleResults(score, length) {
         var quoteResults = document.getElementById("quoteResults");
         quoteResults.innerHTML = "Score: " + score + "/" + length;
@@ -62,7 +64,7 @@
 
 
 
-    if (quotes === null) {
+    if (quotes === null && currentPage === "index") {
         var intensity = document.getElementById("intensityRange")
         var intensityOutput = document.getElementById("intensityValue")
         intensityOutput.innerHTML = intensity.value;
@@ -124,7 +126,7 @@
 
             }
         });
-    } else {
+    } else if (currentPage === "quoteTest" && quotes !== null) {
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
         var intensity = localStorage.getItem("intensity")
         var inputdata = {};
@@ -287,6 +289,10 @@
         }
         console.log("---- Quotes ----")
         console.log(quotes)
+    }
+    else {
+        var box = document.getElementsByClassName("border-box")[0]
+        box.innerHTML = "<a href='./index.html' class='backButton'>&#8592; Go Back</a> <h1 style='padding-top:20px'>Something Went Wrong...</h1><p>Please go back and make sure you submit your quotes.</p>"
     }
 
 })();
