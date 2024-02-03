@@ -91,6 +91,10 @@
             }
         }
 
+        var intensitySetting = localStorage.getItem("intensity") ?? 50;
+        intensity.value = intensitySetting;
+        intensityOutput.innerHTML = intensitySetting;
+
         document.getElementById("addQuote").addEventListener("click", function () {
             var quoteList = document.getElementById("quoteList");
             // var template = '<textarea class="quote" rows="4" cols="50" placeholder="Quote"></textarea>'
