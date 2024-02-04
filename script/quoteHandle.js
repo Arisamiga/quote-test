@@ -49,6 +49,53 @@
 
     }
 
+    function removeWords(randomInput, index, quoteIndex) {
+        var random = randomInput;
+        var attempts = 0;
+        
+        while ((elementQuote[random] === "" || 
+                elementQuote[random] === " " || 
+                elementQuote[random] === "<br>" || 
+                elementQuote[random] === "##BR##" || 
+                containsSpecialCharacters(elementQuote[random]) ||
+                elementQuote[random].includes("<input")) && attempts < elementQuote.length) {
+            random = Math.floor(Math.random() * elementQuote.length);
+            attempts++;
+        }
+
+        if (attempts === elementQuote.length) {
+            console.error('Could not find a valid word to remove');
+            return;
+        }
+        var removedWord = elementQuote[random];
+        var inputLength = elementQuote[random].length;
+        console.log("aaaa: " + elementQuote[random])
+
+        if (inputLength < 5) {
+            inputLength = 5;
+        }
+
+        console.log("---- elementQuote2 ----")
+        console.log(elementQuote)
+
+        if (elementQuote[random].endsWith("<br>"))
+            elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " ><br>";
+        else
+            elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index +  " >";
+
+        console.log(removedWord)
+        
+        // console.log(elementQuote)
+
+        console.log("Includes input?? " + removedWord.includes("<input"))
+
+        console.log(quoteIndex, index)
+        inputdata[quoteIndex][index] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
+        var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
+        template.innerHTML = (quoteIndex + 1) + ". " + quote;
+        quoteList.appendChild(template);
+    }
+
 
 
     if (quotes === null && currentPage === "index") {
@@ -234,45 +281,9 @@
 
 
             var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100))
-            function removeWords(randomInput, index, quoteIndex) {
-                var random = randomInput;
+            console.log("Removing: " + wordsRemoved + " words" + " from " + elementQuote.length + " words")
 
-                while (elementQuote[random] === "" || 
-                        elementQuote[random] === " " || 
-                        elementQuote[random] === "<br>" || 
-                        elementQuote[random] === "##BR##" || 
-                        containsSpecialCharacters(elementQuote[random]) ||
-                        elementQuote[random].includes("<input")) {
-                    random = Math.floor(Math.random() * elementQuote.length);
-                }
-                var removedWord = elementQuote[random];
-                var inputLength = elementQuote[random].length;
-                console.log("aaaa: " + elementQuote[random])
 
-                if (inputLength < 5) {
-                    inputLength = 5;
-                }
-
-                console.log("---- elementQuote2 ----")
-                console.log(elementQuote)
-
-                if (elementQuote[random].endsWith("<br>"))
-                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " ><br>";
-                else
-                    elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index +  " >";
-
-                console.log(removedWord)
-                
-                // console.log(elementQuote)
-
-                console.log("Includes input?? " + removedWord.includes("<input"))
-
-                console.log(quoteIndex, index)
-                inputdata[quoteIndex][index] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
-                var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
-                template.innerHTML = (quoteIndex + 1) + ". " + quote;
-                quoteList.appendChild(template);
-            }
             for (var j = 0; j < wordsRemoved; j++) {
                 var random = Math.floor(Math.random() * elementQuote.length);
                 // Initialise array
