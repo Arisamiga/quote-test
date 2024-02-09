@@ -50,6 +50,11 @@
     }
 
     function removeWords(randomInput, index, quoteIndex) {
+        // Initialise array
+        if (inputdata[quoteIndex] === undefined) {
+            inputdata[quoteIndex] = {};
+        }
+
         var random = randomInput;
         var attempts = 0;
         
@@ -172,10 +177,10 @@
             }
         });
     } else if (currentPage === "quoteTest" && quotes !== null) {
+        // Is the quoteTest page
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
         var intensity = localStorage.getItem("intensity")
         var inputdata = {};
-        var results = {};
 
         if (data === null) {
             // No Quotes
@@ -185,9 +190,11 @@
 
         // Setup Listeners
         var submitButton = document.getElementsByClassName("submitButton")[0];
+
+        // Submit Button Listener
         submitButton.addEventListener("click", function () {
             console.log("Click")
-            results = {};
+            var results = {};
 
             // Check if all inputs are filled
             var quotes = document.getElementsByClassName("quoteCheck");
@@ -198,6 +205,7 @@
                 }
             }
 
+            // Check if all inputs are correct
             for (var j = 0; j < quotes.length; j++) {
                 var quote = quotes[j];
                 console.log(quote.id.split("-"))
@@ -211,9 +219,13 @@
                 console.log(inputdata)
                 console.log("Quote: " + quote.value + " Input: " + inputdata[i][index]);
                 quote.value = quote.value.replaceAll(" ", "");
+
                 if (quote.value.toLowerCase() !== inputdata[i][index].toLowerCase()) {
                     results[i][index] = false;
                     quote.style.backgroundColor = "red";
+                    // Add tooltype to show the correct word
+                    quote.setAttribute("title", 'Correct Word: "' + inputdata[i][index] + '"');
+
                 }
                 else {
                     quote.style.backgroundColor = "green";
@@ -221,38 +233,58 @@
                 }
             }
 
+            // Calculate Score and show it
             var score = 0;
-            for (var j = 0; j < quotes.length; j++) {
-                console.log("E")
-                var quote = quotes[j];
-                var index = quote.id.split("-")[2];
-                var i = quote.id.split("-")[1];
-                if (results[i][index] === true) {
+            console.log("Lenght: " + Object.keys(results).length)
+            // for (var j = 0; j < quotes.length; j++) {
+            //     var quote = quotes[j];
+            //     var index = quote.id.split("-")[2];
+            //     var i = quote.id.split("-")[1];
+            //     if (results[i][index] === true) {
+            //         score++;
+            //     }
+            // }
+
+            for (var key in results) {
+                var allTrue = true;
+                for (var key2 in results[key]) {
+                    if (results[key][key2] === false) {
+                        allTrue = false;
+                    }
+                }
+                if (allTrue === true) {
                     score++;
                 }
             }
-            handleResults(score, quotes.length);
+
+            handleResults(score, Object.keys(results).length + 1);
 
         });
 
+        // Back Button Listener
         document.getElementsByClassName("backButton")[0].addEventListener("click", function () {
             window.location.href = "index.html";
         });
 
+        // Quote Setup Sequence
         var quotes = JSON.parse(data);
         var quoteList = document.getElementById("quoteList");
         for (var i = 0; i < quotes.length; i++) {
+
             // Quote text show
             var template = document.createElement("div");
             template.setAttribute("class", "quoteShow");
+
             // Check if it has a enter character in it
             if (quotes[i].includes("\n")) {
                 quotes[i] = quotes[i].replaceAll("\n", "<br>");
             }
+
             var elementQuote = quotes[i].split(" ");
             console.log("---- elementQuote ----")
             console.log(elementQuote)
-            // If word includes <br> split 
+
+            // If word includes <br> split it and use ##BR## to replace it later
             elementQuote.forEach((word, index) => {
                 if (word.includes("<br>")) {
                     console.log(index)
@@ -277,20 +309,14 @@
 
             console.log("---- elementQuote1 ----")
             console.log(elementQuote)
-            // Randomly remove 1 word from the quote
 
-
+            // Randomly remove certain amount of words from the quote
             var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100))
             console.log("Removing: " + wordsRemoved + " words" + " from " + elementQuote.length + " words")
 
 
             for (var j = 0; j < wordsRemoved; j++) {
                 var random = Math.floor(Math.random() * elementQuote.length);
-                // Initialise array
-                if (inputdata[i] === undefined) {
-                    inputdata[i] = {};
-                }
-
                 removeWords(random, j, i);
             }
 
