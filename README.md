@@ -1,7 +1,8 @@
 # Quote-Test
 
 > **NOTE: This website is still in early development stages. Many features may be subject to change in the future**
-# Overview
+
+
 ![image](https://github.com/Arisamiga/quote-test/assets/44126228/cb6faa9a-a470-4417-9e4c-34e0380cca37)
 This website is a website made for studying quotes, either from a premade library of quotes, or from your own. This website was originally made to study Shakespeare quotes in our english class.
 <br>
