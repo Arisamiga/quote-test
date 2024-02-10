@@ -254,7 +254,6 @@
             //         score++;
             //     }
             // }
-
             for (var key in results) {
                 var allTrue = true;
                 for (var key2 in results[key]) {
@@ -267,7 +266,7 @@
                 }
             }
 
-            handleResults(score, Object.keys(results).length + 1);
+            handleResults(score, Object.keys(results).length);
 
         });
 
