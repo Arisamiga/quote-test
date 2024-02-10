@@ -165,17 +165,25 @@
             console.log("Click")
             if (element.target.innerHTML.includes("▼")) {
                 element.target.innerHTML = "⚙️ Options ▲";
-                optionField.style.display = "block";
+                optionField.style.maxHeight = "200px";
+                optionField.style.padding = "10px";
                 optionText.classList.remove("optionsClosed");
                 optionText.classList.add("optionsOpened");
 
             }
             else {
                 element.target.innerHTML = "⚙️ Options ▼";
-                optionField.style.display = "none";
-                optionText.classList.remove("optionsOpened");
-                optionText.classList.add("optionsClosed");
+                optionField.style.maxHeight = "0";
+                optionField.style.padding = "0";
+                optionField.style.margin = "0";
+                // Wait for the transition to finish
+                optionField.addEventListener("transitionend", function (event) {
 
+                    if (event.propertyName === "max-height" && event.target.style.maxHeight === "0px") {
+                        optionText.classList.remove("optionsOpened");
+                        optionText.classList.add("optionsClosed");
+                    }
+                });
             }
         });
     } else if (currentPage === "quoteTest" && quotes !== null) {
