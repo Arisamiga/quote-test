@@ -14,12 +14,31 @@ body {
     font-family: "Nunito", sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 .title {
     font-size: 70px;
 }
 
 .description {
     font-size: 16px;
+}
+
+.optionText {
+    background-color: white;
+    border: inherit;
+}
+
+.options {
+    position: absolute;
+    width: fit-content;
+    background-color: #7777ff;
+    border: ridge;
+    border-color: rgb(45, 45, 168);
+    border-bottom-right-radius: 10px;
 }
 
 .quoteForm {
@@ -295,6 +314,38 @@ body {
     cursor: pointer;
     background-color: rgb(87, 62, 230);
     color: white;
+}
+
+.optionText {
+    font-size: 16px;
+    font-family: "Nunito", sans-serif;
+    color: white;
+    background-color: #7777ff;
+    border: none;
+    border-color: rgb(45, 45, 168);
+    border-bottom-right-radius: 10px;
+    padding: 10px;
+}
+
+.optionsOpened {
+    border-bottom: ridge;
+    border-color: rgb(45, 45, 168);
+    border-bottom-right-radius: 0px;
+}
+
+.optionsClosed {
+    border-bottom: none;
+    border-color: none;
+    border-bottom-right-radius: 10px;
+}
+
+.optionText:hover {
+    cursor: pointer;
+}
+
+.optionsField {
+    display: none;
+    padding: 10px;
 }
 
 @keyframes fadeIn {
