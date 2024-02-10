@@ -46,7 +46,6 @@
     function containsSpecialCharacters(word) {
         var specialCharacters = /([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g;
         return specialCharacters.test(word);
-
     }
 
     function removeWords(randomInput, index, quoteIndex) {
@@ -69,6 +68,7 @@
         }
 
         if (attempts === elementQuote.length) {
+            console.log(elementQuote)
             console.error('Could not find a valid word to remove');
             return;
         }
@@ -123,7 +123,6 @@
             var quoteList = document.getElementById("quoteList");
             quoteList.innerHTML = "";
             var quotes = JSON.parse(decodeURIComponent(atob(data)));
-            var quoteList = document.getElementById("quoteList");
 
             for (var i = 0; i < quotes.length; i++) {
                 addQuoteElement(quoteList, quotes[i]);
@@ -159,20 +158,23 @@
             window.location.href = "quoteTest.html?quotes=true";
         });
 
-        document.getElementsByClassName("optionText")[0].addEventListener("click", function (element) {
+        var optionText = document.getElementsByClassName("optionText")[0]
+        var optionField = document.getElementsByClassName("optionsField")[0]
+
+        optionText.addEventListener("click", function (element) {
             console.log("Click")
             if (element.target.innerHTML.includes("▼")){
                 element.target.innerHTML = "⚙️ Options ▲";
-                document.getElementsByClassName("optionsField")[0].style.display = "block";
-                document.getElementsByClassName("optionText")[0].classList.remove("optionsClosed");
-                document.getElementsByClassName("optionText")[0].classList.add("optionsOpened");
+                optionField.style.display = "block";
+                optionText.classList.remove("optionsClosed");
+                optionText.classList.add("optionsOpened");
 
             }
             else {
                 element.target.innerHTML = "⚙️ Options ▼";
-                document.getElementsByClassName("optionsField")[0].style.display = "none";
-                document.getElementsByClassName("optionText")[0].classList.remove("optionsOpened");
-                document.getElementsByClassName("optionText")[0].classList.add("optionsClosed");
+                optionField.style.display = "none";
+                optionText.classList.remove("optionsOpened");
+                optionText.classList.add("optionsClosed");
 
             }
         });
@@ -269,6 +271,7 @@
         // Quote Setup Sequence
         var quotes = JSON.parse(data);
         var quoteList = document.getElementById("quoteList");
+
         for (var i = 0; i < quotes.length; i++) {
 
             // Quote text show
@@ -299,16 +302,22 @@
             elementQuote = elementQuote.map(word => word.replace("<br>", "##BR##"));
 
             // Split special characters from words and add them to the array but dont seperate each individual character
-            elementQuote.forEach((word, index) => {
+            let newElementQuote = [];
+
+            elementQuote.forEach((word) => {
                 if (containsSpecialCharacters(word)) {
-                    var splitWord = word.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
-                    console.log("-> " + splitWord)
-                    elementQuote.splice(index, 1, ...splitWord.filter(Boolean));
+                    let splitWord = word.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
+                    newElementQuote.push(...splitWord.filter(Boolean));
+                } else {
+                    newElementQuote.push(word);
                 }
             });
+            
+            elementQuote = newElementQuote;
 
             console.log("---- elementQuote1 ----")
             console.log(elementQuote)
+
 
             // Randomly remove certain amount of words from the quote
             var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100))
