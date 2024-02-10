@@ -142,6 +142,7 @@ selectionData.addEventListener("click", (event) => {
         Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
 
         <div class="useQuotesButton">Use Template Quotes</div>
+        <div class="addQuotesButton">Add to Existing Quotes</div>
         `
         modalContent.innerHTML = html;
 
@@ -163,6 +164,17 @@ selectionData.addEventListener("click", (event) => {
         useQuotesButton.addEventListener("click", () => {
             const quotes = Premade.Lear[act][scene];
             localStorage.setItem("quotes", quotes);
+            window.location.href = "index.html";
+        });
+
+        const addQuotesButton = document.getElementsByClassName("addQuotesButton")[0];
+        addQuotesButton.addEventListener("click", () => {
+            const quotes = Premade.Lear[act][scene];
+            const currentQuotes = localStorage.getItem("quotes");
+            const newQuotes = JSON.parse(decodeURIComponent(atob(quotes)));
+            const currentQuotesArray = JSON.parse(decodeURIComponent(atob(currentQuotes)));
+            const combinedQuotes = [...currentQuotesArray, ...newQuotes];
+            localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(combinedQuotes))));
             window.location.href = "index.html";
         });
     }
