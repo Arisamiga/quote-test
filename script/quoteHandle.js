@@ -57,13 +57,13 @@
 
         var random = randomInput;
         var attempts = 0;
-        
-        while ((elementQuote[random] === "" || 
-                elementQuote[random] === " " || 
-                elementQuote[random] === "<br>" || 
-                elementQuote[random] === "##BR##" || 
-                containsSpecialCharacters(elementQuote[random]) ||
-                elementQuote[random].includes("<input")) && attempts < elementQuote.length) {
+
+        while ((elementQuote[random] === "" ||
+            elementQuote[random] === " " ||
+            elementQuote[random] === "<br>" ||
+            elementQuote[random] === "##BR##" ||
+            containsSpecialCharacters(elementQuote[random]) ||
+            elementQuote[random].includes("<input")) && attempts < elementQuote.length) {
             random = Math.floor(Math.random() * elementQuote.length);
             attempts++;
         }
@@ -86,10 +86,10 @@
         if (elementQuote[random].endsWith("<br>"))
             elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " ><br>";
         else
-            elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index +  " >";
+            elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " >";
 
         console.log(removedWord)
-        
+
         // console.log(elementQuote)
 
         console.log("Includes input?? " + removedWord.includes("<input"))
@@ -116,7 +116,7 @@
         }
         // Check if LocalStorage has any quotes
         var data = localStorage.getItem('quotes') ?? null;
-        
+
         if (data !== null && data.length > 0) {
             // Quotes Exist show them
             // First empty the quoteList
@@ -151,7 +151,7 @@
             if (quoteArray.join("").trim().replaceAll(" ", "") === "") {
                 alert("Please make sure you submit some quotes.");
                 return;
-            }   
+            }
 
             localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
             localStorage.setItem("intensity", intensity.value)
@@ -161,7 +161,7 @@
 
         document.getElementsByClassName("optionText")[0].addEventListener("click", function (element) {
             console.log("Click")
-            if (element.target.innerHTML.includes("▼")){
+            if (element.target.innerHTML.includes("▼")) {
                 element.target.innerHTML = "⚙️ Options ▲";
                 document.getElementsByClassName("optionsField")[0].style.display = "block";
                 document.getElementsByClassName("optionText")[0].classList.remove("optionsClosed");
@@ -311,7 +311,14 @@
             console.log(elementQuote)
 
             // Randomly remove certain amount of words from the quote
-            var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100))
+            if (intensity < 10) {
+                var wordsRemoved = Math.ceil(elementQuote.length * (intensity / 100));
+            }
+            else {
+                var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100));
+            }
+
+
             console.log("Removing: " + wordsRemoved + " words" + " from " + elementQuote.length + " words")
 
 
