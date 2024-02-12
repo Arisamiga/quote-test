@@ -293,7 +293,14 @@ a {
     cursor: pointer;
 }
 
-.useQuotesButton {
+.saveToDisabled {
+    background-color: #ddd !important; /* gray background */
+    color: #aaa !important; /* gray text */
+    border-color: #aaa !important; /* gray border */
+    cursor: not-allowed !important; /* display a "not allowed" cursor */
+}
+
+.useQuotesButton,.addQuotesButton,.saveQuotes,.saveTo {
     background-color: white;
     border: 2px solid rgb(87, 62, 230);
     border-radius: 10px;
@@ -310,29 +317,7 @@ a {
     -ms-transition: background-color 300ms linear;
 }
 
-.addQuotesButton {
-    background-color: white;
-    border: 2px solid rgb(87, 62, 230);
-    border-radius: 10px;
-    color: rgb(87, 62, 230);
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-family: "Nunito", sans-serif;
-    font-size: 20px;
-    transition: background-color 300ms linear;
-    -webkit-transition: background-color 300ms linear;
-    -ms-transition: background-color 300ms linear;
-    -o-transition: background-color 300ms linear;
-    -ms-transition: background-color 300ms linear;
-}
-.addQuotesButton:hover {
-    cursor: pointer;
-    background-color: rgb(87, 62, 230);
-    color: white;
-}
-
-.useQuotesButton:hover {
+.useQuotesButton:hover,.addQuotesButton:hover,.saveQuotes:hover,.saveTo:hover {
     cursor: pointer;
     background-color: rgb(87, 62, 230);
     color: white;
@@ -371,6 +356,29 @@ a {
     transition-duration: 0.4s;
     max-height: 0;
     overflow: hidden;
+}
+
+.collectionName {
+    background-color: white;
+    border: 2px solid rgb(87, 62, 230);
+    border-radius: 10px;
+    color: rgb(87, 62, 230);
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: "Nunito", sans-serif;
+    font-size: 20px;
+    width: auto;
+    transition: background-color 300ms linear, box-shadow 300ms linear;
+    -webkit-transition: background-color 300ms linear, box-shadow 300ms linear;
+    -ms-transition: background-color 300ms linear, box-shadow 300ms linear;
+    -o-transition: background-color 300ms linear, box-shadow 300ms linear;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.collectionName:focus {
+    border: 2px solid rgb(87, 62, 230);
+    box-shadow: 0 2px 5px rgba(87, 62, 230, 0.5);
 }
 
 @keyframes fadeIn {

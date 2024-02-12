@@ -35,6 +35,18 @@ const Premade = {
     }
 }
 
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
 selections.addEventListener("change", (event) => {
     const selectedOption = event.target.value;
 
@@ -104,9 +116,104 @@ selections.addEventListener("change", (event) => {
         selectionData.innerHTML = html;
         // let estimatedHeight = ;
         // Create estimatedHeight based on newlines
+        let estimatedHeight = html.split("\n").length * 25;
+        selectionData.style.minHeight = `${estimatedHeight}px`;
+        selectionData.style.maxHeight = `${estimatedHeight}px`;
+    }
+
+    if (selectedOption == "Own") {
+
+        const html = `
+        <h2> You Currently Dont have any Quotes Saved! </h2>
+        <div class="saveQuotes">Save Current Quotes</div>
+
+
+
+
+
+
+
+
+        `
+        selectionData.innerHTML = html;
+        // let estimatedHeight = ;
+        // Create estimatedHeight based on newlines
         let estimatedHeight = html.split("\n").length * 30;
         selectionData.style.minHeight = `${estimatedHeight}px`;
         selectionData.style.maxHeight = `${estimatedHeight}px`;
+
+        const saveCurrentQuotes = document.getElementsByClassName("saveQuotes")[0]
+        
+        saveCurrentQuotes.addEventListener("click", (event) => {
+            const modal = document.getElementsByClassName("modal")[0];
+            const modalContent = document.getElementsByClassName("modal-content")[0];
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+            modalContent.innerHTML = "";
+            let html = `
+            
+            <span class="close">&times;</span>
+            <div class="modal_header">
+
+            <span>Name: </span><input class="collectionName" placeholder="Name of Collection"> 
+
+                <h2>Current Quotes:</h2>
+                <ul>
+            `
+            var quotes = document.getElementsByClassName("quote");
+            var quoteArray = [];
+            for (var i = 0; i < quotes.length; i++) {
+                quoteArray.push(quotes[i].value);
+                html += `
+                <li id="quote-${i}">${quotes[i].value}</li>
+                `
+            };
+    
+            html += `
+                </ul>
+            </div>
+            <hr>
+    
+            <div class="saveToDisabled saveTo">Save to "📖My Quotes"</div>
+            `
+            modalContent.innerHTML = html;
+            const inputName = document.getElementsByClassName("collectionName")[0]
+            inputName.addEventListener("input", (event) => {
+                const saveButton = document.getElementsByClassName("saveTo")[0]
+                console.log(inputName.value)
+                if (inputName.value.trim() == "") {
+                    saveButton.innerText = 'Save to "📖My Quotes"';
+                    saveButton.classList.add("saveToDisabled")
+                    return;
+                }
+                saveButton.innerText = 'Save to "📖My Quotes" as "' + inputName.value + '"'
+                saveButton.classList.remove("saveToDisabled")
+            })
+
+            const saveButton = document.getElementsByClassName("saveTo")[0]
+            saveButton.addEventListener("click", (event) => {
+                if (saveButton.classList.contains("saveToDisabled")) {
+                    return;
+                }
+                const collectionName = inputName.value;
+                const data = ""; // Add a valid expression or statement here
+            });
+    
+            const modal_close = document.getElementsByClassName("close")[0]
+            modal_close.addEventListener("click", () => {
+                document.body.style.overflow = "auto";
+                const modal = document.getElementsByClassName("modal")[0];
+                // Play fade in animation in reverse then hide the modal
+                modal.style.animation = "fadeOut 0.5s";
+                // When animation ends, hide the modal
+                modal.addEventListener("animationend", (event) => {
+                    if (event.animationName === "fadeOut") {
+                        modal.style.display = "none";
+                        modal.style.animation = "";
+                    }
+                });
+            });
+        })
     }
 
 });
@@ -123,7 +230,7 @@ selectionData.addEventListener("click", (event) => {
         const topic = selections[selections.selectedIndex].innerText;
         modal.style.display = "block";
         modalContent.innerHTML = "";
-
+        document.body.style.overflow = "hidden";
         let html = `
         <span class="close">&times;</span>
         <div class="modal_header">
@@ -148,6 +255,7 @@ selectionData.addEventListener("click", (event) => {
 
         const modal_close = document.getElementsByClassName("close")[0]
         modal_close.addEventListener("click", () => {
+            document.body.style.overflow = "auto";
             const modal = document.getElementsByClassName("modal")[0];
             // Play fade in animation in reverse then hide the modal
             modal.style.animation = "fadeOut 0.5s";
