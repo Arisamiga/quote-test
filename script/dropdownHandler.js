@@ -47,6 +47,76 @@ function escapeHtml(text) {
     return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
+function getCurrentQuotesEntered() {
+    var quotes = document.getElementsByClassName("quote");
+    var quoteArray = [];
+    for (var i = 0; i < quotes.length; i++) {
+        quoteArray.push(quotes[i].value);
+    }
+    return quoteArray;
+}
+
+function quoteModal(quotes, title){
+    const modal = document.getElementsByClassName("modal")[0];
+    const modalContent = document.getElementsByClassName("modal-content")[0];
+    modal.style.display = "block";
+    modalContent.innerHTML = "";
+    document.body.style.overflow = "hidden";
+    let html = `
+    <span class="close">&times;</span>
+    <div class="modal_header">
+        <h1>${title}</h1>
+        <ul>
+    `
+    console.log(quotes)
+    quotes.forEach((quote, index) => {
+        html += `
+            <li id="quote-${index}">${quote}</li>
+        `
+    });
+
+    html += `
+        </ul>
+    </div>
+    Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
+
+    <div class="useQuotesButton">Use Template Quotes</div>
+    <div class="addQuotesButton">Add to Existing Quotes</div>
+    `
+    modalContent.innerHTML = html;
+
+    const modal_close = document.getElementsByClassName("close")[0]
+    modal_close.addEventListener("click", () => {
+        document.body.style.overflow = "auto";
+        const modal = document.getElementsByClassName("modal")[0];
+        // Play fade in animation in reverse then hide the modal
+        modal.style.animation = "fadeOut 0.5s";
+        // When animation ends, hide the modal
+        modal.addEventListener("animationend", (event) => {
+            if (event.animationName === "fadeOut") {
+                modal.style.display = "none";
+                modal.style.animation = "";
+            }
+        });
+    });
+
+    const useQuotesButton = document.getElementsByClassName("useQuotesButton")[0];
+    useQuotesButton.addEventListener("click", () => {
+        localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quotes))));
+        window.location.href = "index.html";
+    });
+
+    const addQuotesButton = document.getElementsByClassName("addQuotesButton")[0];
+    addQuotesButton.addEventListener("click", () => {
+        const currentQuotes = getCurrentQuotesEntered();
+        const newQuotes = quotes;
+        const currentQuotesArray = currentQuotes;
+        const combinedQuotes = [...currentQuotesArray, ...newQuotes];
+        localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(combinedQuotes))));
+        window.location.href = "index.html";
+    });
+}
+
 selections.addEventListener("change", (event) => {
     const selectedOption = event.target.value;
 
@@ -129,20 +199,19 @@ selections.addEventListener("change", (event) => {
             const collections = JSON.parse(decodeURIComponent(atob(data)));
             html = `
             <h2> Your Saved Quotes</h2>
-            <div class="saveQuotes">Save Current Quotes</div>
-            <ul>
+            <div class="collections">
             `
             for (var collection in collections) {
                 html += `
-                <li class="collection">
+                <div class="collection">
                     ${collection}
-                </li>
+                </div>
                 `
             }
             html += `
-            </ul>
+            </div>
+            <div class="saveQuotes">Save Current Quotes</div>
             `
-
         }
         else {
             html = `
@@ -249,6 +318,15 @@ selections.addEventListener("change", (event) => {
                 });
             });
         })
+
+        if (data != null) {
+            document.getElementsByClassName("collection").forEach((element) => {
+                element.addEventListener("click", (event) => {
+                    var collections = JSON.parse(decodeURIComponent(atob(data)));
+                    quoteModal(collections[element.innerText], element.innerText);
+                });
+            });
+        }
     }
 
 });
@@ -259,66 +337,7 @@ selectionData.addEventListener("click", (event) => {
     if (element.classList.contains("grid_item")) {
         const scene = element.innerText;
         const act = event.target.parentElement.parentElement.previousElementSibling.innerText;
-        // Sample : ["Test\nfe\nf\nef\ne\nfe\n","testqw2","Come not between the dragon and his wrath","ttewtjweoitjoweijtoiewjt ewjtiowejtioejwiotjweio eoiwtjoiwejtiowejoitjiowetijew weijtoiwejtiowjeiotjwe weoitjeowijtioewj","rqwrwrqwr qwr wqr qw rwq\nwq rwq rwqrj wqrwqrqw\nwq re qwr wqr wq r\nqwr wqrwqrwqrwq \nwqrqwrwqrwqr","I told him the revenging gods\n\n‘Gainst barricades did all their thunders bend\nWith his prepared sword he charges home\nMy unprepared body"]
-        const modal = document.getElementsByClassName("modal")[0];
-        const modalContent = document.getElementsByClassName("modal-content")[0];
         const topic = selections[selections.selectedIndex].innerText;
-        modal.style.display = "block";
-        modalContent.innerHTML = "";
-        document.body.style.overflow = "hidden";
-        let html = `
-        <span class="close">&times;</span>
-        <div class="modal_header">
-            <h1>${topic} | ${act} ${scene} Quotes</h1>
-            <ul>
-        `
-        JSON.parse(decodeURIComponent(atob(Premade.Lear[act][scene]))).forEach((quote, index) => {
-            html += `
-                <li id="quote-${index}">${quote}</li>
-            `
-        });
-
-        html += `
-            </ul>
-        </div>
-        Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
-
-        <div class="useQuotesButton">Use Template Quotes</div>
-        <div class="addQuotesButton">Add to Existing Quotes</div>
-        `
-        modalContent.innerHTML = html;
-
-        const modal_close = document.getElementsByClassName("close")[0]
-        modal_close.addEventListener("click", () => {
-            document.body.style.overflow = "auto";
-            const modal = document.getElementsByClassName("modal")[0];
-            // Play fade in animation in reverse then hide the modal
-            modal.style.animation = "fadeOut 0.5s";
-            // When animation ends, hide the modal
-            modal.addEventListener("animationend", (event) => {
-                if (event.animationName === "fadeOut") {
-                    modal.style.display = "none";
-                    modal.style.animation = "";
-                }
-            });
-        });
-
-        const useQuotesButton = document.getElementsByClassName("useQuotesButton")[0];
-        useQuotesButton.addEventListener("click", () => {
-            const quotes = Premade.Lear[act][scene];
-            localStorage.setItem("quotes", quotes);
-            window.location.href = "index.html";
-        });
-
-        const addQuotesButton = document.getElementsByClassName("addQuotesButton")[0];
-        addQuotesButton.addEventListener("click", () => {
-            const quotes = Premade.Lear[act][scene];
-            const currentQuotes = localStorage.getItem("quotes");
-            const newQuotes = JSON.parse(decodeURIComponent(atob(quotes)));
-            const currentQuotesArray = JSON.parse(decodeURIComponent(atob(currentQuotes)));
-            const combinedQuotes = [...currentQuotesArray, ...newQuotes];
-            localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(combinedQuotes))));
-            window.location.href = "index.html";
-        });
+        quoteModal(JSON.parse(decodeURIComponent(atob(Premade.Lear[act][scene]))), `${topic} | ${act} ${scene} Quotes`);
     }
 });

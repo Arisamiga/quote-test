@@ -3,6 +3,12 @@
 // Check if url has quotes
 (function () {
 
+    Object.assign(HTMLCollection.prototype, {
+        forEach(event) {
+          Array.prototype.forEach.call(this, (element) => event(element));
+        },
+      });
+
     var url = new URL(window.location.href);
     var quotes = url.searchParams.get("quotes");
     var currentPage = url.pathname.split("/").pop().split(".")[0];
