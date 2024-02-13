@@ -122,10 +122,32 @@ selections.addEventListener("change", (event) => {
     }
 
     if (selectedOption == "Own") {
+        var data = localStorage.getItem("collections") ?? null;
+        var html;
 
-        const html = `
-        <h2> You Currently Dont have any Quotes Saved! </h2>
-        <div class="saveQuotes">Save Current Quotes</div>
+        if (data != null) {
+            const collections = JSON.parse(decodeURIComponent(atob(data)));
+            html = `
+            <h2> Your Saved Quotes</h2>
+            <div class="saveQuotes">Save Current Quotes</div>
+            <ul>
+            `
+            for (var collection in collections) {
+                html += `
+                <li class="collection">
+                    ${collection}
+                </li>
+                `
+            }
+            html += `
+            </ul>
+            `
+
+        }
+        else {
+            html = `
+            <h2> You Currently Dont have any Quotes Saved! </h2>
+            <div class="saveQuotes">Save Current Quotes</div>
 
 
 
@@ -134,7 +156,8 @@ selections.addEventListener("change", (event) => {
 
 
 
-        `
+            `
+        }
         selectionData.innerHTML = html;
         // let estimatedHeight = ;
         // Create estimatedHeight based on newlines
@@ -168,7 +191,6 @@ selections.addEventListener("change", (event) => {
                 <li id="quote-${i}">${quotes[i].value}</li>
                 `
             };
-    
             html += `
                 </ul>
             </div>
@@ -188,7 +210,7 @@ selections.addEventListener("change", (event) => {
                 }
                 saveButton.innerText = 'Save to "📖My Quotes" as "' + inputName.value + '"'
                 saveButton.classList.remove("saveToDisabled")
-            })
+            });
 
             const saveButton = document.getElementsByClassName("saveTo")[0]
             saveButton.addEventListener("click", (event) => {
@@ -196,7 +218,20 @@ selections.addEventListener("change", (event) => {
                     return;
                 }
                 const collectionName = inputName.value;
-                const data = ""; // Add a valid expression or statement here
+
+                const dataCollections = localStorage.getItem("collections") ?? null;
+
+                var collections;
+                if (dataCollections == null) {
+                    collections = {};
+                }
+                else {
+                    collections = JSON.parse(decodeURIComponent(atob(dataCollections)))
+                }
+                
+                collections[collectionName] = quoteArray;
+                localStorage.setItem("collections", btoa(encodeURIComponent(JSON.stringify(collections))));
+                window.location.href = "index.html";
             });
     
             const modal_close = document.getElementsByClassName("close")[0]
