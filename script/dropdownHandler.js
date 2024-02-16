@@ -44,7 +44,7 @@ function escapeHtml(text) {
         "'": '&#039;'
     };
 
-    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
 }
 
 function getCurrentQuotesEntered() {
@@ -56,7 +56,7 @@ function getCurrentQuotesEntered() {
     return quoteArray;
 }
 
-function quoteModal(quotes, title){
+function quoteModal(quotes, title) {
     const modal = document.getElementsByClassName("modal")[0];
     const modalContent = document.getElementsByClassName("modal-content")[0];
     modal.style.display = "block";
@@ -199,6 +199,7 @@ selections.addEventListener("change", (event) => {
             const collections = JSON.parse(decodeURIComponent(atob(data)));
             html = `
             <h2> Your Saved Quotes</h2>
+            <h5> Note: Collections with the same name will be <span style="color:#cd1000;">overwritten.</span> </h5>
             <div class="collections">
             `
             for (var collection in collections) {
@@ -240,7 +241,7 @@ selections.addEventListener("change", (event) => {
         selectionData.style.maxHeight = `${estimatedHeight}px`;
 
         const saveCurrentQuotes = document.getElementsByClassName("saveQuotes")[0]
-        
+
         saveCurrentQuotes.addEventListener("click", (event) => {
             const modal = document.getElementsByClassName("modal")[0];
             const modalContent = document.getElementsByClassName("modal-content")[0];
@@ -310,7 +311,7 @@ selections.addEventListener("change", (event) => {
                 localStorage.setItem("collections", btoa(encodeURIComponent(JSON.stringify(collections))));
                 window.location.href = "index.html";
             });
-    
+
             const modal_close = document.getElementsByClassName("close")[0]
             modal_close.addEventListener("click", () => {
                 document.body.style.overflow = "auto";
