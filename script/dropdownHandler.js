@@ -199,18 +199,21 @@ selections.addEventListener("change", (event) => {
             const collections = JSON.parse(decodeURIComponent(atob(data)));
             html = `
             <h2> Your Saved Quotes</h2>
-            <h5> Note: Collections with the same name will be <span style="color:#cd1000;">overwritten.</span> </h5>
+            <h5> Note: Collections with the same name added will be <span style="color:#cd1000;">overwritten.</span> </h5>
             <div class="collections">
             `
             for (var collection in collections) {
                 html += `
-                <div class="collection" id="${collection}">
-                    ${collection}
-                    <hr>
-                    <ul>
-                    <li>Date: ${collections[collection].date}</li>
-                    <li>Quotes: ${collections[collection].quotes.length}</li>
-                    </ul>
+                <div class="collection-container">
+                    <div class="collection" id="${collection}">
+                        ${collection}
+                        <hr>
+                        <ul>
+                        <li>Date: ${collections[collection].date}</li>
+                        <li>Quotes: ${collections[collection].quotes.length}</li>
+                        </ul>
+                    </div>
+                    <button class="collectionDelete">🗑️ Delete</button>
                 </div>
                 `
             }

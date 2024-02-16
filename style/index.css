@@ -394,10 +394,10 @@ a {
     background-color: white;
     border: 2px solid rgb(87, 62, 230);
     border-radius: 5px;
+    border-bottom-left-radius: 0px;
     color: rgb(87, 62, 230);
     padding: 10px;
     margin-top: 10px;
-    margin-bottom: 10px;
     font-family: "Nunito", sans-serif;
     font-size: 20px;
     width: auto;
@@ -420,6 +420,33 @@ a {
 .collection:hover {
     cursor: pointer;
     background-color: rgb(87, 62, 230);
+    color: white;
+    box-shadow: 0 2px 5px rgba(87, 62, 230, 0.5);
+}
+
+.collectionDelete {
+    background-color: white;
+    border: 2px solid rgb(87, 62, 230);
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    color: rgb(87, 62, 230);
+    padding: 5px;
+    margin-bottom: 10px;
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+    width: auto;
+    transition: background-color 300ms linear, box-shadow 300ms linear;
+    -webkit-transition: background-color 300ms linear, box-shadow 300ms linear;
+    -ms-transition: background-color 300ms linear, box-shadow 300ms linear;
+    -o-transition: background-color 300ms linear, box-shadow 300ms linear;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-top: none;
+    float: left;
+}
+
+.collectionDelete:hover {
+    cursor: pointer;
+    background-color: rgb(230, 62, 62);
     color: white;
     box-shadow: 0 2px 5px rgba(87, 62, 230, 0.5);
 }
