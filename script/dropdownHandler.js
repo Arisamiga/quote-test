@@ -195,7 +195,7 @@ selections.addEventListener("change", (event) => {
         var data = localStorage.getItem("collections") ?? null;
         var html;
 
-        if (data != null) {
+        if (data != null && Object.entries(JSON.parse(decodeURIComponent(atob(data)))).length > 0) {
             const collections = JSON.parse(decodeURIComponent(atob(data)));
             html = `
             <h2> Your Saved Quotes</h2>
@@ -330,12 +330,19 @@ selections.addEventListener("change", (event) => {
                 });
             });
         })
-
-        if (data != null) {
+        if (data != null && Object.entries(JSON.parse(decodeURIComponent(atob(data)))).length > 0) {
             document.getElementsByClassName("collection").forEach((element) => {
                 element.addEventListener("click", (event) => {
                     var collections = JSON.parse(decodeURIComponent(atob(data)));
                     quoteModal(collections[element.id].quotes, element.id);
+                });
+            });
+            document.getElementsByClassName("collectionDelete").forEach((element) => {
+                element.addEventListener("click", (event) => {
+                    var collections = JSON.parse(decodeURIComponent(atob(data)));
+                    delete collections[element.previousElementSibling.id];
+                    localStorage.setItem("collections", btoa(encodeURIComponent(JSON.stringify(collections))));
+                    window.location.href = "index.html";
                 });
             });
         }
