@@ -408,6 +408,15 @@ a {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.collection > ul {
+    /* Align text to left */
+    text-align: left;
+    margin-top: 0px;
+    padding: 1rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.2rem;
+}
+
 .collection:hover {
     cursor: pointer;
     background-color: rgb(87, 62, 230);

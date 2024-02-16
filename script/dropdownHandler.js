@@ -203,8 +203,13 @@ selections.addEventListener("change", (event) => {
             `
             for (var collection in collections) {
                 html += `
-                <div class="collection">
+                <div class="collection" id="${collection}">
                     ${collection}
+                    <hr>
+                    <ul>
+                    <li>Date: ${collections[collection].date}</li>
+                    <li>Quotes: ${collections[collection].quotes.length}</li>
+                    </ul>
                 </div>
                 `
             }
@@ -297,8 +302,11 @@ selections.addEventListener("change", (event) => {
                 else {
                     collections = JSON.parse(decodeURIComponent(atob(dataCollections)))
                 }
-                
-                collections[collectionName] = quoteArray;
+
+                collections[collectionName] = {
+                    quotes: quoteArray,
+                    date: new Date().toLocaleDateString()
+                }
                 localStorage.setItem("collections", btoa(encodeURIComponent(JSON.stringify(collections))));
                 window.location.href = "index.html";
             });
@@ -323,7 +331,7 @@ selections.addEventListener("change", (event) => {
             document.getElementsByClassName("collection").forEach((element) => {
                 element.addEventListener("click", (event) => {
                     var collections = JSON.parse(decodeURIComponent(atob(data)));
-                    quoteModal(collections[element.innerText], element.innerText);
+                    quoteModal(collections[element.id].quotes, element.id);
                 });
             });
         }
