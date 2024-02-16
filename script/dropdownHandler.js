@@ -1,5 +1,10 @@
 
 
+Object.assign(HTMLCollection.prototype, {
+    forEach(event) {
+      Array.prototype.forEach.call(this, (element) => event(element));
+    },
+  });
 
 const selections = document.getElementsByClassName("selection")[0]
 const selectionData = document.getElementsByClassName("selection_items")[0]
@@ -147,7 +152,7 @@ function setCurrentOption() {
     if (currentOption != null) {
         var selections = document.getElementsByClassName("selection")[0];
         selections.value = currentOption;
-        
+
         // Trigger change event
         var event = new Event('change');
         selections.dispatchEvent(event);
