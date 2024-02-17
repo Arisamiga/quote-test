@@ -451,6 +451,11 @@ a {
     box-shadow: 0 2px 5px rgba(87, 62, 230, 0.5);
 }
 
+.modal_header > h1 {
+    /* Make sure text breaks when it is too big */
+    word-wrap: break-word;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
