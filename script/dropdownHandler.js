@@ -264,6 +264,9 @@ selections.addEventListener("change", (event) => {
             html += `
             </div>
             <div class="saveQuotes">Save Current Quotes</div>
+
+
+
             `
         }
         else {
@@ -283,7 +286,7 @@ selections.addEventListener("change", (event) => {
         selectionData.innerHTML = html;
         // let estimatedHeight = ;
         // Create estimatedHeight based on newlines
-        let estimatedHeight = html.split("\n").length * 30;
+        let estimatedHeight = html.split("\n").length * 25;
         selectionData.style.minHeight = `${estimatedHeight}px`;
         selectionData.style.maxHeight = `${estimatedHeight}px`;
 
