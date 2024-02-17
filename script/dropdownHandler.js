@@ -325,6 +325,12 @@ selections.addEventListener("change", (event) => {
             inputName.addEventListener("input", (event) => {
                 const saveButton = document.getElementsByClassName("saveTo")[0]
                 console.log(inputName.value)
+
+                // Add a limit of 100 characters
+                if (inputName.value.length > 100) {
+                    inputName.value = inputName.value.slice(0, 100);
+                }
+
                 if (inputName.value.trim() == "") {
                     saveButton.innerText = 'Save to "📖My Quotes"';
                     saveButton.classList.add("saveToDisabled")
