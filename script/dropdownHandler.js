@@ -86,7 +86,7 @@ function quoteModal(quotes, title) {
     Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
 
     <div class="useQuotesButton">Use Template Quotes</div>
-    <div class="addQuotesButton">Add to Existing Quotes</div>
+    <div class="addQuotesButton">+ Add to Existing Quotes</div>
     `
     modalContent.innerHTML = html;
 
@@ -388,6 +388,49 @@ selections.addEventListener("change", (event) => {
                 element.addEventListener("click", (event) => {
                     var collections = JSON.parse(decodeURIComponent(atob(data)));
                     quoteModal(collections[element.id].quotes, element.id);
+                    const modalContent = document.getElementsByClassName("modal-content")[0];
+                    modalContent.innerHTML += `
+                    <div class="exportCollection">📁 Export Collection</div>
+                    `
+                    const exportCollection = document.getElementsByClassName("exportCollection")[0];
+                    exportCollection.addEventListener("click", (event) => {
+                        const collection = collections[element.id];
+                        // Create new modal with base64 encoded data
+                        const modal = document.getElementsByClassName("modal")[0];
+                        const modalContent = document.getElementsByClassName("modal-content")[0];
+                        modal.style.display = "block";
+                        modalContent.innerHTML = "";
+                        document.body.style.overflow = "hidden";
+                        let html = `
+                        <span class="close">&times;</span>
+                        <div class="modal_header">
+                            <h1>Exporting Collection: ${element.id}</h1>
+
+                            Copy the following and use the "Import Collection" button to import this collection later:
+                        </div>
+                        <div class="exportData">
+                            <textarea readonly>${btoa(encodeURIComponent(JSON.stringify(collection)))}</textarea>
+                        </div>
+                        `
+                        modalContent.innerHTML = html;
+                        const modal_close = document.getElementsByClassName("close")[0]
+                        modal_close.addEventListener("click", () => {
+                            document.body.style.overflow = "auto";
+                            const modal = document.getElementsByClassName("modal")[0];
+                            // Play fade in animation in reverse then hide the modal
+                            modal.style.animation = "fadeOut 0.5s";
+                            // When animation ends, hide the modal
+                            modal.addEventListener("animationend", (event) => {
+                                if (event.animationName === "fadeOut") {
+                                    modal.style.display = "none";
+                                    modal.style.animation = "";
+                                }
+                            });
+                        });
+
+
+
+                    });
                 });
             });
             document.getElementsByClassName("collectionDelete").forEach((element) => {
