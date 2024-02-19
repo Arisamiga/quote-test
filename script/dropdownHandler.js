@@ -389,9 +389,13 @@ selections.addEventListener("change", (event) => {
                     var collections = JSON.parse(decodeURIComponent(atob(data)));
                     quoteModal(collections[element.id].quotes, element.id);
                     const modalContent = document.getElementsByClassName("modal-content")[0];
-                    modalContent.innerHTML += `
-                    <div class="exportCollection">📁 Export Collection</div>
-                    `
+
+                    var newElement = document.createElement('div');
+                    newElement.className = 'exportCollection';
+                    newElement.textContent = '📁 Export Collection';
+                    
+                    modalContent.appendChild(newElement);
+                    
                     const exportCollection = document.getElementsByClassName("exportCollection")[0];
                     exportCollection.addEventListener("click", (event) => {
                         const collection = {
