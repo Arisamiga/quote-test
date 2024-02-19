@@ -394,7 +394,11 @@ selections.addEventListener("change", (event) => {
                     `
                     const exportCollection = document.getElementsByClassName("exportCollection")[0];
                     exportCollection.addEventListener("click", (event) => {
-                        const collection = collections[element.id];
+                        const collection = {
+                            name: element.id,
+                            quotes: collections[element.id].quotes,
+                            date: collections[element.id].date
+                        };
                         // Create new modal with base64 encoded data
                         const modal = document.getElementsByClassName("modal")[0];
                         const modalContent = document.getElementsByClassName("modal-content")[0];
@@ -409,7 +413,8 @@ selections.addEventListener("change", (event) => {
                             Copy the following and use the "Import Collection" button to import this collection later:
                         </div>
                         <div class="exportData">
-                            <textarea readonly>${btoa(encodeURIComponent(JSON.stringify(collection)))}</textarea>
+                            <textarea id="export" readonly>${btoa(encodeURIComponent(JSON.stringify(collection)))}</textarea>
+                            <div class="copyToClipboard">📋 Copy to Clipboard</div>
                         </div>
                         `
                         modalContent.innerHTML = html;
@@ -427,8 +432,19 @@ selections.addEventListener("change", (event) => {
                                 }
                             });
                         });
-
-
+                        const copyToClipboard = document.getElementsByClassName("copyToClipboard")[0];
+                        copyToClipboard.addEventListener("click", (event) => {
+                            const textarea = document.getElementById("export");
+                            textarea.select();
+                            if (!navigator.clipboard){
+                                // use old commandExec() way
+                                var copyText = textarea;
+                                copyText.select();
+                                document.execCommand("copy");
+                            } else{
+                                navigator.clipboard.writeText(textarea.value);
+                            } 
+                        });
 
                     });
                 });
