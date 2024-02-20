@@ -13,7 +13,7 @@
     var quotes = url.searchParams.get("quotes");
     var currentPage = url.pathname.split("/").pop().split(".")[0];
 
-    console.log(quotes)
+    // console.log(quotes)
     function handleResults(score, length) {
         var quoteResults = document.getElementById("quoteResults");
         quoteResults.innerHTML = "Score: " + score + "/" + length;
@@ -74,33 +74,33 @@
         }
 
         if (attempts === elementQuote.length) {
-            console.log(elementQuote)
+            // console.log(elementQuote)
             console.error('Could not find a valid word to remove');
             return;
         }
         var removedWord = elementQuote[random];
         var inputLength = elementQuote[random].length;
-        console.log("aaaa: " + elementQuote[random])
+        // console.log("aaaa: " + elementQuote[random])
 
         if (inputLength < 5) {
             inputLength = 5;
         }
 
-        console.log("---- elementQuote2 ----")
-        console.log(elementQuote)
+        // console.log("---- elementQuote2 ----")
+        // console.log(elementQuote)
 
         if (elementQuote[random].endsWith("<br>"))
             elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " ><br>";
         else
             elementQuote[random] = "<input style='width:" + (inputLength) + "em;' class='quoteCheck' placeholder='...' id=quoteCheck-" + quoteIndex + "-" + index + " >";
 
-        console.log(removedWord)
+        // console.log(removedWord)
 
-        // console.log(elementQuote)
+        // // console.log(elementQuote)
 
-        console.log("Includes input?? " + removedWord.includes("<input"))
+        // console.log("Includes input?? " + removedWord.includes("<input"))
 
-        console.log(quoteIndex, index)
+        // console.log(quoteIndex, index)
         inputdata[quoteIndex][index] = removedWord.replaceAll("<br>", "").replaceAll("##BR##", "");
         var quote = elementQuote.join(" ").replace(/##BR##/g, "<br>");
         template.innerHTML = (quoteIndex + 1) + ". " + quote;
@@ -109,7 +109,7 @@
 
 
 
-    if (quotes === null && currentPage === "index") {
+    if (quotes === null && ( currentPage === "index" || currentPage === "")) {
         var intensity = document.getElementById("intensityRange")
         var intensityOutput = document.getElementById("intensityValue")
         intensityOutput.innerHTML = intensity.value;
@@ -117,7 +117,7 @@
         intensity.oninput = function () {
             intensityOutput.innerHTML = this.value;
 
-            console.log(this.value);
+            // console.log(this.value);
 
         }
         // Check if LocalStorage has any quotes
@@ -168,7 +168,7 @@
         var optionField = document.getElementsByClassName("optionsField")[0]
 
         optionText.addEventListener("click", function (element) {
-            console.log("Click")
+            // console.log("Click")
             if (element.target.innerHTML.includes("▼")) {
                 element.target.innerHTML = "⚙️ Options ▲";
                 optionField.style.maxHeight = "200px";
@@ -209,7 +209,7 @@
 
         // Submit Button Listener
         submitButton.addEventListener("click", function () {
-            console.log("Click")
+            // console.log("Click")
             var results = {};
 
             // Check if all inputs are filled
@@ -224,7 +224,7 @@
             // Check if all inputs are correct
             for (var j = 0; j < quotes.length; j++) {
                 var quote = quotes[j];
-                console.log(quote.id.split("-"))
+                // console.log(quote.id.split("-"))
                 var index = quote.id.split("-")[2];
                 var i = quote.id.split("-")[1];
 
@@ -232,8 +232,8 @@
                     results[i] = {};
                 }
 
-                console.log(inputdata)
-                console.log("Quote: " + quote.value + " Input: " + inputdata[i][index]);
+                // console.log(inputdata)
+                // console.log("Quote: " + quote.value + " Input: " + inputdata[i][index]);
                 quote.value = quote.value.replaceAll(" ", "");
 
                 if (quote.value.toLowerCase() !== inputdata[i][index].toLowerCase()) {
@@ -251,7 +251,7 @@
 
             // Calculate Score and show it
             var score = 0;
-            console.log("Lenght: " + Object.keys(results).length)
+            // console.log("Lenght: " + Object.keys(results).length)
             // for (var j = 0; j < quotes.length; j++) {
             //     var quote = quotes[j];
             //     var index = quote.id.split("-")[2];
@@ -297,13 +297,13 @@
             }
 
             var elementQuote = quotes[i].split(" ");
-            console.log("---- elementQuote ----")
-            console.log(elementQuote)
+            // console.log("---- elementQuote ----")
+            // console.log(elementQuote)
 
             // If word includes <br> split it and use ##BR## to replace it later
             elementQuote.forEach((word, index) => {
                 if (word.includes("<br>")) {
-                    console.log(index)
+                    // console.log(index)
                     var splitWord = word.split("<br>");
                     // Add ##BR## to the place of <br> so it can be replaced later
                     splitWord = splitWord.map(word => word + "##BR##");
@@ -328,8 +328,8 @@
             
             elementQuote = newElementQuote;
 
-            console.log("---- elementQuote1 ----")
-            console.log(elementQuote)
+            // console.log("---- elementQuote1 ----")
+            // console.log(elementQuote)
 
 
             // Randomly remove certain amount of words from the quote
@@ -341,7 +341,7 @@
             }
 
 
-            console.log("Removing: " + wordsRemoved + " words" + " from " + elementQuote.length + " words")
+            // console.log("Removing: " + wordsRemoved + " words" + " from " + elementQuote.length + " words")
 
 
             for (var j = 0; j < wordsRemoved; j++) {
@@ -351,8 +351,8 @@
 
 
         }
-        console.log("---- Quotes ----")
-        console.log(quotes)
+        // console.log("---- Quotes ----")
+        // console.log(quotes)
     }
     else {
         var box = document.getElementsByClassName("border-box")[0]
