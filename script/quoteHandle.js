@@ -109,7 +109,7 @@
 
 
 
-    if (quotes === null && currentPage === "index") {
+    if (quotes === null && ( currentPage === "index" || currentPage === "")) {
         var intensity = document.getElementById("intensityRange")
         var intensityOutput = document.getElementById("intensityValue")
         intensityOutput.innerHTML = intensity.value;
