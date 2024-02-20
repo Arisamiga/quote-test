@@ -92,17 +92,7 @@ function quoteModal(quotes, title) {
 
     const modal_close = document.getElementsByClassName("close")[0]
     modal_close.addEventListener("click", () => {
-        document.body.style.overflow = "auto";
-        const modal = document.getElementsByClassName("modal")[0];
-        // Play fade in animation in reverse then hide the modal
-        modal.style.animation = "fadeOut 0.5s";
-        // When animation ends, hide the modal
-        modal.addEventListener("animationend", (event) => {
-            if (event.animationName === "fadeOut") {
-                modal.style.display = "none";
-                modal.style.animation = "";
-            }
-        });
+        closeModal();
     });
 
     const useQuotesButton = document.getElementsByClassName("useQuotesButton")[0];
@@ -157,6 +147,20 @@ function setCurrentOption() {
         var event = new Event('change');
         selections.dispatchEvent(event);
     }
+}
+
+function closeModal() {
+    document.body.style.overflow = "auto";
+    const modal = document.getElementsByClassName("modal")[0];
+    // Play fade in animation in reverse then hide the modal
+    modal.style.animation = "fadeOut 0.5s";
+    // When animation ends, hide the modal
+    modal.addEventListener("animationend", (event) => {
+        if (event.animationName === "fadeOut") {
+            modal.style.display = "none";
+            modal.style.animation = "";
+        }
+    });
 }
 
 selections.addEventListener("change", (event) => {
@@ -264,7 +268,7 @@ selections.addEventListener("change", (event) => {
             html += `
             </div>
             <div class="saveQuotes">Save Current Quotes</div>
-
+            <div class="importCollection">📥 Import Collection</div>
 
 
             `
@@ -273,6 +277,7 @@ selections.addEventListener("change", (event) => {
             html = `
             <h2> You Currently Dont have any Quotes Saved! </h2>
             <div class="saveQuotes">Save Current Quotes</div>
+            <div class="importCollection">📥 Import Collection</div>
 
 
 
@@ -370,19 +375,70 @@ selections.addEventListener("change", (event) => {
 
             const modal_close = document.getElementsByClassName("close")[0]
             modal_close.addEventListener("click", () => {
-                document.body.style.overflow = "auto";
-                const modal = document.getElementsByClassName("modal")[0];
-                // Play fade in animation in reverse then hide the modal
-                modal.style.animation = "fadeOut 0.5s";
-                // When animation ends, hide the modal
-                modal.addEventListener("animationend", (event) => {
-                    if (event.animationName === "fadeOut") {
-                        modal.style.display = "none";
-                        modal.style.animation = "";
-                    }
-                });
+                closeModal();
             });
         })
+
+        const importCollection = document.getElementsByClassName("importCollection")[0];
+        importCollection.addEventListener("click", (event) => {
+            const modal = document.getElementsByClassName("modal")[0];
+            const modalContent = document.getElementsByClassName("modal-content")[0];
+            modal.style.display = "block";
+            modalContent.innerHTML = "";
+            document.body.style.overflow = "hidden";
+            let html = `
+            <span class="close">&times;</span>
+            <div class="modal_header">
+                <h1>Import Collection</h1>
+                Copy and paste the collection data below:
+                <textarea id="import"></textarea>
+                <div class="importCollection" id="importBtn">📥 Import Collection</div>
+            </div>
+            `
+            modalContent.innerHTML = html;
+            const modal_close = document.getElementsByClassName("close")[0]
+            modal_close.addEventListener("click", () => {
+                closeModal();
+            });
+
+            const importCollection = document.getElementById("importBtn");
+            importCollection.addEventListener("click", (event) => {
+                const textarea = document.getElementById("import");
+                try {
+                    const decodedString = atob(textarea.value);
+                    const decodedURIComponent = decodeURIComponent(decodedString);
+                    collection = JSON.parse(decodedURIComponent);
+                } catch (error) {
+                    return alert("Invalid Collection Data");
+                    // Handle the error
+                }
+                const dataCollections = localStorage.getItem("collections") ?? null;
+
+                if (textarea.value.trim() == "") return;
+
+                if (collection.name == null || collection.quotes == null || collection.date == null) {
+                    alert("Invalid Collection Data");
+                    return;
+                }
+
+                var collections;
+                if (dataCollections == null) {
+                    collections = {};
+                }
+                else {
+                    collections = JSON.parse(decodeURIComponent(atob(dataCollections)))
+                }
+
+                collections[collection.name] = {
+                    quotes: collection.quotes,
+                    date: collection.date
+                }
+                localStorage.setItem("collections", btoa(encodeURIComponent(JSON.stringify(collections))));
+                window.location.href = "index.html";
+            });
+        });
+
+
         if (data != null && Object.entries(JSON.parse(decodeURIComponent(atob(data)))).length > 0) {
             document.getElementsByClassName("collection").forEach((element) => {
                 element.addEventListener("click", (event) => {
@@ -424,17 +480,7 @@ selections.addEventListener("change", (event) => {
                         modalContent.innerHTML = html;
                         const modal_close = document.getElementsByClassName("close")[0]
                         modal_close.addEventListener("click", () => {
-                            document.body.style.overflow = "auto";
-                            const modal = document.getElementsByClassName("modal")[0];
-                            // Play fade in animation in reverse then hide the modal
-                            modal.style.animation = "fadeOut 0.5s";
-                            // When animation ends, hide the modal
-                            modal.addEventListener("animationend", (event) => {
-                                if (event.animationName === "fadeOut") {
-                                    modal.style.display = "none";
-                                    modal.style.animation = "";
-                                }
-                            });
+                            closeModal();
                         });
                         const copyToClipboard = document.getElementsByClassName("copyToClipboard")[0];
                         copyToClipboard.addEventListener("click", (event) => {
