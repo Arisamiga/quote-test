@@ -1,5 +1,5 @@
 
-
+(function () {
 Object.assign(HTMLCollection.prototype, {
     forEach(event) {
       Array.prototype.forEach.call(this, (element) => event(element));
@@ -531,3 +531,4 @@ selectionData.addEventListener("click", (event) => {
 });
 
 setCurrentOption();
+})();
