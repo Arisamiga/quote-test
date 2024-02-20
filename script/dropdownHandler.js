@@ -409,8 +409,8 @@ selections.addEventListener("change", (event) => {
                     const decodedURIComponent = decodeURIComponent(decodedString);
                     collection = JSON.parse(decodedURIComponent);
                 } catch (error) {
-                    return alert("Invalid Collection Data");
                     // Handle the error
+                    return alert("Invalid Collection Data");
                 }
                 const dataCollections = localStorage.getItem("collections") ?? null;
 
@@ -427,6 +427,13 @@ selections.addEventListener("change", (event) => {
                 }
                 else {
                     collections = JSON.parse(decodeURIComponent(atob(dataCollections)))
+                }
+
+                // Check if collection already exists
+                if (collections[collection.name] != null) {
+                    if (!confirm("Collection already exists. Overwrite?")) {
+                        return;
+                    }
                 }
 
                 collections[collection.name] = {
