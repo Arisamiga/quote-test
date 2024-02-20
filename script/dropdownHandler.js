@@ -73,7 +73,7 @@ function quoteModal(quotes, title) {
         <h1>${title}</h1>
         <ul>
     `
-    console.log(quotes)
+    // console.log(quotes)
     quotes.forEach((quote, index) => {
         html += `
             <li id="quote-${index}">${quote}</li>
@@ -332,7 +332,7 @@ selections.addEventListener("change", (event) => {
             const inputName = document.getElementsByClassName("collectionName")[0]
             inputName.addEventListener("input", (event) => {
                 const saveButton = document.getElementsByClassName("saveTo")[0]
-                console.log(inputName.value)
+                // console.log(inputName.value)
 
                 // Add a limit of 100 characters
                 if (inputName.value.length > 100) {
