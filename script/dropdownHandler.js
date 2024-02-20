@@ -86,23 +86,13 @@ function quoteModal(quotes, title) {
     Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
 
     <div class="useQuotesButton">Use Template Quotes</div>
-    <div class="addQuotesButton">Add to Existing Quotes</div>
+    <div class="addQuotesButton">+ Add to Existing Quotes</div>
     `
     modalContent.innerHTML = html;
 
     const modal_close = document.getElementsByClassName("close")[0]
     modal_close.addEventListener("click", () => {
-        document.body.style.overflow = "auto";
-        const modal = document.getElementsByClassName("modal")[0];
-        // Play fade in animation in reverse then hide the modal
-        modal.style.animation = "fadeOut 0.5s";
-        // When animation ends, hide the modal
-        modal.addEventListener("animationend", (event) => {
-            if (event.animationName === "fadeOut") {
-                modal.style.display = "none";
-                modal.style.animation = "";
-            }
-        });
+        closeModal();
     });
 
     const useQuotesButton = document.getElementsByClassName("useQuotesButton")[0];
@@ -157,6 +147,20 @@ function setCurrentOption() {
         var event = new Event('change');
         selections.dispatchEvent(event);
     }
+}
+
+function closeModal() {
+    document.body.style.overflow = "auto";
+    const modal = document.getElementsByClassName("modal")[0];
+    // Play fade in animation in reverse then hide the modal
+    modal.style.animation = "fadeOut 0.5s";
+    // When animation ends, hide the modal
+    modal.addEventListener("animationend", (event) => {
+        if (event.animationName === "fadeOut") {
+            modal.style.display = "none";
+            modal.style.animation = "";
+        }
+    });
 }
 
 selections.addEventListener("change", (event) => {
@@ -264,7 +268,7 @@ selections.addEventListener("change", (event) => {
             html += `
             </div>
             <div class="saveQuotes">Save Current Quotes</div>
-
+            <div class="importCollection">📥 Import Collection</div>
 
 
             `
@@ -273,6 +277,7 @@ selections.addEventListener("change", (event) => {
             html = `
             <h2> You Currently Dont have any Quotes Saved! </h2>
             <div class="saveQuotes">Save Current Quotes</div>
+            <div class="importCollection">📥 Import Collection</div>
 
 
 
@@ -370,24 +375,135 @@ selections.addEventListener("change", (event) => {
 
             const modal_close = document.getElementsByClassName("close")[0]
             modal_close.addEventListener("click", () => {
-                document.body.style.overflow = "auto";
-                const modal = document.getElementsByClassName("modal")[0];
-                // Play fade in animation in reverse then hide the modal
-                modal.style.animation = "fadeOut 0.5s";
-                // When animation ends, hide the modal
-                modal.addEventListener("animationend", (event) => {
-                    if (event.animationName === "fadeOut") {
-                        modal.style.display = "none";
-                        modal.style.animation = "";
-                    }
-                });
+                closeModal();
             });
         })
+
+        const importCollection = document.getElementsByClassName("importCollection")[0];
+        importCollection.addEventListener("click", (event) => {
+            const modal = document.getElementsByClassName("modal")[0];
+            const modalContent = document.getElementsByClassName("modal-content")[0];
+            modal.style.display = "block";
+            modalContent.innerHTML = "";
+            document.body.style.overflow = "hidden";
+            let html = `
+            <span class="close">&times;</span>
+            <div class="modal_header">
+                <h1>Import Collection</h1>
+                Copy and paste the collection data below:
+                <textarea id="import"></textarea>
+                <div class="importCollection" id="importBtn">📥 Import Collection</div>
+            </div>
+            `
+            modalContent.innerHTML = html;
+            const modal_close = document.getElementsByClassName("close")[0]
+            modal_close.addEventListener("click", () => {
+                closeModal();
+            });
+
+            const importCollection = document.getElementById("importBtn");
+            importCollection.addEventListener("click", (event) => {
+                const textarea = document.getElementById("import");
+                try {
+                    const decodedString = atob(textarea.value);
+                    const decodedURIComponent = decodeURIComponent(decodedString);
+                    collection = JSON.parse(decodedURIComponent);
+                } catch (error) {
+                    // Handle the error
+                    return alert("Invalid Collection Data");
+                }
+                const dataCollections = localStorage.getItem("collections") ?? null;
+
+                if (textarea.value.trim() == "") return;
+
+                if (collection.name == null || collection.quotes == null || collection.date == null) {
+                    alert("Invalid Collection Data");
+                    return;
+                }
+
+                var collections;
+                if (dataCollections == null) {
+                    collections = {};
+                }
+                else {
+                    collections = JSON.parse(decodeURIComponent(atob(dataCollections)))
+                }
+
+                // Check if collection already exists
+                if (collections[collection.name] != null) {
+                    if (!confirm("Collection already exists. Overwrite?")) {
+                        return;
+                    }
+                }
+
+                collections[collection.name] = {
+                    quotes: collection.quotes,
+                    date: collection.date
+                }
+                localStorage.setItem("collections", btoa(encodeURIComponent(JSON.stringify(collections))));
+                window.location.href = "index.html";
+            });
+        });
+
+
         if (data != null && Object.entries(JSON.parse(decodeURIComponent(atob(data)))).length > 0) {
             document.getElementsByClassName("collection").forEach((element) => {
                 element.addEventListener("click", (event) => {
                     var collections = JSON.parse(decodeURIComponent(atob(data)));
                     quoteModal(collections[element.id].quotes, element.id);
+                    const modalContent = document.getElementsByClassName("modal-content")[0];
+
+                    var newElement = document.createElement('div');
+                    newElement.className = 'exportCollection';
+                    newElement.textContent = '📁 Export Collection';
+                    
+                    modalContent.appendChild(newElement);
+                    
+                    const exportCollection = document.getElementsByClassName("exportCollection")[0];
+                    exportCollection.addEventListener("click", (event) => {
+                        const collection = {
+                            name: element.id,
+                            quotes: collections[element.id].quotes,
+                            date: collections[element.id].date
+                        };
+                        // Create new modal with base64 encoded data
+                        const modal = document.getElementsByClassName("modal")[0];
+                        const modalContent = document.getElementsByClassName("modal-content")[0];
+                        modal.style.display = "block";
+                        modalContent.innerHTML = "";
+                        document.body.style.overflow = "hidden";
+                        let html = `
+                        <span class="close">&times;</span>
+                        <div class="modal_header">
+                            <h1>Exporting Collection: ${element.id}</h1>
+
+                            Copy the following and use the "Import Collection" button to import this collection later:
+                        </div>
+                        <div class="exportData">
+                            <textarea id="export" readonly>${btoa(encodeURIComponent(JSON.stringify(collection)))}</textarea>
+                            <div class="copyToClipboard">📋 Copy to Clipboard</div>
+                        </div>
+                        `
+                        modalContent.innerHTML = html;
+                        const modal_close = document.getElementsByClassName("close")[0]
+                        modal_close.addEventListener("click", () => {
+                            closeModal();
+                        });
+                        const copyToClipboard = document.getElementsByClassName("copyToClipboard")[0];
+                        copyToClipboard.addEventListener("click", (event) => {
+                            const textarea = document.getElementById("export");
+                            textarea.select();
+                            if (!navigator.clipboard){
+                                // use old commandExec() way
+                                var copyText = textarea;
+                                copyText.select();
+                                document.execCommand("copy");
+                            } else{
+                                navigator.clipboard.writeText(textarea.value);
+                            } 
+                        });
+
+                    });
                 });
             });
             document.getElementsByClassName("collectionDelete").forEach((element) => {
