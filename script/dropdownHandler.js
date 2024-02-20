@@ -2,9 +2,9 @@
 
 Object.assign(HTMLCollection.prototype, {
     forEach(event) {
-      Array.prototype.forEach.call(this, (element) => event(element));
+        Array.prototype.forEach.call(this, (element) => event(element));
     },
-  });
+});
 
 const selections = document.getElementsByClassName("selection")[0]
 const selectionData = document.getElementsByClassName("selection_items")[0]
@@ -35,6 +35,8 @@ const Premade = {
         },
         "Act 4": {
             "Scene 1": "WyJUaGUgd29yc3QgcmV0dXJucyB0byBsYXVnaHRlciIsICJNaWdodCBJIGJ1dCBsaXZlIHRvIHNlZSB0aHJlZSBpbiBteSB0b3VjaCwgSSdkIHNheSBJIGhhZCBteSBleWVzIGFnYWluIiwgIkFzIGZsaWVzIHRvIHdhbnRvbiBib3lzIGFyZSB3ZSB0byB0aGUgZ29kczsgdGhleSBraWxsIHVzIGZvciBzcG9ydCIsICJUaXMgdGhlIHRpbWUncyBwbGFndWUgaW4gd2hpY2ggbWFkbWVuIGxlYWQgdGhlIGJsaW5kIiwgIlNvIGRpc3RyaWJ1dGlvbiBzaG91bGQgdW5kbyBleGNlc3MsIGFuZCBlYWNoIG1hbiBoYXZlIGVub3VnaCIsICJJIGNhbm5vdCBkYXViIGl0IGZ1cnRoZXIiXQ==",
+            "Scene 2": "WyJJdCBpcyB0aGUgY293aXNoIHRlcnJvciBvZiBoaXMgc3Bpcml0IHRoYXQgZGFyZXMgbm90IHVuZGVydGFrZSIsICJPLCB0aGUgZGlmZmVyZW5jZSBvZiBtYW4gYW5kIG1hbiEgVG8gdGhlZSBhIHdvbWFuJ3Mgc2VydmljZXMgYXJlIGR1ZS4gTXkgZm9vbCB1c3VycHMgbXkgYm9keSIsICJZb3UgYXJlIG5vdCB3b3J0aCB0aGUgZHVzdCB3aGljaCB0aGUgcnVkZSB3aW5kIGJsb3dzIGluIHlvdXIgZmFjZSIsICJUaWdlcnMsIG5vdCBkYXVnaHRlcnMsIHdoYXQgaGF2ZSB5b3UgcGVyZm9ybWVkPyJd",
+            "Scene 3": "WyJBIHNvdmVyZWlnbiBzaGFtZSBzbyBlbGJvd3MgaGltLi4uIFRoZXNlIHRoaW5ncyBzdGluZyBoaXMgbWluZCBzbyB2ZW1vdXNseSB0aGF0IGJ1cm5pbmcgc2hhbWUgZGV0YWlucyBoaW0gZnJvbSBDb3JkZWxpYSIsICJUaGVyZSBzaGUgc2hvb2suIFRoZSBob2x5IHdhdGVyIGZyb20gaGVyIGhlYXZlbmx5IGV5ZXMsIGFuZCBjbGFtb3IgbW9pc3RlbmVkIiwgIkl0IGlzIHRoZSBzdGFycywgdGhlIHN0YXJzIGFib3ZlIHVzLCBnb3Zlcm4gb3VyIGNvbmRpdGlvbnMiXQ==",
         }
 
     }
@@ -112,22 +114,22 @@ function quoteModal(quotes, title) {
     });
 }
 
-function setCookie(name,value,days) {
+function setCookie(name, value, days) {
     var expires = "";
     if (days) {
         var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -228,6 +230,8 @@ selections.addEventListener("change", (event) => {
     <div class='content'>
         <div class='grid'>
             <div class='grid_item'>Scene 1</div>
+            <div class='grid_item'>Scene 2</div>
+            <div class='grid_item'>Scene 3</div>
         </div>
     </div>
         `
@@ -456,9 +460,9 @@ selections.addEventListener("change", (event) => {
                     var newElement = document.createElement('div');
                     newElement.className = 'exportCollection';
                     newElement.textContent = '📁 Export Collection';
-                    
+
                     modalContent.appendChild(newElement);
-                    
+
                     const exportCollection = document.getElementsByClassName("exportCollection")[0];
                     exportCollection.addEventListener("click", (event) => {
                         const collection = {
@@ -493,14 +497,14 @@ selections.addEventListener("change", (event) => {
                         copyToClipboard.addEventListener("click", (event) => {
                             const textarea = document.getElementById("export");
                             textarea.select();
-                            if (!navigator.clipboard){
+                            if (!navigator.clipboard) {
                                 // use old commandExec() way
                                 var copyText = textarea;
                                 copyText.select();
                                 document.execCommand("copy");
-                            } else{
+                            } else {
                                 navigator.clipboard.writeText(textarea.value);
-                            } 
+                            }
                         });
 
                     });
