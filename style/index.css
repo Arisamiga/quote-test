@@ -4,6 +4,11 @@ body {
     background-repeat: no-repeat;
 }
 
+@font-face {
+    font-family: "Nunito";
+    src: url("../fonts/Nunito.ttf");
+}
+
 .border-box {
     position: relative;
     outline: ridge;
