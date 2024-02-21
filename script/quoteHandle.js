@@ -242,6 +242,27 @@
                     // Add tooltype to show the correct word
                     quote.setAttribute("title", 'Correct Word: "' + inputdata[i][index] + '"');
 
+                    // Append child with button to show the correct word inside the input
+                    var button = document.createElement("button");
+                    button.setAttribute("class", "showCorrectWord");
+                    button.innerHTML = "?";
+
+                    // Add button next to the input
+                    quote.insertAdjacentElement('afterend', button);
+
+                    // Add event listener to the button
+                    button.addEventListener("click", function () {
+                        var input = this.previousSibling;
+
+                        var index = input.id.split("-")[2];
+                        var i = input.id.split("-")[1];
+
+                        // Alert the correct word
+                        alert('Correct Word: "' + inputdata[i][index] + '"');
+
+                    });
+
+
                 }
                 else {
                     quote.style.backgroundColor = "green";
