@@ -509,6 +509,15 @@ a {
     resize: none;
 }
 
+
+.footer {
+    bottom: 0;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
