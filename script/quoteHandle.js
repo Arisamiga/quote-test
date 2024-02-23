@@ -246,6 +246,11 @@
                     var button = document.createElement("button");
                     button.setAttribute("class", "showCorrectWord");
                     button.innerHTML = "?";
+                    
+                    // Check if button is already there
+                    if (quote.nextSibling !== null && quote.nextSibling.className === "showCorrectWord") {
+                        quote.nextSibling.remove();
+                    }
 
                     // Add button next to the input
                     quote.insertAdjacentElement('afterend', button);
