@@ -5,9 +5,9 @@
 
     Object.assign(HTMLCollection.prototype, {
         forEach(event) {
-          Array.prototype.forEach.call(this, (element) => event(element));
+            Array.prototype.forEach.call(this, (element) => event(element));
         },
-      });
+    });
 
     var url = new URL(window.location.href);
     var quotes = url.searchParams.get("quotes");
@@ -109,7 +109,7 @@
 
 
 
-    if (quotes === null && ( currentPage === "index" || currentPage === "")) {
+    if (quotes === null && (currentPage === "index" || currentPage === "")) {
         var intensity = document.getElementById("intensityRange")
         var intensityOutput = document.getElementById("intensityValue")
         intensityOutput.innerHTML = intensity.value;
@@ -243,10 +243,10 @@
                     quote.setAttribute("title", 'Correct Word: "' + inputdata[i][index] + '"');
 
                     // Append child with button to show the correct word inside the input
-                    var button = document.createElement("button");
+                    var button = document.createElement("span");
                     button.setAttribute("class", "showCorrectWord");
-                    button.innerHTML = "?";
-                    
+                    button.innerHTML = " ? ";
+
                     // Check if button is already there
                     if (quote.nextSibling !== null && quote.nextSibling.className === "showCorrectWord") {
                         quote.nextSibling.remove();
@@ -351,7 +351,7 @@
                     newElementQuote.push(word);
                 }
             });
-            
+
             elementQuote = newElementQuote;
 
             // console.log("---- elementQuote1 ----")
