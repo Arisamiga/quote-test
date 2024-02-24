@@ -39,6 +39,7 @@ a {
     border-color: rgb(45, 45, 168);
     width: 180px;
     transition: background-color 300ms linear;
+    user-select: none;
 }
 
 .optionButtonText:hover {
@@ -74,6 +75,8 @@ a {
     border: 2px solid rgb(87, 62, 230);
     cursor: pointer;
     margin-bottom: 10px;
+    user-select: none;
+
 }
 
 #submitQuotes {
@@ -84,6 +87,7 @@ a {
     border: 2px solid rgb(87, 62, 230);
     cursor: pointer;
     margin-bottom: 10px;
+    user-select: none;
 }
 
 .quote {
@@ -137,6 +141,7 @@ a {
     cursor: pointer;
     margin-top: 60px;
     margin-bottom: 10px;
+    user-select: none;
 }
 
 .quoteBox {
@@ -160,6 +165,7 @@ a {
     padding-right: 30px;
     border-top-right-radius: 11px;
     border-bottom-right-radius: 11px;
+    user-select: none;
 }
 
 .backButton:hover {
@@ -184,6 +190,7 @@ a {
     top: 1px;
     left: 1px;
     opacity: 80%;
+    user-select: none;
 }
 
 .deleteButton:hover {
@@ -217,6 +224,7 @@ a {
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 50px;
+    user-select: none;
 }
 
 .selection:focus {
@@ -343,6 +351,7 @@ a {
     -ms-transition: background-color 300ms linear;
     -o-transition: background-color 300ms linear;
     -ms-transition: background-color 300ms linear;
+    user-select: none;
 }
 
 .useQuotesButton:hover,
