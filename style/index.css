@@ -499,6 +499,7 @@ a {
     border-radius: 3px;
     padding: 0px 4px;
     margin: 0px 6px 0px 2px;
+    word-wrap: break-word;
 }
 
 .showCorrectWord:hover {
