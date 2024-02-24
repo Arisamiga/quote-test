@@ -275,6 +275,7 @@ a {
     padding: 20px;
     margin-top: 20px;
     font-family: "Nunito", sans-serif;
+    margin-left: 0.5rem;
 }
 
 .grid_item:hover {
@@ -611,6 +612,87 @@ a {
         padding-left: 20px;
         font-size: 12px;
         margin-top: 1px;
+    }
+
+}
+
+@media screen and (max-width: 653px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid_item {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #addQuote {
+        width: 90%;
+    }
+
+    /* Make optimizations for phones */
+    .quoteForm {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .quoteShow {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .quoteCheck {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .quoteBox {
+        padding-bottom: 20px;
+    }
+
+    .optionButtonText, .optionButtonText, .optionText, .quote {
+        width: 100%;
+    }
+
+    .title {
+        font-size: 50px;
+        padding-top: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 300px) {
+
+    .grid_item {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .title {
+        font-size: 40px;
+        padding-top: 3.5rem;
+    }
+
+    .quoteForm {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .quoteShow {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .quoteCheck {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .quoteBox {
+        padding-bottom: 20px;
+    }
+
+    .optionButtonText, .optionButtonText, .optionText, .quote {
+        width: 100%;
     }
 
 
