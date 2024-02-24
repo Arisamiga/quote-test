@@ -168,14 +168,26 @@
     const popupBtn = document.getElementById("popupBtn")
     popupBtn.addEventListener("click", () => {
         const popup = document.getElementById("popup");
+
         popup.style.display = "block"
+
+
     })
 
 
     const closePopup = document.getElementById("closePopup")
     closePopup.addEventListener("click", () => {
         const popup = document.getElementById("popup");
-        popup.style.display = "none"
+        const popupContent = document.getElementById("popupContent");
+        popupContent.style.animation = "contentOut 0.6s";
+        popup.style.animation = "bgOut 0.6s";
+        popup.addEventListener("animationend", (event) => {
+            if (event.animationName === "bgOut") {
+                popup.style.display = "none"
+                popup.style.animation = "";
+                popupContent.style.animation = "";
+            }
+        })
     })
 
 
