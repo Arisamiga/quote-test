@@ -391,7 +391,7 @@ a {
 
 .optionsClosed {
     border-bottom: none;
-    border-color: none;
+    border-color: transparent;
     border-bottom-right-radius: 10px;
 }
 
