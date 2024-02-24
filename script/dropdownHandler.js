@@ -238,7 +238,6 @@ selections.addEventListener("change", (event) => {
         selectionData.innerHTML = html;
 
         let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
-
         selectionData.style.minHeight = `${estimatedHeight}px`;
         selectionData.style.maxHeight = `${estimatedHeight}px`;
     }
@@ -534,5 +533,8 @@ selectionData.addEventListener("click", (event) => {
     }
 });
 
-setCurrentOption();
+window.onload = function() {
+    setCurrentOption();
+}
+
 })();
