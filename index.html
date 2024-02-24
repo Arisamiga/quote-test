@@ -29,7 +29,7 @@
             <button class="optionText">⚙️ Options ▼</button>
             <ul class="optionsField">
                 <li><p>Intensity: <span id="intensityValue"></span>%</p></li>
-                <li><input type="range" min="1" max="100" value="50" class="intensitySlider" id="intensityRange"></li>
+                <li><input type="range" min="1" max="100" value="50" class="intensitySlider" id="intensityRange" aria-label="Intensity Slider"></li>
                 <li><br></li>
                 <li><br></li>
                 <!-- <div class="optionButtonText">Timer [WIP]</div> -->
@@ -51,7 +51,7 @@
     </div>
     <div class="Text">
         Premade Quotes:
-        <select class="selection" name="Sources">
+        <select class="selection" name="Sources" aria-label="Selection">
             <option value="default" selected="selected">Choose...</option>
             <option value="Own">📖 My Quotes </option>
             <option value="Lear">👑 King Lear</option>
