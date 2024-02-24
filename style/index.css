@@ -299,11 +299,53 @@ a {
     font-family: "Nunito", sans-serif;
 }
 
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popupContent {
+    font-family: "Nunito";
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(87, 62, 230);
+    outline: ridge;
+    outline-color: rgb(45, 45, 168)
+}
+
+.popupTitle {
+    color: #f8f8f8;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 50px;
+    margin: 0px 0px;
+    outline: ridge;
+    outline-color: rgb(45, 45, 168)
+}
+
+.popupText {
+    font-size: 30px;
+    color: #f8f8f8;
+    text-align: center;
+}
+
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    margin-right: 5px;
 }
 
 .close:hover {

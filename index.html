@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="./style/index.css">
     <link rel="icon" href="./images/logo.png" />
     <meta name="description" content="A place to practice your Quote exams!">
-    <meta name="keywords" content="Quote, Exam, Practice, Test, Quote Test, Quote Practice, Exam Preparation, Study Quotes, Quote Learning, Quote Examination, Quote Study Tool, Online Learning, Education Tool, Quote Memorization, Literature Study, Literature Quotes, Quote Review, Quote Revision, Quote Exam Prep, Online Quote Test, Interactive Learning, Interactive Quote Test, Quote Test Practice, Quote Knowledge Test">
+    <meta name="keywords"
+        content="Quote, Exam, Practice, Test, Quote Test, Quote Practice, Exam Preparation, Study Quotes, Quote Learning, Quote Examination, Quote Study Tool, Online Learning, Education Tool, Quote Memorization, Literature Study, Literature Quotes, Quote Review, Quote Revision, Quote Exam Prep, Online Quote Test, Interactive Learning, Interactive Quote Test, Quote Test Practice, Quote Knowledge Test">
     <meta name="author" content="Quote Test">
     <meta property="og:title" content="Quote Test" />
     <meta property="og:description" content="A place to practice your Quote exams!" />
@@ -31,7 +32,7 @@
                 <input type="range" min="1" max="100" value="50" class="intensitySlider" id="intensityRange">
                 <br>
                 <br>
-                <!-- <div class="optionButtonText">Timer [WIP]</div> -->
+                <div id="popupBtn" class="optionButtonText">popup button</div>
             </ul>
         </div>
         <div class="title">Quote Test</div>
@@ -60,6 +61,15 @@
     </div>
     <div id="modal" class="modal">
         <div class="modal-content">
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div id="popupContent" class="popupContent">
+            <span id="closePopup" class="close">&times;</span>
+            <h3 class="popupTitle">Information</h3>
+            <p class="popupText">The timer feature has not been implemented yet!</p>
+
         </div>
     </div>
 
