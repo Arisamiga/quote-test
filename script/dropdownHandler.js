@@ -236,11 +236,18 @@ selections.addEventListener("change", (event) => {
     </div>
         `
         selectionData.innerHTML = html;
-        // let estimatedHeight = ;
-        // Create estimatedHeight based on newlines
-        let estimatedHeight = html.split("\n").length * 25;
+
+        let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
         selectionData.style.minHeight = `${estimatedHeight}px`;
         selectionData.style.maxHeight = `${estimatedHeight}px`;
+
+        window.addEventListener('resize', function() {
+            selectionData.style.minHeight = `unset`;
+            selectionData.style.maxHeight = `unset`;
+            let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
+            selectionData.style.minHeight = `${estimatedHeight}px`;
+            selectionData.style.maxHeight = `${estimatedHeight}px`;
+        });
     }
 
     if (selectedOption == "Own") {
@@ -534,5 +541,8 @@ selectionData.addEventListener("click", (event) => {
     }
 });
 
-setCurrentOption();
+window.onload = function() {
+    setCurrentOption();
+}
+
 })();
