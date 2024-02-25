@@ -180,17 +180,28 @@
     })
 
 
+
     function createPopup(buttons, type, content) {
         const popup = document.getElementById("popup")
         const button1 = document.getElementById("button1")
         const button2 = document.getElementById("button2")
+        const button3 = document.getElementById("button3")
         const title = document.getElementById("popupTitle")
         const text = document.getElementById("popupText")
+        const popupContent = document.getElementById("popupContent")
+        popup.style.overflow = "auto"
         if (buttons === "yn") {
             button1.style.display = "block"
             button2.style.display = "block"
             button1.innerHTML = "Yes"
             button2.innerHTML = "No"
+        }
+        else if (buttons === "ok") {
+            button1.style.display = "block"
+            button1.innerHTML = "OK"
+            button1.addEventListener("click", () => {
+                closePopup()
+            })
         }
         else if (buttons === "blank") {
         }
@@ -211,16 +222,25 @@
             title.innerHTML = "Warning";
             title.style.color = "#cd1000"
         }
+        else if (type === "error") {
+            title.innerHTML = "Error";
+            title.style.color = "#cd1000";
+        }
         else {
             title.innerHTML = type;
         }
         text.innerHTML = content;
         popup.style.display = "block"
-        const closePopup = document.getElementById("closePopup")
-        closePopup.addEventListener("click", () => {
-            const popup = document.getElementById("popup");
-            const popupContent = document.getElementById("popupContent");
-
+        window.addEventListener("click", (event) => {
+            console.log(event)
+            if (event.target == popup) {
+                closePopup();
+            }
+        }
+        )
+        const closeBtn = document.getElementById("closePopup")
+        function closePopup() {
+            popup.style.overflow = "hidden";
             popupContent.style.animation = "contentOut 0.6s";
             popup.style.animation = "bgOut 0.6s";
             popup.addEventListener("animationend", (event) => {
@@ -233,6 +253,9 @@
                     popupContent.style.animation = "";
                 }
             })
+        }
+        closeBtn.addEventListener("click", () => {
+            closePopup()
         })
 
     }
@@ -490,7 +513,7 @@
                         collection = JSON.parse(decodedURIComponent);
                     } catch (error) {
                         // Handle the error
-                        return alert("Invalid Collection Data");
+                        return createPopup("ok", "error", "Invalid Collection Data!");
                     }
                     const dataCollections = localStorage.getItem("collections") ?? null;
 
