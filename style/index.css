@@ -384,6 +384,38 @@ a {
     text-align: center;
 }
 
+.popupOptions {
+    display: flex;
+    justify-content: center;
+}
+
+.popupOptions>div {
+    width: 50%;
+    font-size: 20px;
+    background-color: #7777ff;
+    margin: 10px;
+    text-align: center;
+    outline: ridge;
+    outline-color: rgb(45, 45, 168);
+}
+
+.popupOptions>div:hover {
+    cursor: pointer;
+}
+
+.button1 {
+    display: none;
+}
+
+.button2 {
+    display: none;
+}
+
+.button3 {
+    display: none;
+}
+
+
 .close {
     color: #aaa;
     float: right;

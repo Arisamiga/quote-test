@@ -165,30 +165,80 @@
         });
     }
 
-    const popupBtn = document.getElementById("popupBtn")
-    popupBtn.addEventListener("click", () => {
-        const popup = document.getElementById("popup");
 
+    const debugBtn1 = document.getElementById("debugBtn1")
+    const debugBtn2 = document.getElementById("debugBtn2")
+    const debugBtn3 = document.getElementById("debugBtn3")
+    debugBtn1.addEventListener("click", () => {
+        createPopup("blank", "info", "The timer feature has not been implemented yet!")
+    })
+    debugBtn2.addEventListener("click", () => {
+        createPopup("yn", "caution", "The timer feature has not been implemented yet!")
+    })
+    debugBtn3.addEventListener("click", () => {
+        createPopup("bruh", "warning", "The timer feature has not been implemented yet!")
+    })
+
+
+    function createPopup(buttons, type, content) {
+        const popup = document.getElementById("popup")
+        const button1 = document.getElementById("button1")
+        const button2 = document.getElementById("button2")
+        const title = document.getElementById("popupTitle")
+        const text = document.getElementById("popupText")
+        if (buttons === "yn") {
+            button1.style.display = "block"
+            button2.style.display = "block"
+            button1.innerHTML = "Yes"
+            button2.innerHTML = "No"
+        }
+        else if (buttons === "blank") {
+        }
+        else {
+            button1.style.display = "block"
+            button1.innerHTML = "debug: Invalid Button Type!!"
+        }
+
+        if (type === "info") {
+            title.innerHTML = "Information"
+            title.style.color = "#67f5ff"
+        }
+        else if (type === "caution") {
+            title.innerHTML = "Caution";
+            title.style.color = "#ffdf77";
+        }
+        else if (type === "warning") {
+            title.innerHTML = "Warning";
+            title.style.color = "#cd1000"
+        }
+        else {
+            title.innerHTML = type;
+        }
+        text.innerHTML = content;
         popup.style.display = "block"
+        const closePopup = document.getElementById("closePopup")
+        closePopup.addEventListener("click", () => {
+            const popup = document.getElementById("popup");
+            const popupContent = document.getElementById("popupContent");
 
-
-    })
-
-
-    const closePopup = document.getElementById("closePopup")
-    closePopup.addEventListener("click", () => {
-        const popup = document.getElementById("popup");
-        const popupContent = document.getElementById("popupContent");
-        popupContent.style.animation = "contentOut 0.6s";
-        popup.style.animation = "bgOut 0.6s";
-        popup.addEventListener("animationend", (event) => {
-            if (event.animationName === "bgOut") {
-                popup.style.display = "none"
-                popup.style.animation = "";
-                popupContent.style.animation = "";
-            }
+            popupContent.style.animation = "contentOut 0.6s";
+            popup.style.animation = "bgOut 0.6s";
+            popup.addEventListener("animationend", (event) => {
+                if (event.animationName === "bgOut") {
+                    popup.style.display = "none"
+                    button1.style.display = "none";
+                    button2.style.display = "none";
+                    button3.style.display = "none";
+                    popup.style.animation = "";
+                    popupContent.style.animation = "";
+                }
+            })
         })
-    })
+
+    }
+
+
+
 
 
     selections.addEventListener("change", (event) => {
