@@ -5,21 +5,22 @@
     <meta charset="UTF-8">
     <title>Quote Test</title>
     <link rel="stylesheet" href="./style/index.css">
-    <link rel="icon" href="./images/logo.png" />
+    <link rel="icon" href="./images/logo.png" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A place to practice your Quote exams!">
     <meta name="keywords"
         content="Quote, Exam, Practice, Test, Quote Test, Quote Practice, Exam Preparation, Study Quotes, Quote Learning, Quote Examination, Quote Study Tool, Online Learning, Education Tool, Quote Memorization, Literature Study, Literature Quotes, Quote Review, Quote Revision, Quote Exam Prep, Online Quote Test, Interactive Learning, Interactive Quote Test, Quote Test Practice, Quote Knowledge Test">
     <meta name="author" content="Quote Test">
-    <meta property="og:title" content="Quote Test" />
-    <meta property="og:description" content="A place to practice your Quote exams!" />
-    <meta property="og:image" content="./images/logo.png" />
-    <meta property="og:url" content="https://quotes.arisamiga.rocks/" />
+    <meta property="og:title" content="Quote Test" >
+    <meta property="og:description" content="A place to practice your Quote exams!" >
+    <meta property="og:image" content="./images/logo.png" >
+    <meta property="og:url" content="https://quotes.arisamiga.rocks/" >
     <meta content="https://quotes.arisamiga.rocks/images/logo.png" property="og:image">
     <meta content="#573ee6" data-react-helmet="true" name="theme-color">
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Quote Test" />
-    <meta name="twitter:description" content="A place to practice your Quote exams!" />
-    <meta name="twitter:image" content="./images/logo.png" />
+    <meta name="twitter:card" content="summary_large_image" >
+    <meta name="twitter:title" content="Quote Test" >
+    <meta name="twitter:description" content="A place to practice your Quote exams!" >
+    <meta name="twitter:image" content="./images/logo.png" >
 </head>
 
 <body>
@@ -28,13 +29,13 @@
         <div class="options">
             <button class="optionText">⚙️ Options ▼</button>
             <ul class="optionsField">
-                <p>Intensity: <span id="intensityValue"></span>%</p>
-                <input type="range" min="1" max="100" value="50" class="intensitySlider" id="intensityRange">
-                <br>
-                <br>
-                <div id="debugBtn1" class="optionButtonText">popup button</div>
-                <div id="debugBtn2" class="optionButtonText">popup button</div>
-                <div id="debugBtn3" class="optionButtonText">popup button</div>
+                <li><p>Intensity: <span id="intensityValue"></span>%</p></li>
+                <li><input type="range" min="1" max="100" value="50" class="intensitySlider" id="intensityRange" aria-label="Intensity Slider"></li>
+                <li><br></li>
+                <li><br></li>
+                <li><div id="debugBtn1" class="optionButtonText">popup button</div></li>
+                <li><div id="debugBtn2" class="optionButtonText">popup button</div></li>
+                <li><div id="debugBtn3" class="optionButtonText">popup button</div></li>
             </ul>
         </div>
         <div class="title">Quote Test</div>
@@ -53,7 +54,7 @@
     </div>
     <div class="Text">
         Premade Quotes:
-        <select class="selection" name="Sources">
+        <select class="selection" name="Sources" aria-label="Selection">
             <option value="default" selected="selected">Choose...</option>
             <option value="Own">📖 My Quotes </option>
             <option value="Lear">👑 King Lear</option>

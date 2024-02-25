@@ -7,6 +7,7 @@ body {
 @font-face {
     font-family: "Nunito";
     src: url("../fonts/Nunito.ttf");
+    font-display: swap;
 }
 
 .border-box {
@@ -44,6 +45,7 @@ a {
     border-color: rgb(45, 45, 168);
     width: 180px;
     transition: background-color 300ms linear;
+    user-select: none;
 }
 
 .optionButtonText:hover {
@@ -79,6 +81,8 @@ a {
     border: 2px solid rgb(87, 62, 230);
     cursor: pointer;
     margin-bottom: 10px;
+    user-select: none;
+
 }
 
 #submitQuotes {
@@ -89,6 +93,7 @@ a {
     border: 2px solid rgb(87, 62, 230);
     cursor: pointer;
     margin-bottom: 10px;
+    user-select: none;
 }
 
 .quote {
@@ -142,6 +147,7 @@ a {
     cursor: pointer;
     margin-top: 60px;
     margin-bottom: 10px;
+    user-select: none;
 }
 
 .quoteBox {
@@ -165,6 +171,7 @@ a {
     padding-right: 30px;
     border-top-right-radius: 11px;
     border-bottom-right-radius: 11px;
+    user-select: none;
 }
 
 .backButton:hover {
@@ -189,6 +196,7 @@ a {
     top: 1px;
     left: 1px;
     opacity: 80%;
+    user-select: none;
 }
 
 .deleteButton:hover {
@@ -222,6 +230,7 @@ a {
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 50px;
+    user-select: none;
 }
 
 .selection:focus {
@@ -267,6 +276,7 @@ a {
     padding: 20px;
     margin-top: 20px;
     font-family: "Nunito", sans-serif;
+    margin-left: 0.5rem;
 }
 
 .grid_item:hover {
@@ -466,6 +476,7 @@ a {
     -ms-transition: background-color 300ms linear;
     -o-transition: background-color 300ms linear;
     -ms-transition: background-color 300ms linear;
+    user-select: none;
 }
 
 .useQuotesButton:hover,
@@ -499,7 +510,7 @@ a {
 
 .optionsClosed {
     border-bottom: none;
-    border-color: none;
+    border-color: transparent;
     border-bottom-right-radius: 10px;
 }
 
@@ -614,6 +625,24 @@ a {
     word-wrap: break-word;
 }
 
+.showCorrectWord {
+    font-family: "Nunito";
+    background-color: rgb(175, 182, 255);
+    border: solid;
+    border-color: rgb(123, 134, 255);
+    border-radius: 3px;
+    padding: 0px 4px;
+    margin: 0px 6px 0px 2px;
+    word-wrap: break-word;
+    display: inline-block;
+    user-select: none;
+}
+
+.showCorrectWord:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
 .exportData>textarea,
 #import {
     width: 100%;
@@ -654,6 +683,7 @@ a {
     100% {
         opacity: 0;
     }
+
 }
 
 /* Changes to be made on elements when printing */
@@ -702,4 +732,103 @@ a {
         font-size: 12px;
         margin-top: 1px;
     }
+
+}
+
+@media screen and (max-width: 653px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid_item {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #addQuote {
+        width: 90%;
+    }
+
+    /* Make optimizations for phones */
+    .quoteForm {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .quoteShow {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .quoteCheck {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .quoteBox {
+        padding-bottom: 20px;
+    }
+
+    .optionButtonText, .optionButtonText, .optionText, .quote {
+        width: 100%;
+    }
+
+    .title {
+        font-size: 50px;
+        padding-top: 3.5rem;
+    }
+
+    .submitButton {
+        width: 90%;
+    }
+
+    .description {
+        margin: 10px 10px 10px 10px;
+    }
+}
+
+
+/* Focuses more on QuoteTest */
+@media screen and (max-width: 420px){
+    .quoteBox > h1 {
+        padding-top: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 300px) {
+
+    .grid_item {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .title {
+        font-size: 40px;
+        padding-top: 3.5rem;
+    }
+
+    .quoteForm {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .quoteShow {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .quoteCheck {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .quoteBox {
+        padding-bottom: 20px;
+    }
+
+    .optionButtonText, .optionButtonText, .optionText, .quote {
+        width: 100%;
+    }
+
+
 }
