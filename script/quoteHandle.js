@@ -55,6 +55,7 @@
     }
 
     function removeWords(randomInput, index, quoteIndex) {
+        // console.log(inputdata)
         // Initialise array
         if (inputdata[quoteIndex] === undefined) {
             inputdata[quoteIndex] = {};
@@ -96,7 +97,7 @@
 
         // console.log(removedWord)
 
-        // // console.log(elementQuote)
+        // console.log(elementQuote)
 
         // console.log("Includes input?? " + removedWord.includes("<input"))
 
@@ -358,21 +359,30 @@
             // console.log(elementQuote)
 
 
-            // Randomly remove certain amount of words from the quote
+            // Filter out elements that are not words and map to their indices in elementQuote
+            var wordIndices = elementQuote
+                .map(function(element, index) { return { element: element, index: index }; })
+                .filter(function(item) {
+                    return typeof item.element === 'string' && item.element.trim() !== '' && !containsSpecialCharacters(item.element);
+                })
+                .map(function(item) { return item.index; });
+
+            // Calculate the number of words to remove based on the number of words
             if (intensity < 10) {
-                var wordsRemoved = Math.ceil(elementQuote.length * (intensity / 100));
+                var wordsRemoved = Math.ceil(wordIndices.length * (intensity / 100));
+            } else if (intensity < 100) {
+                var wordsRemoved = Math.floor(wordIndices.length * (intensity / 100));
+            } else {
+                var wordsRemoved = Math.round(wordIndices.length * (intensity / 100));
             }
-            else {
-                var wordsRemoved = Math.floor(elementQuote.length * (intensity / 100));
-            }
 
-
-            // console.log("Removing: " + wordsRemoved + " words" + " from " + elementQuote.length + " words")
-
+            // console.log("Removing: " + wordsRemoved + " words" + " from " + wordIndices.length + " words");
 
             for (var j = 0; j < wordsRemoved; j++) {
-                var random = Math.floor(Math.random() * elementQuote.length);
+                var randomIndex = Math.floor(Math.random() * wordIndices.length);
+                var random = wordIndices[randomIndex];
                 removeWords(random, j, i);
+                wordIndices.splice(randomIndex, 1); // Remove the index from wordIndices so it's not selected again
             }
 
 
