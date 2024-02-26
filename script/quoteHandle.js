@@ -392,7 +392,7 @@
                         var i = input.id.split("-")[1];
 
                         // Alert the correct word
-                        alert('Correct Word: "' + inputdata[i][index] + '"');
+                        alert('Correct Word: "' + inputdata[i][index] + '"'); // POPUP THIS
 
                     });
 
@@ -489,11 +489,11 @@
 
             // Filter out elements that are not words and map to their indices in elementQuote
             var wordIndices = elementQuote
-                .map(function(element, index) { return { element: element, index: index }; })
-                .filter(function(item) {
+                .map(function (element, index) { return { element: element, index: index }; })
+                .filter(function (item) {
                     return typeof item.element === 'string' && item.element.trim() !== '' && !containsSpecialCharacters(item.element);
                 })
-                .map(function(item) { return item.index; });
+                .map(function (item) { return item.index; });
 
             // Calculate the number of words to remove based on the number of words
             if (intensity < 10) {
