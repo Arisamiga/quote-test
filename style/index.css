@@ -736,6 +736,15 @@ a {
 }
 
 @media screen and (max-width: 653px) {
+    .popupContent {
+        width: 90vw;
+        height: 50vh;
+    }
+
+    .popupTitle {
+        font-size: 30px;
+    }
+
     .grid {
         grid-template-columns: 1fr;
     }
@@ -769,7 +778,10 @@ a {
         padding-bottom: 20px;
     }
 
-    .optionButtonText, .optionButtonText, .optionText, .quote {
+    .optionButtonText,
+    .optionButtonText,
+    .optionText,
+    .quote {
         width: 100%;
     }
 
@@ -789,8 +801,8 @@ a {
 
 
 /* Focuses more on QuoteTest */
-@media screen and (max-width: 420px){
-    .quoteBox > h1 {
+@media screen and (max-width: 420px) {
+    .quoteBox>h1 {
         padding-top: 3.5rem;
     }
 }
@@ -826,7 +838,10 @@ a {
         padding-bottom: 20px;
     }
 
-    .optionButtonText, .optionButtonText, .optionText, .quote {
+    .optionButtonText,
+    .optionButtonText,
+    .optionText,
+    .quote {
         width: 100%;
     }
 

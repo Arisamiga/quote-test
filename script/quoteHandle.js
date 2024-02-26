@@ -392,7 +392,7 @@
                         var i = input.id.split("-")[1];
 
                         // Alert the correct word
-                        alert('Correct Word: "' + inputdata[i][index] + '"'); // POPUP THIS
+                        createPopup("ok", "info", 'Correct Word: "' + inputdata[i][index] + '"'); // POPUP THIS
 
                     });
 
