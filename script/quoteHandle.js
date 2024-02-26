@@ -9,9 +9,119 @@
         },
     });
 
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
     var url = new URL(window.location.href);
     var quotes = url.searchParams.get("quotes");
     var currentPage = url.pathname.split("/").pop().split(".")[0];
+
+    function createPopup(buttons, type, content) {
+        return new Promise((resolve, reject) => {
+            const popup = document.getElementById("popup")
+            const button1 = document.getElementById("button1")
+            const button2 = document.getElementById("button2")
+            const button3 = document.getElementById("button3")
+            const title = document.getElementById("popupTitle")
+            const text = document.getElementById("popupText")
+            const popupContent = document.getElementById("popupContent")
+            popup.style.overflow = "auto"
+            document.body.style.overflow = "hidden"
+            if (buttons === "yn") {
+                button1.style.display = "block"
+                button2.style.display = "block"
+                button1.innerHTML = "Yes"
+                button2.innerHTML = "No"
+                button1.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup()
+                });
+                button2.addEventListener("click", () => {
+                    resolve(false);
+                    closePopup()
+                });
+            }
+            else if (buttons === "ok") {
+                button1.style.display = "block"
+                button1.innerHTML = "OK"
+                button1.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup()
+                })
+            }
+            else if (buttons === "blank") {
+            }
+            else if (buttons === "force") {
+                button1.style.display = "block";
+                button2.style.display = "block";
+                button1.innerHTML = "OK";
+                button2.innerHTML = "Complete Anyway";
+                button1.addEventListener("click", () => {
+                    resolve(false)
+                    closePopup();
+                })
+                button2.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup();
+                })
+            }
+            else {
+                button1.style.display = "block"
+                button1.innerHTML = "debug: Invalid Button Type!!"
+            }
+
+            if (type === "info") {
+                title.innerHTML = "ℹ️ Information"
+                title.style.color = "#67f5ff"
+            }
+            else if (type === "caution") {
+                title.innerHTML = "⚠️Caution";
+                title.style.color = "#ffdf77";
+            }
+            else if (type === "warning") {
+                title.innerHTML = "❗ Warning";
+                title.style.color = "#cd1000"
+            }
+            else if (type === "error") {
+                title.innerHTML = "❗ Error";
+                title.style.color = "#cd1000";
+            }
+            else {
+                title.innerHTML = type;
+            }
+            text.innerHTML = content;
+            popup.style.display = "block"
+            window.addEventListener("click", (event) => {
+                if (event.target == popup) {
+                    closePopup();
+                }
+            }
+            )
+            const closeBtn = document.getElementById("closePopup")
+            function closePopup() {
+                popup.style.overflow = "hidden";
+                popupContent.style.animation = "contentOut 0.6s";
+                popup.style.animation = "bgOut 0.6s";
+                popup.addEventListener("animationend", (event) => {
+                    if (event.animationName === "bgOut") {
+                        popup.style.display = "none"
+                        button1.style.display = "none";
+                        button2.style.display = "none";
+                        button3.style.display = "none";
+                        popup.style.animation = "";
+                        popupContent.style.animation = "";
+                        document.body.style.overflow = "auto";
+                    }
+                })
+            }
+            closeBtn.addEventListener("click", () => {
+                closePopup()
+            })
+        });
+    }
+
+
 
     // console.log(quotes)
     function handleResults(score, length) {
@@ -155,7 +265,7 @@
 
             // If quotes are empty
             if (quoteArray.join("").trim().replaceAll(" ", "") === "") {
-                alert("Please make sure you submit some quotes.");
+                createPopup("ok", "caution", "Please make sure you submit some quotes!")
                 return;
             }
 
@@ -209,7 +319,7 @@
         var submitButton = document.getElementsByClassName("submitButton")[0];
 
         // Submit Button Listener
-        submitButton.addEventListener("click", function () {
+        submitButton.addEventListener("click", async function () {
             // console.log("Click")
             var results = {};
 
@@ -217,9 +327,25 @@
             var quotes = document.getElementsByClassName("quoteCheck");
             for (var i = 0; i < quotes.length; i++) {
                 if (quotes[i].value === "") {
-                    alert("Please fill in all the words to see your score.");
-                    return;
-                }
+                    var result = await createPopup("force", "caution", "Please fill in all the words to see your score.")
+
+                    // console.log(result)
+                    await delay(700);
+                    if (result == true) {
+                        var confirmation = await createPopup("yn", "warning", "Are you sure?")
+                        if (confirmation == true) {
+                            break;
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                    else {
+                        return;
+                    }
+
+                };
+
             }
 
             // Check if all inputs are correct
@@ -236,6 +362,10 @@
                 // console.log(inputdata)
                 // console.log("Quote: " + quote.value + " Input: " + inputdata[i][index]);
                 quote.value = quote.value.replaceAll(" ", "");
+                // console.log("quote: " + quote.value)
+                if (!quote.value) {
+                    quote.value = ""
+                }
 
                 if (quote.value.toLowerCase() !== inputdata[i][index].toLowerCase()) {
                     results[i][index] = false;
@@ -264,7 +394,7 @@
                         var i = input.id.split("-")[1];
 
                         // Alert the correct word
-                        alert('Correct Word: "' + inputdata[i][index] + '"');
+                        createPopup("ok", "info", 'Correct Word: "' + inputdata[i][index] + '"');
 
                     });
 
@@ -361,11 +491,11 @@
 
             // Filter out elements that are not words and map to their indices in elementQuote
             var wordIndices = elementQuote
-                .map(function(element, index) { return { element: element, index: index }; })
-                .filter(function(item) {
+                .map(function (element, index) { return { element: element, index: index }; })
+                .filter(function (item) {
                     return typeof item.element === 'string' && item.element.trim() !== '' && !containsSpecialCharacters(item.element);
                 })
-                .map(function(item) { return item.index; });
+                .map(function (item) { return item.index; });
 
             // Calculate the number of words to remove based on the number of words
             if (intensity < 10) {
