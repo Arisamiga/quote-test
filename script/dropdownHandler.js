@@ -225,7 +225,7 @@
         text.innerHTML = content;
         popup.style.display = "block"
         window.addEventListener("click", (event) => {
-            console.log(event)
+            // console.log(event)
             if (event.target == popup) {
                 closePopup();
             }

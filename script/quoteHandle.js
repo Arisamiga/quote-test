@@ -327,7 +327,7 @@
                 if (quotes[i].value === "") {
                     var result = await createPopup("force", "caution", "Please fill in all the words to see your score.")
 
-                    console.log(result)
+                    // console.log(result)
                     await delay(700);
                     if (result == true) {
                         var confirmation = await createPopup("yn", "warning", "Are you sure?")
@@ -360,7 +360,7 @@
                 // console.log(inputdata)
                 // console.log("Quote: " + quote.value + " Input: " + inputdata[i][index]);
                 quote.value = quote.value.replaceAll(" ", "");
-                console.log("quote: " + quote.value)
+                // console.log("quote: " + quote.value)
                 if (!quote.value) {
                     quote.value = ""
                 }
@@ -392,7 +392,7 @@
                         var i = input.id.split("-")[1];
 
                         // Alert the correct word
-                        createPopup("ok", "info", 'Correct Word: "' + inputdata[i][index] + '"'); // POPUP THIS
+                        createPopup("ok", "info", 'Correct Word: "' + inputdata[i][index] + '"');
 
                     });
 
