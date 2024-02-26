@@ -166,17 +166,10 @@
     }
 
 
-    const debugBtn1 = document.getElementById("debugBtn1")
-    const debugBtn2 = document.getElementById("debugBtn2")
-    const debugBtn3 = document.getElementById("debugBtn3")
-    debugBtn1.addEventListener("click", () => {
+    const timerBtn1 = document.getElementById("timerBtn1")
+
+    timerBtn1.addEventListener("click", () => {
         createPopup("blank", "info", "The timer feature has not been implemented yet!")
-    })
-    debugBtn2.addEventListener("click", () => {
-        createPopup("yn", "caution", "The timer feature has not been implemented yet!")
-    })
-    debugBtn3.addEventListener("click", () => {
-        createPopup("bruh", "warning", "The timer feature has not been implemented yet!")
     })
 
 
@@ -334,20 +327,20 @@
         </div>
     </div>
         `
-        selectionData.innerHTML = html;
+            selectionData.innerHTML = html;
 
-        let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
-        selectionData.style.minHeight = `${estimatedHeight}px`;
-        selectionData.style.maxHeight = `${estimatedHeight}px`;
-
-        window.addEventListener('resize', function() {
-            selectionData.style.minHeight = `unset`;
-            selectionData.style.maxHeight = `unset`;
             let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
             selectionData.style.minHeight = `${estimatedHeight}px`;
             selectionData.style.maxHeight = `${estimatedHeight}px`;
-        });
-    }
+
+            window.addEventListener('resize', function () {
+                selectionData.style.minHeight = `unset`;
+                selectionData.style.maxHeight = `unset`;
+                let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
+                selectionData.style.minHeight = `${estimatedHeight}px`;
+                selectionData.style.maxHeight = `${estimatedHeight}px`;
+            });
+        }
         if (selectedOption == "Own") {
             var data = localStorage.getItem("collections") ?? null;
             var html;
@@ -526,7 +519,7 @@
                     if (textarea.value.trim() == "") return;
 
                     if (collection.name == null || collection.quotes == null || collection.date == null) {
-                        alert("Invalid Collection Data");
+                        createPopup("ok", "error", "Invalid Collection Data!");
                         return;
                     }
 
@@ -639,7 +632,7 @@
         }
     });
 
-window.onload = function() {
-    setCurrentOption();
-}
+    window.onload = function () {
+        setCurrentOption();
+    }
 })();
