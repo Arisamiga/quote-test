@@ -27,6 +27,7 @@
             const text = document.getElementById("popupText")
             const popupContent = document.getElementById("popupContent")
             popup.style.overflow = "auto"
+            document.body.style.overflow = "hidden"
             if (buttons === "yn") {
                 button1.style.display = "block"
                 button2.style.display = "block"
@@ -110,6 +111,7 @@
                         button3.style.display = "none";
                         popup.style.animation = "";
                         popupContent.style.animation = "";
+                        document.body.style.overflow = "auto";
                     }
                 })
             }
