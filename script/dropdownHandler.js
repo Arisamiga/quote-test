@@ -211,19 +211,19 @@
         }
 
         if (type === "info") {
-            title.innerHTML = "Information"
+            title.innerHTML = "ℹ️ Information";
             title.style.color = "#67f5ff"
         }
         else if (type === "caution") {
-            title.innerHTML = "Caution";
+            title.innerHTML = "⚠️Caution";
             title.style.color = "#ffdf77";
         }
         else if (type === "warning") {
-            title.innerHTML = "Warning";
+            title.innerHTML = "❗ Warning";
             title.style.color = "#cd1000"
         }
         else if (type === "error") {
-            title.innerHTML = "Error";
+            title.innerHTML = "❗ Error";
             title.style.color = "#cd1000";
         }
         else {
