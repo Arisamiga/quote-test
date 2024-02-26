@@ -467,6 +467,13 @@
                         collections = JSON.parse(decodeURIComponent(atob(dataCollections)))
                     }
 
+                    // Check if collection already exists
+                    if (collections[collectionName] != null) {
+                        if (!confirm("Collection already exists. Overwrite?")) {
+                            return;
+                        }
+                    }
+
                     collections[collectionName] = {
                         quotes: quoteArray,
                         date: new Date().toLocaleDateString()
