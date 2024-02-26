@@ -525,6 +525,7 @@ a {
     transition-duration: 0.4s;
     max-height: 0;
     overflow: hidden;
+    list-style-type: none;
 }
 
 .collectionName {
