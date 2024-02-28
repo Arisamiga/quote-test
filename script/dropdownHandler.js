@@ -175,84 +175,107 @@
 
 
     function createPopup(buttons, type, content) {
-        const popup = document.getElementById("popup")
-        const button1 = document.getElementById("button1")
-        const button2 = document.getElementById("button2")
-        const button3 = document.getElementById("button3")
-        const title = document.getElementById("popupTitle")
-        const text = document.getElementById("popupText")
-        const popupContent = document.getElementById("popupContent")
-        popup.style.overflow = "auto"
-        document.body.style.overflow = "hidden"
-        if (buttons === "yn") {
-            button1.style.display = "block"
-            button2.style.display = "block"
-            button1.innerHTML = "Yes"
-            button2.innerHTML = "No"
-        }
-        else if (buttons === "ok") {
-            button1.style.display = "block"
-            button1.innerHTML = "OK"
-            button1.addEventListener("click", () => {
+        return new Promise((resolve) => {
+            const popup = document.getElementById("popup")
+            const button1 = document.getElementById("button1")
+            const button2 = document.getElementById("button2")
+            const button3 = document.getElementById("button3")
+            const title = document.getElementById("popupTitle")
+            const text = document.getElementById("popupText")
+            const popupContent = document.getElementById("popupContent")
+            popup.style.overflow = "auto"
+            document.body.style.overflow = "hidden"
+            if (buttons === "yn") {
+                button1.style.display = "block"
+                button2.style.display = "block"
+                button1.innerHTML = "Yes"
+                button2.innerHTML = "No"
+                button1.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup()
+                });
+                button2.addEventListener("click", () => {
+                    resolve(false);
+                    closePopup()
+                });
+            }
+            else if (buttons === "ok") {
+                button1.style.display = "block"
+                button1.innerHTML = "OK"
+                button1.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup()
+                })
+            }
+            else if (buttons === "blank") {
+            }
+            else if (buttons === "force") {
+                button1.style.display = "block";
+                button2.style.display = "block";
+                button1.innerHTML = "OK";
+                button2.innerHTML = "Complete Anyway";
+                button1.addEventListener("click", () => {
+                    resolve(false)
+                    closePopup();
+                })
+                button2.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup();
+                })
+            }
+            else {
+                button1.style.display = "block"
+                button1.innerHTML = "debug: Invalid Button Type!!"
+            }
+
+            if (type === "info") {
+                title.innerHTML = "ℹ️ Information"
+                title.style.color = "#67f5ff"
+            }
+            else if (type === "caution") {
+                title.innerHTML = "⚠️Caution";
+                title.style.color = "#ffdf77";
+            }
+            else if (type === "warning") {
+                title.innerHTML = "❗ Warning";
+                title.style.color = "#cd1000"
+            }
+            else if (type === "error") {
+                title.innerHTML = "❗ Error";
+                title.style.color = "#cd1000";
+            }
+            else {
+                title.innerHTML = type;
+            }
+            text.innerHTML = content;
+            popup.style.display = "block"
+            window.addEventListener("click", (event) => {
+                if (event.target == popup) {
+                    closePopup();
+                }
+            }
+            )
+            const closeBtn = document.getElementById("closePopup")
+            function closePopup() {
+                popup.style.overflow = "hidden";
+                popupContent.style.animation = "contentOut 0.6s";
+                popup.style.animation = "bgOut 0.6s";
+                popup.addEventListener("animationend", (event) => {
+                    if (event.animationName === "bgOut") {
+                        popup.style.display = "none"
+                        button1.style.display = "none";
+                        button2.style.display = "none";
+                        button3.style.display = "none";
+                        popup.style.animation = "";
+                        popupContent.style.animation = "";
+                        document.body.style.overflow = "auto";
+                    }
+                })
+            }
+            closeBtn.addEventListener("click", () => {
                 closePopup()
             })
-        }
-        else if (buttons === "blank") {
-        }
-        else {
-            button1.style.display = "block"
-            button1.innerHTML = "debug: Invalid Button Type!!"
-        }
-
-        if (type === "info") {
-            title.innerHTML = "ℹ️ Information";
-            title.style.color = "#67f5ff"
-        }
-        else if (type === "caution") {
-            title.innerHTML = "⚠️Caution";
-            title.style.color = "#ffdf77";
-        }
-        else if (type === "warning") {
-            title.innerHTML = "❗ Warning";
-            title.style.color = "#cd1000"
-        }
-        else if (type === "error") {
-            title.innerHTML = "❗ Error";
-            title.style.color = "#cd1000";
-        }
-        else {
-            title.innerHTML = type;
-        }
-        text.innerHTML = content;
-        popup.style.display = "block"
-        window.addEventListener("click", (event) => {
-            // console.log(event)
-            if (event.target == popup) {
-                closePopup();
-            }
-        }
-        )
-        const closeBtn = document.getElementById("closePopup")
-        function closePopup() {
-            popup.style.overflow = "hidden";
-            popupContent.style.animation = "contentOut 0.6s";
-            popup.style.animation = "bgOut 0.6s";
-            popup.addEventListener("animationend", (event) => {
-                if (event.animationName === "bgOut") {
-                    popup.style.display = "none"
-                    button1.style.display = "none";
-                    button2.style.display = "none";
-                    button3.style.display = "none";
-                    popup.style.animation = "";
-                    popupContent.style.animation = "";
-                    document.body.style.overflow = "auto";
-                }
-            })
-        }
-        closeBtn.addEventListener("click", () => {
-            closePopup()
-        })
-
+        });
     }
 
 
@@ -453,7 +476,7 @@
                 });
 
                 const saveButton = document.getElementsByClassName("saveTo")[0]
-                saveButton.addEventListener("click", (event) => {
+                saveButton.addEventListener("click", async (event) => {
                     if (saveButton.classList.contains("saveToDisabled")) {
                         return;
                     }
@@ -471,10 +494,11 @@
 
                     // Check if collection already exists
                     if (collections[collectionName] != null) {
-                        if (!confirm("Collection already exists. Overwrite?")) {
+                        if (!await createPopup("yn", "warning", "Collection already exists. Overwrite?")) {
                             return;
                         }
                     }
+                    // createPopup("yn", "warning", "Collection already exists. Overwrite?") == true
 
                     collections[collectionName] = {
                         quotes: quoteArray,
@@ -513,7 +537,7 @@
                 });
 
                 const importCollection = document.getElementById("importBtn");
-                importCollection.addEventListener("click", (event) => {
+                importCollection.addEventListener("click", async (event) => {
                     const textarea = document.getElementById("import");
                     try {
                         const decodedString = atob(textarea.value);
@@ -542,7 +566,7 @@
 
                     // Check if collection already exists
                     if (collections[collection.name] != null) {
-                        if (!confirm("Collection already exists. Overwrite?")) {
+                        if (!await createPopup("yn", "warning", "Collection already exists. Overwrite?")) {
                             return;
                         }
                     }

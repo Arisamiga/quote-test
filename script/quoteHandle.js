@@ -18,7 +18,7 @@
     var currentPage = url.pathname.split("/").pop().split(".")[0];
 
     function createPopup(buttons, type, content) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const popup = document.getElementById("popup")
             const button1 = document.getElementById("button1")
             const button2 = document.getElementById("button2")
