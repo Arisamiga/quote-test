@@ -4,6 +4,12 @@ var intensity = document.getElementById("intensityRange")
 var intensityOutput = document.getElementById("intensityValue")
 intensityOutput.innerHTML = intensity.value;
 
+// Set the value of the range to the value stored in the local storage
+if (localStorage.getItem("intensity") !== null) {
+    intensity.value = localStorage.getItem("intensity");
+    intensityOutput.innerHTML = localStorage.getItem("intensity");
+}
+
 intensity.oninput = function () {
     intensityOutput.innerHTML = this.value;
     localStorage.setItem("intensity", this.value);
