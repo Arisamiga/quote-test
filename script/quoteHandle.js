@@ -132,33 +132,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function addQuoteElement(quoteList, quotes) {
-        var container = document.createElement("div");
-        container.setAttribute("class", "quoteContainer");
-        quoteList.appendChild(container);
-
-
-        var template = document.createElement("textarea");
-        template.setAttribute("class", "quote");
-        template.setAttribute("rows", "4");
-        template.setAttribute("cols", "50");
-        template.setAttribute("placeholder", "Quote");
-        template.value = quotes;
-        container.appendChild(template);
-
-
-        // Add a button to also be able to delete the quote
-        var deleteButton = document.createElement("button");
-        deleteButton.setAttribute("class", "deleteButton");
-        deleteButton.innerHTML = "🗑️";
-        deleteButton.addEventListener("click", function () {
-            var container = this.parentNode;
-            container.removeChild(this.previousSibling);
-            container.removeChild(this);
-        });
-        container.appendChild(deleteButton);
-    }
-
     function containsSpecialCharacters(word) {
         var specialCharacters = /([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g;
         return specialCharacters.test(word);
@@ -218,92 +191,7 @@
         quoteList.appendChild(template);
     }
 
-
-
-    if (quotes === null && (currentPage === "index" || currentPage === "")) {
-        var intensity = document.getElementById("intensityRange")
-        var intensityOutput = document.getElementById("intensityValue")
-        intensityOutput.innerHTML = intensity.value;
-
-        intensity.oninput = function () {
-            intensityOutput.innerHTML = this.value;
-
-            // console.log(this.value);
-
-        }
-        // Check if LocalStorage has any quotes
-        var data = localStorage.getItem('quotes') ?? null;
-
-        if (data !== null && data.length > 0) {
-            // Quotes Exist show them
-            // First empty the quoteList
-            var quoteList = document.getElementById("quoteList");
-            quoteList.innerHTML = "";
-            var quotes = JSON.parse(decodeURIComponent(atob(data)));
-
-            for (var i = 0; i < quotes.length; i++) {
-                addQuoteElement(quoteList, quotes[i]);
-            }
-        }
-
-        var intensitySetting = localStorage.getItem("intensity") ?? 50;
-        intensity.value = intensitySetting;
-        intensityOutput.innerHTML = intensitySetting;
-
-        document.getElementById("addQuote").addEventListener("click", function () {
-            var quoteList = document.getElementById("quoteList");
-            // var template = '<textarea class="quote" rows="4" cols="50" placeholder="Quote"></textarea>'
-            addQuoteElement(quoteList, "");
-        });
-
-        document.getElementById("submitQuotes").addEventListener("click", function () {
-            var quotes = document.getElementsByClassName("quote");
-            var quoteArray = [];
-            for (var i = 0; i < quotes.length; i++) {
-                quoteArray.push(quotes[i].value);
-            }
-
-            // If quotes are empty
-            if (quoteArray.join("").trim().replaceAll(" ", "") === "") {
-                createPopup("ok", "caution", "Please make sure you submit some quotes!")
-                return;
-            }
-
-            localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
-            localStorage.setItem("intensity", intensity.value)
-
-            window.location.href = "quoteTest.html?quotes=true";
-        });
-
-        var optionText = document.getElementsByClassName("optionText")[0]
-        var optionField = document.getElementsByClassName("optionsField")[0]
-
-        optionText.addEventListener("click", function (element) {
-            // console.log("Click")
-            if (element.target.innerHTML.includes("▼")) {
-                element.target.innerHTML = "⚙️ Options ▲";
-                optionField.style.maxHeight = "200px";
-                optionField.style.padding = "10px";
-                optionText.classList.remove("optionsClosed");
-                optionText.classList.add("optionsOpened");
-
-            }
-            else {
-                element.target.innerHTML = "⚙️ Options ▼";
-                optionField.style.maxHeight = "0";
-                optionField.style.padding = "0";
-                optionField.style.margin = "0";
-                // Wait for the transition to finish
-                optionField.addEventListener("transitionend", function (event) {
-
-                    if (event.propertyName === "max-height" && event.target.style.maxHeight === "0px") {
-                        optionText.classList.remove("optionsOpened");
-                        optionText.classList.add("optionsClosed");
-                    }
-                });
-            }
-        });
-    } else if (currentPage === "quoteTest" && quotes !== null) {
+    if (currentPage === "quoteTest" && quotes !== null) {
         // Is the quoteTest page
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
         var intensity = localStorage.getItem("intensity")
@@ -408,15 +296,7 @@
 
             // Calculate Score and show it
             var score = 0;
-            // console.log("Lenght: " + Object.keys(results).length)
-            // for (var j = 0; j < quotes.length; j++) {
-            //     var quote = quotes[j];
-            //     var index = quote.id.split("-")[2];
-            //     var i = quote.id.split("-")[1];
-            //     if (results[i][index] === true) {
-            //         score++;
-            //     }
-            // }
+            
             for (var key in results) {
                 var allTrue = true;
                 for (var key2 in results[key]) {
