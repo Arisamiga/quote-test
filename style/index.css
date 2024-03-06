@@ -735,6 +735,10 @@ a {
         margin-top: 1px;
     }
 
+    .footer {
+        display: none;
+    }
+
 }
 
 @media screen and (max-width: 653px) {
