@@ -169,7 +169,7 @@ document.getElementById("submitQuotes").addEventListener("click", function () {
     localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
 
 
-    let newOptions = JSON.parse(localStorage.getItem("options"))
+    let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
 
     newOptions.intensity = intensitySetting;
 
