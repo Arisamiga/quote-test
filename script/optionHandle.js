@@ -50,3 +50,9 @@ optionText.addEventListener("click", function (element) {
     }
 });
 })();
+
+const timerBtn1 = document.getElementById("timerBtn1")
+
+timerBtn1.addEventListener("click", () => {
+    createPopup("blank", "info", "The timer feature has not been implemented yet!")
+})
