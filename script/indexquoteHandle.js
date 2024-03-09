@@ -153,7 +153,7 @@ document.getElementById("addQuote").addEventListener("click", function () {
 });
 
 document.getElementById("submitQuotes").addEventListener("click", function () {
-    var intensitySetting = localStorage.getItem("intensity") ?? 50;
+    var intensitySetting = JSON.parse(localStorage.getItem("options")).intensity ?? 50;
     var quotes = document.getElementsByClassName("quote");
     var quoteArray = [];
     for (var i = 0; i < quotes.length; i++) {
@@ -167,7 +167,13 @@ document.getElementById("submitQuotes").addEventListener("click", function () {
     }
 
     localStorage.setItem("quotes", btoa(encodeURIComponent(JSON.stringify(quoteArray))));
-    localStorage.setItem("intensity", intensitySetting)
+
+
+    let newOptions = JSON.parse(localStorage.getItem("options"))
+
+    newOptions.intensity = intensitySetting;
+
+    localStorage.setItem("options", JSON.stringify(newOptions));
 
     window.location.href = "quoteTest.html?quotes=true";
 });

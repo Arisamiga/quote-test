@@ -5,14 +5,18 @@ var intensityOutput = document.getElementById("intensityValue")
 intensityOutput.innerHTML = intensity.value;
 
 // Set the value of the range to the value stored in the local storage
-if (localStorage.getItem("intensity") !== null) {
-    intensity.value = localStorage.getItem("intensity");
-    intensityOutput.innerHTML = localStorage.getItem("intensity");
+if (localStorage.getItem("options") !== null) {
+    intensity.value = JSON.parse(localStorage.getItem("options")).intensity;
+    intensityOutput.innerHTML = JSON.parse(localStorage.getItem("options")).intensity;
 }
 
 intensity.oninput = function () {
     intensityOutput.innerHTML = this.value;
-    localStorage.setItem("intensity", this.value);
+    let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
+
+    newOptions.intensity = this.value;
+
+    localStorage.setItem("options", JSON.stringify(newOptions));
     // console.log(this.value);
 
 }

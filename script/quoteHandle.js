@@ -194,7 +194,7 @@
     if (currentPage === "quoteTest" && quotes !== null) {
         // Is the quoteTest page
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
-        var intensity = localStorage.getItem("intensity")
+        var intensity = JSON.parse(localStorage.getItem("options")).intensity
         var inputdata = {};
 
         if (data === null) {
