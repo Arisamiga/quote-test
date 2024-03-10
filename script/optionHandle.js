@@ -137,7 +137,17 @@ if (localStorage.getItem("options") !== null) {
 
         const timerText = document.createElement("div")
         timerText.classList.add("timerText");
-        timerText.innerHTML = `Timer Enabled: ${JSON.parse(localStorage.getItem("options")).timer} seconds`;
+
+        const num = JSON.parse(localStorage.getItem("options")).timer
+
+        // Turn num to minutes if it's greater than 60
+        if (num >= 60) {
+            timerText.innerHTML = `Timer Enabled: ${Math.floor(num / 60)} minutes and ${num % 60} seconds`;
+        }
+        else {
+            timerText.innerHTML = `Timer Enabled: ${num} seconds`;
+        }
+        
         optionField.appendChild(timerText);
 
         document.getElementById("timerBtn1").innerHTML = "Edit Timer";
@@ -260,7 +270,15 @@ timerBtn1.addEventListener("click", () => {
 
         const timerText = document.createElement("div")
         timerText.classList.add("timerText");
-        timerText.innerHTML = `Timer Enabled: ${num} seconds`;
+
+        // Turn num to minutes if it's greater than 60
+        if (num >= 60) {
+            timerText.innerHTML = `Timer Enabled: ${Math.floor(num / 60)} minutes and ${num % 60} seconds`;
+        }
+        else {
+            timerText.innerHTML = `Timer Enabled: ${num} seconds`;
+        }
+
         optionField.appendChild(timerText);
 
         let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
