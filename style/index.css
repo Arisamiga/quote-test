@@ -749,6 +749,10 @@ a {
     align-items: center;
 }
 
+#timer {
+    margin-top: 1rem;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

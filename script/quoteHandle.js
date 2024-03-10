@@ -205,6 +205,7 @@
 
         // Setup Listeners
         var submitButton = document.getElementsByClassName("submitButton")[0];
+        var forcedSubmit = false;
 
         // Submit Button Listener
         submitButton.addEventListener("click", async function () {
@@ -214,7 +215,7 @@
             // Check if all inputs are filled
             var quotes = document.getElementsByClassName("quoteCheck");
             for (var i = 0; i < quotes.length; i++) {
-                if (quotes[i].value === "") {
+                if (quotes[i].value === "" && !forcedSubmit) {
                     var result = await createPopup("force", "caution", "Please fill in all the words to see your score.")
 
                     // console.log(result)
@@ -235,6 +236,9 @@
                 };
 
             }
+
+            // Reset the flag to false after handling the click
+            skipModal = false;
 
             // Check if all inputs are correct
             for (var j = 0; j < quotes.length; j++) {
@@ -318,6 +322,7 @@
             window.location.href = "index.html";
         });
 
+
         // Quote Setup Sequence
         var quotes = JSON.parse(data);
         var quoteList = document.getElementById("quoteList");
@@ -399,6 +404,26 @@
         }
         // console.log("---- Quotes ----")
         // console.log(quotes)
+
+
+        // Check If Timer is enabled
+        if (localStorage.getItem("options") !== null && JSON.parse(localStorage.getItem("options")).timer) {
+            console.log("Timer Enabled")
+            var timer = JSON.parse(localStorage.getItem("options")).timer;
+            var timerElement = document.getElementById("timer");
+            timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
+            var interval = setInterval(() => {
+                timer--;
+                timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
+                if (timer === 0) {
+                    clearInterval(interval);
+                    forcedSubmit = true;
+                    submitButton.click();
+                    timerElement.innerHTML = "⏲️ Timer: Expired";
+
+                }
+            }, 1000);
+        }
     }
     else {
         var box = document.getElementsByClassName("border-box")[0]
