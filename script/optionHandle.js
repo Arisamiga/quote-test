@@ -51,10 +51,17 @@ function createPopup(buttons, type, content) {
         }
         else if (buttons === "timerSettings") {
             button1.style.display = "block";
-            button1.innerHTML = "OK";
+            button1.innerHTML = "Enable";
 
             button1.addEventListener("click", () => {
                 resolve(true);
+                closePopup();
+            })
+
+            button2.style.display = "block";
+            button2.innerHTML = "Disable";
+            button2.addEventListener("click", () => {
+                resolve(false);
                 closePopup();
             })
         }
@@ -235,11 +242,27 @@ timerBtn1.addEventListener("click", () => {
 
         const timerText = document.createElement("div")
         timerText.classList.add("timerText");
-        timerText.innerHTML = `Timer: ${num} seconds`;
+        timerText.innerHTML = `Timer Enabled: ${num} seconds`;
         optionField.appendChild(timerText);
 
         let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
         newOptions.timer = num;
+
+        localStorage.setItem("options", JSON.stringify(newOptions));
+    });
+
+    var button2 = document.getElementById("button2");
+
+    button2.addEventListener("click", () => {
+        const optionField = document.getElementsByClassName("optionsField")[0];
+
+        if (document.getElementsByClassName("timerText").length > 0) {
+            optionField.removeChild(document.getElementsByClassName("timerText")[0]);
+        }
+
+        // Remove timer from local storage options
+        let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
+        delete newOptions.timer;
 
         localStorage.setItem("options", JSON.stringify(newOptions));
     });
