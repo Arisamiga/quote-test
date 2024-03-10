@@ -667,6 +667,88 @@ a {
     font-family: "Nunito", sans-serif;
 }
 
+.timerInput {
+    width: 60%;
+    height: 57px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    margin: 1rem auto; 
+    text-align: center;
+    display: block;
+    -webkit-appearance: none; 
+    -moz-appearance: textfield;
+}
+
+/* Hide the spinner in WebKit browsers (like Chrome and Safari) */
+.timerInput::-webkit-outer-spin-button,
+.timerInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinner in Firefox */
+.timerInput {
+    -moz-appearance: textfield;
+}
+
+.plus1 {
+    background-color: white;
+    border: 2px solid rgb(87, 62, 230);
+    border-radius: 10px;
+    color: rgb(87, 62, 230);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: "Nunito", sans-serif;
+    font-size: 20px;
+    transition: background-color 300ms linear;
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    user-select: none;
+    margin-right: 10px;
+}
+
+.plus1:hover {
+    cursor: pointer;
+    background-color: #7777ff;
+    color: white;
+}
+
+.minus1 {
+    background-color: white;
+    border: 2px solid rgb(87, 62, 230);
+    border-radius: 10px;
+    color: rgb(87, 62, 230);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: "Nunito", sans-serif;
+    font-size: 20px;
+    transition: background-color 300ms linear;
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    user-select: none;
+}
+
+.minus1:hover {
+    cursor: pointer;
+    background-color: #7777ff;
+    color: white;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
