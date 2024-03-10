@@ -131,6 +131,17 @@ intensityOutput.innerHTML = intensity.value;
 if (localStorage.getItem("options") !== null) {
     intensity.value = JSON.parse(localStorage.getItem("options")).intensity;
     intensityOutput.innerHTML = JSON.parse(localStorage.getItem("options")).intensity;
+
+    if (JSON.parse(localStorage.getItem("options")).timer !== undefined) {
+        const optionField = document.getElementsByClassName("optionsField")[0];
+
+        const timerText = document.createElement("div")
+        timerText.classList.add("timerText");
+        timerText.innerHTML = `Timer Enabled: ${JSON.parse(localStorage.getItem("options")).timer} seconds`;
+        optionField.appendChild(timerText);
+
+        document.getElementById("timerBtn1").innerHTML = "Edit Timer";
+    }
 }
 
 intensity.oninput = function () {
@@ -181,14 +192,21 @@ timerBtn1.addEventListener("click", () => {
     var input = document.createElement("input");
     input.type = "number";
     input.id = "timerInput";
-    input.placeholder = "Enter time in seconds";
-    input.min = "0"; // restrict input to positive numbers
+    input.min = "1"; // restrict input to positive numbers
+
+    if (localStorage.getItem("options") !== null && JSON.parse(localStorage.getItem("options")).timer !== undefined){
+        input.value = JSON.parse(localStorage.getItem("options")).timer;
+        input.placeholder = JSON.parse(localStorage.getItem("options")).timer;
+    }
+    else {
+        input.value = 1;
+        input.placeholder = "1";
+    }
+
+
     input.classList.add("timerInput");
 
     document.getElementById("popupText").appendChild(input);
-
-    // var br = document.createElement("br");
-    // document.getElementById("popupText").appendChild(br);
 
     var buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
@@ -209,9 +227,9 @@ timerBtn1.addEventListener("click", () => {
     plus1.addEventListener("click", () => {
         var num = parseInt(input.value)
 
-        if (isNaN(num) || num < 0) {
-            input.value = 0;
-            num = 0;
+        if (isNaN(num) || num < 1) {
+            input.value = 1;
+            num = 1;
         }
 
         input.value = num + 1;
@@ -220,9 +238,9 @@ timerBtn1.addEventListener("click", () => {
     minus1.addEventListener("click", () => {
         var num = parseInt(input.value)
 
-        if (isNaN(num) || num < 1) {
-            input.value = 1;
-            num = 1;
+        if (isNaN(num) || num < 2) {
+            input.value = 2;
+            num = 2;
         }
 
         input.value = num - 1;
@@ -249,6 +267,7 @@ timerBtn1.addEventListener("click", () => {
         newOptions.timer = num;
 
         localStorage.setItem("options", JSON.stringify(newOptions));
+        document.getElementById("timerBtn1").innerHTML = "Edit Timer";
     });
 
     var button2 = document.getElementById("button2");
@@ -265,6 +284,8 @@ timerBtn1.addEventListener("click", () => {
         delete newOptions.timer;
 
         localStorage.setItem("options", JSON.stringify(newOptions));
+
+        document.getElementById("timerBtn1").innerHTML = "Add Timer";
     });
 
 })
