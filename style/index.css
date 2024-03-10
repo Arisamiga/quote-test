@@ -750,7 +750,20 @@ a {
 }
 
 #timer {
-    margin-top: 1rem;
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    padding: 10px;
+    background-color: #3f3e3e;
+    border: 2px solid rgb(44 43 43);
+    border-radius: 10px;
+    color: rgb(255 255 255);
+    font-family: "Nunito", sans-serif;
+    font-size: 20px;
+    opacity: 95%;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+    user-select: none;
+
 }
 
 @keyframes fadeIn {
