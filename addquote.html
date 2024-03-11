@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quote Test: Quote Add</title>
+    <link rel="stylesheet" href="./style/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./images/logo.png">
+
+</head>
+
+<body>
+    <div class="border-box devBox">
+        <h1>Quote Test: Add Quotes</h1>
+        <button class="backButton">&#8592; Go Back</button>
+        This is a 🛠️ <b>Developer Page</b>. It allows the easy creation of quotes for the premade quotes.
+
+        <br>
+        <br>
+
+        <!-- Add a add quote button -->
+        <button id="addQuote">Add Quote</button>
+
+        <br>
+        <br>
+
+        <textarea id="quoteInput" class="quote devquote" placeholder="Enter Quote Here"></textarea>
+
+        <div id="quoteList"></div>
+        <br>
+
+        <div class="flexContainer">
+            <div>
+                <h3>Parsed Input</h3>
+                <textarea id="quoteListParsed" readonly></textarea>
+            </div>
+            <div>
+                <h3>Base64 Encoded</h3>
+                <textarea id="quoteListParsedb64" readonly></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <p><a href="https://arisamiga.rocks/copyright">©</a> 2024 Quote Test</p>
+    </div>
+
+    <script src="./script/devaddquote.js"></script>
+
+    <div id="popup" class="popup">
+        <div id="popupContent" class="popupContent">
+            <span id="closePopup" class="close">&times;</span>
+            <h3 id="popupTitle" class="popupTitle">Information</h3>
+            <p id="popupText" class="popupText">Fallback! Something has gone wrong...</p>
+            <div class="popupOptions">
+                <div id="button1" class="button1">1</div>
+                <div id="button2" class="button2">2</div>
+                <div id="button3" class="button3">3</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

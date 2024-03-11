@@ -667,6 +667,43 @@ a {
     font-family: "Nunito", sans-serif;
 }
 
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    padding-bottom: 3rem;
+}
+
+#quoteListParsed, #quoteListParsedb64{
+    border-radius: 5%;
+    /* Make them adjust the height based on content */
+    height: auto;
+}
+
+.removeQuoteButton {
+    width: 100%;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-family: "Nunito", sans-serif;
+    border: 2px solid rgb(87, 62, 230);
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+}
+
+.removeQuoteButton:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
+.devquote {
+    margin-bottom: -1rem;
+    margin-top: 2rem;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
