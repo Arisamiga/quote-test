@@ -39,6 +39,7 @@
                 "Scene 3": "WyJBIHNvdmVyZWlnbiBzaGFtZSBzbyBlbGJvd3MgaGltLi4uIFRoZXNlIHRoaW5ncyBzdGluZyBoaXMgbWluZCBzbyB2ZW5vbW91c2x5IHRoYXQgYnVybmluZyBzaGFtZSBkZXRhaW5zIGhpbSBmcm9tIENvcmRlbGlhIiwgIlRoZXJlIHNoZSBzaG9vay4gVGhlIGhvbHkgd2F0ZXIgZnJvbSBoZXIgaGVhdmVubHkgZXllcywgYW5kIGNsYW1vciBtb2lzdGVuZWQiLCAiSXQgaXMgdGhlIHN0YXJzLCB0aGUgc3RhcnMgYWJvdmUgdXMsIGdvdmVybiBvdXIgY29uZGl0aW9ucyJd",
                 "Scene 4": "WyJIZSB3YXMgbWV0IGV2ZW4gbm93IGFzIG1hZCBhcyB0aGUgdmV4ZWQgc2VhLCBzaW5naW5nIGFsb3VkLCBjcm93bmVkIHdpdGggcmFuayBmdW1pdGVyIGFuZCBmdXJyb3cgd2VlZHMiLCAiVGlzIGtub3duIGJlZm9yZS4gT3VyIHByZXBhcmF0aW9uIHN0YW5kcyBpbiBleHBlY3RhdGlvbiBvZiB0aGVtIiwgIk8gZGVhciBmYXRoZXIsIGl0IGlzIHRoeSBidXNpbmVzcyB0aGF0IEkgZ28gYWJvdXQiXQ==",
                 "Scene 5": "WyJNYWRhbSwgd2l0aCBtdWNoIGFkby4gWW91ciBzaXN0ZXIgaXMgdGhlIGJldHRlciBzb2xkaWVyIiwgIk15IGxvcmQgaXMgZGVhZDsgRWRtdW5kIGFuZCBJIGhhdmUgdGFsa2VkLCBhbmQgbW9yZSBjb252ZW5pZW50IGlzIGhlIGZvciBteSBoYW5kIHRoYW4gZm9yIHlvdXIgbGFkeSdzIiwgIklmIHlvdSBkbyBjaGFuY2UgdG8gaGVhciBvZiB0aGF0IGJsaW5kIHRyYWl0b3IsIHByZWZlcm1lbnQgZmFsbHMgb24gaGltIHRoYXQgY3V0cyBoaW0gb2ZmIl0=",
+                "Scene 6": "WyJXaHkgSSBkbyB0cmlmbGUgdGh1cyB3aXRoIGhpcyBkZXNwYWlyIGlzIGRvbmUgdG8gY3VyZSBpdCIsICJIZW5jZWZvcnRoLCBJJ2xsIGJlYXIgYWZmbGljdGlvbiB0aWxsIGl0IGRvIGNyeSBpdHNlbGYgb3V0IiwgIlRoZXkgZmxhdHRlcmVkIG1lIGxpa2UgYSBkb2cgYW5kIHRvbGQgbWUgSSBoYWQgd2hpdGUgaGFpcnMgaW4gbXkgYmVhcmQgZXJlIHRoZSBibGFjayBvbmVzIHdlcmUgdGhlcmUiLCAiTyBydWluZWQgcGllY2Ugb2YgbmF0dXJlISBUaGlzIGdyZWF0IHdvcmxkIHNoYWxsIHNvIHdlYXIgb3V0IHRvIG5hdWdodC4gRG9zdCB0aG91IGtub3cgbWU/IiwgIldoZW4gd2UgYXJlIGJvcm4gd2UgY3J5IHRoYXQgd2UgYXJlIGNvbWUgdG8gdGhpcyBncmVhdCBzdGFnZSBvZiBmb29scyIsICJCZXR0ZXIgSSB3ZXJlIGRpc3RyYWN0LCBzbyBzaG91bGQgbXkgdGhvdWdodHMgYmUgc2V2ZXJlZCBmcm9tIG15IGdyaWVmcyIsICJUaGF0IGV5ZWxlc3MgaGVhZCBvZiB0aGluZSB3YXMgZmlyc3QgZnJhbWVkIGZsZXNoIHRvIHJhaXNlIG15IGZvcnR1bmVzIiwgIkxldCBvdXIgcmVjaXByb2NhbCB2b3dzIGJlIHJlbWVtYmVyZWQuIFlvdSBoYXZlIG1hbnkgb3Bwb3J0dW5pdGllcyB0byBjdXQgaGltIG9mZi4gSWYgeW91ciB3aWxsIHdhbnQgbm90LCB0aW1lIGFuZCBwbGFjZSB3aWxsIGJlIGZydWl0ZnVsbHkgb2ZmZXJlZCIsICJPIGluZGlzdGluZ3Vpc2hlZCBzcGFjZSBvZiB3b21hbidzIHdpbGwhIEEgcGxvdCB1cG9uIGhlciB2aXJ0dW91cyBodXNiYW5kJ3MgbGlmZSwgYW5kIHRoZSBleGNoYW5nZSBteSBicm90aGVyISJd",
             }
 
         }
@@ -353,6 +354,7 @@
             <div class='grid_item'>Scene 3</div>
             <div class='grid_item'>Scene 4</div>
             <div class='grid_item'>Scene 5</div>
+            <div class='grid_item'>Scene 6</div>
         </div>
     </div>
         `
