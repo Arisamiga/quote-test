@@ -52,6 +52,7 @@
         removeButton.innerHTML = "Remove";
         removeButton.addEventListener("click", function () {
             container.remove();
+            setparsedQuotes();
         });
         
         container.appendChild(removeButton);
