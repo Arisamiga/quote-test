@@ -123,6 +123,24 @@ function createPopup(buttons, type, content) {
     });
 }
 
+function prepareTimerText(seconds) {
+    // Turn num to minutes if it's greater than 60
+    var timeMinutes = Math.floor(seconds / 60);
+    var timeSeconds = seconds % 60;
+
+    var minutesText = timeMinutes === 1 ? "minute" : "minutes";
+    var secondsText = timeSeconds === 1 ? "second" : "seconds";
+
+    if (seconds >= 60) {
+        return `Timer Enabled: ${timeMinutes} ${minutesText} and ${timeSeconds} ${secondsText}`;
+    }
+    else {
+        return `Timer Enabled: ${timeSeconds} ${secondsText}`;
+    }
+
+
+}
+
 var intensity = document.getElementById("intensityRange")
 var intensityOutput = document.getElementById("intensityValue")
 intensityOutput.innerHTML = intensity.value;
@@ -140,13 +158,7 @@ if (localStorage.getItem("options") !== null) {
 
         const num = JSON.parse(localStorage.getItem("options")).timer
 
-        // Turn num to minutes if it's greater than 60
-        if (num >= 60) {
-            timerText.innerHTML = `Timer Enabled: ${Math.floor(num / 60)} minutes and ${num % 60} seconds`;
-        }
-        else {
-            timerText.innerHTML = `Timer Enabled: ${num} seconds`;
-        }
+        timerText.innerHTML = prepareTimerText(num);
         
         optionField.appendChild(timerText);
 
@@ -271,13 +283,8 @@ timerBtn1.addEventListener("click", () => {
         const timerText = document.createElement("div")
         timerText.classList.add("timerText");
 
-        // Turn num to minutes if it's greater than 60
-        if (num >= 60) {
-            timerText.innerHTML = `Timer Enabled: ${Math.floor(num / 60)} minutes and ${num % 60} seconds`;
-        }
-        else {
-            timerText.innerHTML = `Timer Enabled: ${num} seconds`;
-        }
+
+        timerText.innerHTML = prepareTimerText(num);
 
         optionField.appendChild(timerText);
 

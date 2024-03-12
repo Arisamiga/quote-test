@@ -766,6 +766,10 @@ a {
 
 }
 
+#timerBtn1 {
+    margin: auto;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
