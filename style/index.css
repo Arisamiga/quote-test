@@ -408,6 +408,9 @@ a {
     text-align: center;
     outline: ridge;
     outline-color: rgb(45, 45, 168);
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
 .popupOptions>div:hover {

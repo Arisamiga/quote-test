@@ -29,8 +29,8 @@
             popup.style.overflow = "auto"
             document.body.style.overflow = "hidden"
             if (buttons === "yn") {
-                button1.style.display = "block"
-                button2.style.display = "block"
+                button1.style.display = "flex"
+                button2.style.display = "flex"
                 button1.innerHTML = "Yes"
                 button2.innerHTML = "No"
                 button1.addEventListener("click", () => {
@@ -43,7 +43,7 @@
                 });
             }
             else if (buttons === "ok") {
-                button1.style.display = "block"
+                button1.style.display = "flex"
                 button1.innerHTML = "OK"
                 button1.addEventListener("click", () => {
                     resolve(true);
@@ -53,8 +53,8 @@
             else if (buttons === "blank") {
             }
             else if (buttons === "force") {
-                button1.style.display = "block";
-                button2.style.display = "block";
+                button1.style.display = "flex";
+                button2.style.display = "flex";
                 button1.innerHTML = "OK";
                 button2.innerHTML = "Complete Anyway";
                 button1.addEventListener("click", () => {
@@ -67,7 +67,7 @@
                 })
             }
             else {
-                button1.style.display = "block"
+                button1.style.display = "flex"
                 button1.innerHTML = "debug: Invalid Button Type!!"
             }
 
