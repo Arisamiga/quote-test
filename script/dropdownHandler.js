@@ -334,7 +334,6 @@
                 </div>
                 `
             }
-            console.log(html)
             selectionData.innerHTML = html;
 
             let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
@@ -644,7 +643,11 @@
             const scene = element.innerText;
             const act = event.target.parentElement.parentElement.previousElementSibling.innerText;
             const topic = selections[selections.selectedIndex].innerText;
-            quoteModal(JSON.parse(decodeURIComponent(atob(Premade.Lear[act][scene]))), `${topic} | ${act} ${scene} Quotes`);
+            const data = Premade.Lear[act][scene]
+
+            if (data !== undefined) {
+                quoteModal(JSON.parse(decodeURIComponent(atob(data))), `${topic} | ${act} ${scene} Quotes`);
+            }
         }
     });
 
