@@ -749,7 +749,7 @@ a {
     align-items: center;
 }
 
-#timer {
+.timerStyle {
     position: fixed;
     bottom: 5px;
     left: 5px;
@@ -763,7 +763,6 @@ a {
     opacity: 95%;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
     user-select: none;
-
 }
 
 #timerBtn1 {

@@ -411,6 +411,9 @@
             console.log("Timer Enabled")
             var timer = JSON.parse(localStorage.getItem("options")).timer;
             var timerElement = document.getElementById("timer");
+
+            timerElement.classList.add("timerStyle");
+
             timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
             var interval = setInterval(() => {
                 timer--;
