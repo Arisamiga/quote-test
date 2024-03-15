@@ -153,7 +153,8 @@ document.getElementById("addQuote").addEventListener("click", function () {
 });
 
 document.getElementById("submitQuotes").addEventListener("click", function () {
-    var intensitySetting = JSON.parse(localStorage.getItem("options")).intensity ?? 50;
+    var settings = JSON.parse(localStorage.getItem("options")) ?? {};
+    var intensitySetting = settings.intensity ?? 50;
     var quotes = document.getElementsByClassName("quote");
     var quoteArray = [];
     for (var i = 0; i < quotes.length; i++) {
