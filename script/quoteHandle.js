@@ -196,6 +196,7 @@
         var data = decodeURIComponent(atob(localStorage.getItem("quotes")));
         var intensity = JSON.parse(localStorage.getItem("options")).intensity
         var inputdata = {};
+        var submitted = false;
 
         if (data === null) {
             // No Quotes
@@ -239,6 +240,8 @@
 
             // Reset the flag to false after handling the click
             skipModal = false;
+
+            submitted = true;
 
             // Check if all inputs are correct
             for (var j = 0; j < quotes.length; j++) {
@@ -416,6 +419,11 @@
 
             timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
             var interval = setInterval(() => {
+                if (submitted) {
+                    clearInterval(interval);
+                    return;
+                }
+
                 timer--;
                 timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
                 if (timer === 0) {
