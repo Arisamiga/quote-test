@@ -304,60 +304,36 @@
         }
 
         if (selectedOption === "Lear") {
-            const html = `
-        <div class='headline'>
-            <h1>Act 1</h1>
-        </div>
-        <div class='content'>
-            <div class='grid'>
-                <div class='grid_item'>Scene 1</div>
-                <div class='grid_item'>Scene 2</div>
-                <div class='grid_item'>Scene 3 [EMPTY]</div>
-                <div class='grid_item'>Scene 4</div>
-                <div class='grid_item'>Scene 5</div>
-            </div>
-        </div>
+            let html = "";
+            const premadeOption = "Lear"
+            for (var act in Premade[premadeOption]) {
+                html += `
+                <div class='headline'>
+                    <h1>${act}</h1>
+                </div>
+                `
+                html += `
+                <div class='content'>
+                    <div class='grid'>
+                    `
+                for (var scene in Premade[premadeOption][act]) {
+                    if (JSON.parse(decodeURIComponent(atob(Premade[premadeOption][act][scene])))[0] === "") {
+                        html += `
+                        <div class='grid_item'>${scene} [EMPTY]</div>
+                        `
 
-        <div class='headline'>
-            <h1>Act 2</h1>
-        </div>
-        <div class='content'>
-            <div class='grid'>
-                <div class='grid_item'>Scene 1</div>
-                <div class='grid_item'>Scene 2</div>
-                <div class='grid_item'>Scene 3 [EMPTY]</div>
-                <div class='grid_item'>Scene 4</div>
-            </div>
-        </div>
-
-        <div class='headline'>
-        <h1>Act 3</h1>
-    </div>
-    <div class='content'>
-        <div class='grid'>
-            <div class='grid_item'>Scene 1</div>
-            <div class='grid_item'>Scene 2</div>
-            <div class='grid_item'>Scene 3</div>
-            <div class='grid_item'>Scene 4</div>
-            <div class='grid_item'>Scene 5</div>
-            <div class='grid_item'>Scene 6</div>
-            <div class='grid_item'>Scene 7</div>
-        </div>
-    </div>
-        <div class='headline'>
-        <h1>Act 4</h1>
-    </div>
-    <div class='content'>
-        <div class='grid'>
-            <div class='grid_item'>Scene 1</div>
-            <div class='grid_item'>Scene 2</div>
-            <div class='grid_item'>Scene 3</div>
-            <div class='grid_item'>Scene 4</div>
-            <div class='grid_item'>Scene 5</div>
-            <div class='grid_item'>Scene 6</div>
-        </div>
-    </div>
-        `
+                    }
+                    else {
+                        html += `
+                        <div class='grid_item'>${scene}</div>
+                        `
+                    }
+                }
+                html += `
+                    </div>
+                </div>
+                `
+            }
             selectionData.innerHTML = html;
 
             let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
@@ -667,7 +643,11 @@
             const scene = element.innerText;
             const act = event.target.parentElement.parentElement.previousElementSibling.innerText;
             const topic = selections[selections.selectedIndex].innerText;
-            quoteModal(JSON.parse(decodeURIComponent(atob(Premade.Lear[act][scene]))), `${topic} | ${act} ${scene} Quotes`);
+            const data = Premade.Lear[act][scene]
+
+            if (data !== undefined) {
+                quoteModal(JSON.parse(decodeURIComponent(atob(data))), `${topic} | ${act} ${scene} Quotes`);
+            }
         }
     });
 
