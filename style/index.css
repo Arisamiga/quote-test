@@ -60,6 +60,7 @@ a {
     border: ridge;
     border-color: rgb(45, 45, 168);
     border-bottom-right-radius: 10px;
+    z-index: 1;
 }
 
 .quoteForm {

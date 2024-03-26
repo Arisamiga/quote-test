@@ -132,10 +132,10 @@ function prepareTimerText(seconds) {
     var secondsText = timeSeconds === 1 ? "second" : "seconds";
 
     if (seconds >= 60) {
-        return `Timer Enabled: ${timeMinutes} ${minutesText} and ${timeSeconds} ${secondsText}`;
+        return `⏲️ Timer Enabled: ${timeMinutes} ${minutesText} and ${timeSeconds} ${secondsText}`;
     }
     else {
-        return `Timer Enabled: ${timeSeconds} ${secondsText}`;
+        return `⏲️ Timer Enabled: ${timeSeconds} ${secondsText}`;
     }
 
 
