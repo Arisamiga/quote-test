@@ -184,7 +184,8 @@ optionText.addEventListener("click", function (element) {
     // console.log("Click")
     if (element.target.innerHTML.includes("▼")) {
         element.target.innerHTML = "⚙️ Options ▲";
-        optionField.style.maxHeight = "200px";
+        let estimatedHeight = optionField.scrollHeight;
+        optionField.style.maxHeight = estimatedHeight + "px";
         optionField.style.padding = "10px";
         optionText.classList.remove("optionsClosed");
         optionText.classList.add("optionsOpened");

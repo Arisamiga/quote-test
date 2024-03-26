@@ -770,6 +770,14 @@ a {
     margin: auto;
 }
 
+.timerText {
+    border-radius: 5px;
+    padding: 4px;
+    background-color: #573ee6;
+    font-size: 15px;
+    user-select: none;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
