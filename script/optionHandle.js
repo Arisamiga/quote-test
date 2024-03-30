@@ -235,16 +235,16 @@ timerBtn1.addEventListener("click", () => {
     buttonContainer.classList.add("button-container");
     document.getElementById("popupText").appendChild(buttonContainer);
 
+    var minus1 = document.createElement("button");
+    minus1.innerHTML = "-1";
+    minus1.classList.add("minus1");
+    buttonContainer.appendChild(minus1);
+
     // Add +1 -1 buttons
     var plus1 = document.createElement("button");
     plus1.innerHTML = "+1";
     plus1.classList.add("plus1");
     buttonContainer.appendChild(plus1);
-
-    var minus1 = document.createElement("button");
-    minus1.innerHTML = "-1";
-    minus1.classList.add("minus1");
-    buttonContainer.appendChild(minus1);
 
     // Add event listeners to the buttons
     plus1.addEventListener("click", () => {

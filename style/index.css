@@ -712,7 +712,6 @@ a {
     -o-transition: background-color 300ms linear;
     -ms-transition: background-color 300ms linear;
     user-select: none;
-    margin-right: 10px;
 }
 
 .plus1:hover {
@@ -736,6 +735,7 @@ a {
     -o-transition: background-color 300ms linear;
     -ms-transition: background-color 300ms linear;
     user-select: none;
+    margin-right: 10px;
 }
 
 .minus1:hover {
