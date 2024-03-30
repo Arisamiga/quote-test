@@ -294,6 +294,9 @@ timerBtn1.addEventListener("click", () => {
 
         localStorage.setItem("options", JSON.stringify(newOptions));
         document.getElementById("timerBtn1").innerHTML = "Edit Timer";
+
+        // Recalcualte height
+        optionField.style.maxHeight = optionField.scrollHeight + "px";
     });
 
     var button2 = document.getElementById("button2");
@@ -311,7 +314,7 @@ timerBtn1.addEventListener("click", () => {
 
         localStorage.setItem("options", JSON.stringify(newOptions));
 
-        document.getElementById("timerBtn1").innerHTML = "Add Timer";
+        document.getElementById("timerBtn1").innerHTML = "Enable Timer";
     });
 
 })
