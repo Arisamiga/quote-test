@@ -27,3 +27,7 @@ Collections may also be **exported** as text, so that they can be shared and **i
 <br>
 ![image](https://github.com/Arisamiga/quote-test/assets/44126228/212e1f31-161e-4b5a-bc81-366a18e82877)
 ![image](https://github.com/Arisamiga/quote-test/assets/44126228/17a38c62-9485-4d7f-8356-f463b3459d5f)
+
+
+For more information on how to use the website and it's features please check my blog post:
+https://blog.arisamiga.rocks/post/quotetest/
