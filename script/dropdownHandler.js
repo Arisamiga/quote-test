@@ -169,13 +169,6 @@
     }
 
 
-    const timerBtn1 = document.getElementById("timerBtn1")
-
-    timerBtn1.addEventListener("click", () => {
-        createPopup("blank", "info", "The timer feature has not been implemented yet!")
-    })
-
-
 
     function createPopup(buttons, type, content) {
         return new Promise((resolve) => {
