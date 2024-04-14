@@ -147,6 +147,12 @@ intensityOutput.innerHTML = intensity.value;
 
 // Set the value of the range to the value stored in the local storage
 if (localStorage.getItem("options") !== null) {
+    if (JSON.parse(localStorage.getItem("options")).intensity === undefined) {
+        let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
+        newOptions.intensity = 50;
+        localStorage.setItem("options", JSON.stringify(newOptions));
+    }
+    
     intensity.value = JSON.parse(localStorage.getItem("options")).intensity;
     intensityOutput.innerHTML = JSON.parse(localStorage.getItem("options")).intensity;
 
