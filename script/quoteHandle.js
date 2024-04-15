@@ -417,7 +417,7 @@
 
             timerElement.classList.add("timerStyle");
 
-            timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
+            timerElement.textContent = "⏲️ Timer: " + timer + "s";
             var interval = setInterval(() => {
                 if (submitted) {
                     clearInterval(interval);
@@ -425,13 +425,12 @@
                 }
 
                 timer--;
-                timerElement.innerHTML = "⏲️ Timer: " + timer + "s";
+                timerElement.textContent = "⏲️ Timer: " + timer + "s";
                 if (timer === 0) {
                     clearInterval(interval);
                     forcedSubmit = true;
                     submitButton.click();
-                    timerElement.innerHTML = "⏲️ Timer: Expired";
-
+                    timerElement.textContent = "⏲️ Timer: Expired";
                 }
             }, 1000);
         }

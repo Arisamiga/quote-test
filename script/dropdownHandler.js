@@ -73,26 +73,26 @@
         modalContent.innerHTML = "";
         document.body.style.overflow = "hidden";
         let html = `
-    <span class="close">&times;</span>
-    <div class="modal_header">
-        <h1>${title}</h1>
-        <ul>
-    `
-        // console.log(quotes)
-        quotes.forEach((quote, index) => {
-            html += `
-            <li id="quote-${index}">${quote}</li>
+        <span class="close">&times;</span>
+        <div class="modal_header">
+            <h1>${title}</h1>
+            <ul>
         `
-        });
+            // console.log(quotes)
+            quotes.forEach((quote, index) => {
+                html += `
+                <li id="quote-${index}">${quote}</li>
+            `
+            });
 
-        html += `
-        </ul>
-    </div>
-    Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
+            html += `
+            </ul>
+        </div>
+        Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
 
-    <div class="useQuotesButton">Use Template Quotes</div>
-    <div class="addQuotesButton">+ Add to Existing Quotes</div>
-    `
+        <div class="useQuotesButton">Use Template Quotes</div>
+        <div class="addQuotesButton">+ Add to Existing Quotes</div>
+        `
         modalContent.innerHTML = html;
 
         const modal_close = document.getElementsByClassName("close")[0]
@@ -633,10 +633,10 @@
         const element = event.target;
 
         if (element.classList.contains("grid_item")) {
-            const scene = element.innerText;
-            const act = event.target.parentElement.parentElement.previousElementSibling.innerText;
-            const topic = selections[selections.selectedIndex].innerText;
-            const data = Premade.Lear[act][scene]
+            const scene = element.textContent.trim();
+            const act = event.target.parentElement.parentElement.previousElementSibling.textContent.trim();
+            const topic = selections[selections.selectedIndex].textContent;
+            const data = Premade.Lear[act][scene];
 
             if (data !== undefined) {
                 quoteModal(JSON.parse(decodeURIComponent(atob(data))), `${topic} | ${act} ${scene} Quotes`);

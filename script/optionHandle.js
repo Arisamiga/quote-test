@@ -154,7 +154,7 @@ if (localStorage.getItem("options") !== null) {
     }
     
     intensity.value = JSON.parse(localStorage.getItem("options")).intensity;
-    intensityOutput.innerHTML = JSON.parse(localStorage.getItem("options")).intensity;
+    intensityOutput.textContent = JSON.parse(localStorage.getItem("options")).intensity;
 
     if (JSON.parse(localStorage.getItem("options")).timer !== undefined) {
         const optionField = document.getElementsByClassName("optionsField")[0];
@@ -173,7 +173,7 @@ if (localStorage.getItem("options") !== null) {
 }
 
 intensity.oninput = function () {
-    intensityOutput.innerHTML = this.value;
+    intensityOutput.textContent = this.value;
     let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
 
     newOptions.intensity = this.value;
