@@ -143,7 +143,7 @@ function prepareTimerText(seconds) {
 
 var intensity = document.getElementById("intensityRange")
 var intensityOutput = document.getElementById("intensityValue")
-intensityOutput.innerHTML = intensity.value;
+intensityOutput.textContent = intensity.value;
 
 // Set the value of the range to the value stored in the local storage
 if (localStorage.getItem("options") !== null) {

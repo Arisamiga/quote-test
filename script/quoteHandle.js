@@ -431,6 +431,7 @@
                     forcedSubmit = true;
                     submitButton.click();
                     timerElement.textContent = "⏲️ Timer: Expired";
+
                 }
             }, 1000);
         }

@@ -85,7 +85,7 @@
             `
             });
 
-            html += `
+        html += `
             </ul>
         </div>
         Do you want to use these quotes? <span style="color:red;">This will overwrite the current quotes.</span>
