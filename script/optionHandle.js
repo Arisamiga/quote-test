@@ -235,6 +235,12 @@ timerBtn1.addEventListener("click", () => {
 
     input.classList.add("timerInput");
 
+    input.addEventListener("input", function (e) {
+        if (parseInt(e.target.value) < 1) {
+            input.value = 1;
+        }
+    });
+
     document.getElementById("popupText").appendChild(input);
 
     var buttonContainer = document.createElement("div");

@@ -411,7 +411,7 @@
 
         // Check If Timer is enabled
         if (localStorage.getItem("options") !== null && JSON.parse(localStorage.getItem("options")).timer) {
-            console.log("Timer Enabled")
+            // console.log("Timer Enabled")
             var timer = JSON.parse(localStorage.getItem("options")).timer;
             var timerElement = document.getElementById("timer");
 
