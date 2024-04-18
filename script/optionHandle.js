@@ -143,7 +143,7 @@ function prepareTimerText(seconds) {
 
 var intensity = document.getElementById("intensityRange")
 var intensityOutput = document.getElementById("intensityValue")
-intensityOutput.innerHTML = intensity.value;
+intensityOutput.textContent = intensity.value;
 
 // Set the value of the range to the value stored in the local storage
 if (localStorage.getItem("options") !== null) {
@@ -154,7 +154,7 @@ if (localStorage.getItem("options") !== null) {
     }
     
     intensity.value = JSON.parse(localStorage.getItem("options")).intensity;
-    intensityOutput.innerHTML = JSON.parse(localStorage.getItem("options")).intensity;
+    intensityOutput.textContent = JSON.parse(localStorage.getItem("options")).intensity;
 
     if (JSON.parse(localStorage.getItem("options")).timer !== undefined) {
         const optionField = document.getElementsByClassName("optionsField")[0];
@@ -173,7 +173,7 @@ if (localStorage.getItem("options") !== null) {
 }
 
 intensity.oninput = function () {
-    intensityOutput.innerHTML = this.value;
+    intensityOutput.textContent = this.value;
     let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
 
     newOptions.intensity = this.value;
@@ -234,6 +234,12 @@ timerBtn1.addEventListener("click", () => {
 
 
     input.classList.add("timerInput");
+
+    input.addEventListener("input", function (e) {
+        if (parseInt(e.target.value) < 1) {
+            input.value = 1;
+        }
+    });
 
     document.getElementById("popupText").appendChild(input);
 
