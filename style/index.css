@@ -853,6 +853,10 @@ a {
         display: none;
     }
 
+    #timer {
+        display: none;
+    }
+
 }
 
 @media screen and (max-width: 653px) {
