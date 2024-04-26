@@ -88,6 +88,7 @@ function createPopup(buttons, type, content) {
         }
         else if (type === "timer") {
             title.innerHTML = "⏲️ Timer";
+            title.style.color = "#ffffff";
         }
         else {
             title.innerHTML = type;
