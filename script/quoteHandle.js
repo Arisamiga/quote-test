@@ -42,6 +42,27 @@
                     closePopup()
                 });
             }
+            else if (buttons === "yno") {
+                button1.style.display = "flex"
+                button2.style.display = "flex"
+                button1.innerHTML = "Yes"
+                button2.innerHTML = "No"
+                button1.addEventListener("click", () => {
+                    resolve(true);
+                    closePopup()
+                });
+                button2.addEventListener("click", () => {
+                    resolve(false);
+                    closePopup()
+                });
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.id = "dontShowAgain";
+                popupContent.appendChild(checkbox);
+                var label = document.createElement("span");
+                label.innerHTML = "Don't show this again";
+                popupContent.appendChild(label);
+            }
             else if (buttons === "ok") {
                 button1.style.display = "flex"
                 button1.innerHTML = "OK"
@@ -222,7 +243,9 @@
                     // console.log(result)
                     await delay(700);
                     if (result == true) {
-                        var confirmation = await createPopup("yn", "warning", "Are you sure?")
+                        var confirmation = await createPopup("yno", "warning", "Are you sure?");
+                        var dontShow = document.getElementById("dontShowAgain").checked;
+                        console.log(dontShow)
                         if (confirmation == true) {
                             break;
                         }
