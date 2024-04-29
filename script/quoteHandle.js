@@ -55,13 +55,24 @@
                     resolve(false);
                     closePopup()
                 });
-                var checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.id = "dontShowAgain";
-                popupContent.appendChild(checkbox);
-                var label = document.createElement("span");
-                label.innerHTML = "Don't show this again";
-                popupContent.appendChild(label);
+
+                if (document.getElementById("checkboxdiv") === null) {
+                    var checkboxdiv = document.createElement("div");
+                    checkboxdiv.style.display = "flex";
+                    checkboxdiv.id = "checkboxdiv";
+                    popupContent.appendChild(checkboxdiv);
+
+                    var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.id = "dontShowAgain";
+                    checkboxdiv.appendChild(checkbox);
+                    var label = document.createElement("span");
+                    label.innerHTML = "Don't show this again";
+                    checkboxdiv.appendChild(label);
+                }
+                else {
+                    document.getElementById("checkboxdiv").style.display = "flex";
+                }
             }
             else if (buttons === "ok") {
                 button1.style.display = "flex"
@@ -130,6 +141,8 @@
                         button1.style.display = "none";
                         button2.style.display = "none";
                         button3.style.display = "none";
+                        if (document.getElementById("checkboxdiv") !== null)
+                            document.getElementById("checkboxdiv").style.display = "none";
                         popup.style.animation = "";
                         popupContent.style.animation = "";
                         document.body.style.overflow = "auto";
