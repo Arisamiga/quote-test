@@ -172,7 +172,7 @@ if (localStorage.getItem("options") !== null) {
     }
 
     if (JSON.parse(localStorage.getItem("options")).dontShow !== undefined) {
-        document.getElementById("status").checked = JSON.parse(localStorage.getItem("options")).dontShow;
+        document.getElementById("status").checked = !JSON.parse(localStorage.getItem("options")).dontShow;
     }
 }
 
@@ -220,7 +220,7 @@ var status = document.getElementById("status");
 status.addEventListener("change", function () {
     let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
 
-    newOptions.dontShow = status.checked;
+    newOptions.dontShow = !status.checked;
 
     localStorage.setItem("options", JSON.stringify(newOptions));
 });

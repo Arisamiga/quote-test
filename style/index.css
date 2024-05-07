@@ -851,10 +851,6 @@ a {
     content: attr(data-checked);
 }
 
-.custom-checkbox input#status:checked + label > .status-switch {
-    background-color: #775fff;
-}
-
 .custom-checkbox input#status:checked + label > .status-switch:after {
     left: 0;
     content: attr(data-unchecked);
