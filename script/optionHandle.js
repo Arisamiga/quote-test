@@ -170,6 +170,10 @@ if (localStorage.getItem("options") !== null) {
 
         document.getElementById("timerBtn1").innerHTML = "Edit Timer";
     }
+
+    if (JSON.parse(localStorage.getItem("options")).dontShow !== undefined) {
+        document.getElementById("status").checked = JSON.parse(localStorage.getItem("options")).dontShow;
+    }
 }
 
 intensity.oninput = function () {
@@ -180,7 +184,6 @@ intensity.oninput = function () {
 
     localStorage.setItem("options", JSON.stringify(newOptions));
     // console.log(this.value);
-
 }
 
 var optionText = document.getElementsByClassName("optionText")[0]
@@ -211,6 +214,15 @@ optionText.addEventListener("click", function (element) {
             }
         });
     }
+});
+
+var status = document.getElementById("status");
+status.addEventListener("change", function () {
+    let newOptions = JSON.parse(localStorage.getItem("options")) ?? {};
+
+    newOptions.dontShow = status.checked;
+
+    localStorage.setItem("options", JSON.stringify(newOptions));
 });
 
 const timerBtn1 = document.getElementById("timerBtn1")
