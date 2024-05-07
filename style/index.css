@@ -781,8 +781,22 @@ a {
     user-select: none;
 }
 
-.checkboxdiv {
+#checkboxdiv {
     display: none;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+#dontShowAgain {
+    position: relative;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background-color: #7777ff;
+    border-radius: 5px;
+    border: 20px solid rgb(45, 45, 168);
+    margin-right: 10px;
 }
 
 @keyframes fadeIn {

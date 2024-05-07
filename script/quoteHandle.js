@@ -253,13 +253,23 @@
                 if (quotes[i].value === "" && !forcedSubmit) {
                     var result = await createPopup("force", "caution", "Please fill in all the words to see your score.")
 
+                    var options = JSON.parse(localStorage.getItem("options")) ?? {};
+                    var skipModal = options.dontShow ?? false;
+
+                    if (skipModal == true) {
+                        break;
+                    }
+    
                     // console.log(result)
                     await delay(700);
                     if (result == true) {
                         var confirmation = await createPopup("yno", "warning", "Are you sure?");
                         var dontShow = document.getElementById("dontShowAgain").checked;
-                        console.log(dontShow)
                         if (confirmation == true) {
+                            // Update options for dont show again
+                            var options = JSON.parse(localStorage.getItem("options")) ?? {};
+                            options.dontShow = dontShow;
+                            localStorage.setItem("options", JSON.stringify(options));
                             break;
                         }
                         else {
