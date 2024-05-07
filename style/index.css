@@ -866,7 +866,7 @@ hr {
     border: 0;
     height: 2px;
     margin: 1rem 0;
-    background-color: #4343fd;
+    background-color: rgb(87, 62, 230);
 }
 
 @keyframes fadeIn {
