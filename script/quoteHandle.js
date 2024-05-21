@@ -13,6 +13,14 @@
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
+    function createElement(type, properties, ...children) {
+        const element = document.createElement(type);
+        Object.assign(element, properties);
+        element.append(...children);
+        return element;
+    }
+    
+
     var url = new URL(window.location.href);
     var quotes = url.searchParams.get("quotes");
     var currentPage = url.pathname.split("/").pop().split(".")[0];
@@ -41,38 +49,6 @@
                     resolve(false);
                     closePopup()
                 });
-            }
-            else if (buttons === "yno") {
-                button1.style.display = "flex"
-                button2.style.display = "flex"
-                button1.innerHTML = "Yes"
-                button2.innerHTML = "No"
-                button1.addEventListener("click", () => {
-                    resolve(true);
-                    closePopup()
-                });
-                button2.addEventListener("click", () => {
-                    resolve(false);
-                    closePopup()
-                });
-
-                if (document.getElementById("checkboxdiv") === null) {
-                    var checkboxdiv = document.createElement("div");
-                    checkboxdiv.style.display = "flex";
-                    checkboxdiv.id = "checkboxdiv";
-                    popupContent.appendChild(checkboxdiv);
-
-                    var checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.id = "dontShowAgain";
-                    checkboxdiv.appendChild(checkbox);
-                    var label = document.createElement("span");
-                    label.innerHTML = "Don't show this again";
-                    checkboxdiv.appendChild(label);
-                }
-                else {
-                    document.getElementById("checkboxdiv").style.display = "flex";
-                }
             }
             else if (buttons === "ok") {
                 button1.style.display = "flex"
@@ -263,7 +239,21 @@
                     // console.log(result)
                     await delay(700);
                     if (result == true) {
-                        var confirmation = await createPopup("yno", "warning", "Are you sure?");
+                        // Add checkbox to not show again
+                        let checkboxdiv = document.getElementById("checkboxdiv");
+                        if (!checkboxdiv) {
+                            checkboxdiv = createElement("div", { id: "checkboxdiv", style: "display: flex" });
+                            popupContent.appendChild(checkboxdiv);
+
+                            const checkbox = createElement("input", { type: "checkbox", id: "dontShowAgain" });
+                            const label = createElement("span", {}, "Don't show this again");
+
+                            checkboxdiv.append(checkbox, label);
+                        } else {
+                            checkboxdiv.style.display = "flex";
+                        }
+
+                        var confirmation = await createPopup("yn", "warning", "Are you sure?");
                         var dontShow = document.getElementById("dontShowAgain").checked;
                         if (confirmation == true) {
                             // Update options for dont show again
@@ -315,9 +305,7 @@
                     quote.setAttribute("title", 'Correct Word: "' + inputdata[i][index] + '"');
 
                     // Append child with button to show the correct word inside the input
-                    var button = document.createElement("span");
-                    button.setAttribute("class", "showCorrectWord");
-                    button.innerHTML = " ? ";
+                    var button = createElement("span", { className: "showCorrectWord", innerHTML: " ? " });
 
                     // Check if button is already there
                     if (quote.nextSibling !== null && quote.nextSibling.className === "showCorrectWord") {
@@ -379,8 +367,7 @@
         for (var i = 0; i < quotes.length; i++) {
 
             // Quote text show
-            var template = document.createElement("div");
-            template.setAttribute("class", "quoteShow");
+            var template = createElement("div", { className: "quoteShow" });
 
             // Check if it has a enter character in it
             if (quotes[i].includes("\n")) {
