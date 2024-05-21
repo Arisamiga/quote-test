@@ -1,5 +1,12 @@
 (function () {
 
+function createElement(type, properties, ...children) {
+    const element = document.createElement(type);
+    Object.assign(element, properties);
+    element.append(...children);
+    return element;
+}
+
 function createPopup(buttons, type, content) {
     return new Promise((resolve) => {
         const popup = document.getElementById("popup")
@@ -159,12 +166,9 @@ if (localStorage.getItem("options") !== null) {
     if (JSON.parse(localStorage.getItem("options")).timer !== undefined) {
         const optionField = document.getElementsByClassName("optionsField")[0];
 
-        const timerText = document.createElement("div")
-        timerText.classList.add("timerText");
-
         const num = JSON.parse(localStorage.getItem("options")).timer
 
-        timerText.innerHTML = prepareTimerText(num);
+        const timerText = createElement("div", { innerHTML: prepareTimerText(num), classList: ["timerText"]})
         
         optionField.appendChild(timerText);
 
@@ -255,19 +259,14 @@ timerBtn1.addEventListener("click", () => {
 
     document.getElementById("popupText").appendChild(input);
 
-    var buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("button-container");
+    var buttonContainer = createElement("div", { classList: ["button-container"] });
     document.getElementById("popupText").appendChild(buttonContainer);
 
-    var minus1 = document.createElement("button");
-    minus1.innerHTML = "-1";
-    minus1.classList.add("minus1");
+    var minus1 = createElement("button", { innerHTML: "-1", classList: ["minus1"] });
     buttonContainer.appendChild(minus1);
 
     // Add +1 -1 buttons
-    var plus1 = document.createElement("button");
-    plus1.innerHTML = "+1";
-    plus1.classList.add("plus1");
+    var plus1 = createElement("button", { innerHTML: "+1", classList: ["plus1"] });
     buttonContainer.appendChild(plus1);
 
     // Add event listeners to the buttons
@@ -305,11 +304,7 @@ timerBtn1.addEventListener("click", () => {
             optionField.removeChild(document.getElementsByClassName("timerText")[0]);
         }
 
-        const timerText = document.createElement("div")
-        timerText.classList.add("timerText");
-
-
-        timerText.innerHTML = prepareTimerText(num);
+        const timerText = createElement("div", { innerHTML: prepareTimerText(num), classList: ["timerText"] });
 
         optionField.appendChild(timerText);
 
