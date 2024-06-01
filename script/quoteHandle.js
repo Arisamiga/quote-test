@@ -367,7 +367,7 @@
                     let splitWord = tempWord.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
                     let semifinalWords = splitWord.map(word => {return word.replaceAll('\x00', '##BR##')});
                     let finalWords = [];
-                    semifinalWords.forEach((word, index) => {
+                    semifinalWords.forEach((word) => {
                         if (word.includes('##BR##')) {
                             let splitParts = word.split('##BR##');
                             for (let i = 0; i < splitParts.length - 1; i++) {
