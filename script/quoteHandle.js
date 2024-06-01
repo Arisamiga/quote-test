@@ -138,7 +138,6 @@
     }
 
     function removeWords(randomInput, index, quoteIndex) {
-        // console.log(inputdata)
         // Initialise array
         if (inputdata[quoteIndex] === undefined) {
             inputdata[quoteIndex] = {};
@@ -364,8 +363,24 @@
 
             elementQuote.forEach((word) => {
                 if (containsSpecialCharacters(word)) {
-                    let splitWord = word.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
-                    newElementQuote.push(...splitWord.filter(Boolean));
+                    let tempWord = word.replace(/##BR##/g, '\x00');
+                    let splitWord = tempWord.split(/([.,\/#!$%\^&\*;:{}=\-_`~()?'"]+)/g);
+                    let semifinalWords = splitWord.map(word => {return word.replaceAll('\x00', '##BR##')});
+                    let finalWords = [];
+                    semifinalWords.forEach((word) => {
+                        if (word.includes('##BR##')) {
+                            let splitParts = word.split('##BR##');
+                            for (let i = 0; i < splitParts.length - 1; i++) {
+                                finalWords.push(splitParts[i]);
+                                finalWords.push('##BR##');
+                            }
+                            finalWords.push(splitParts[splitParts.length - 1]);
+                        } else {
+                            finalWords.push(word);
+                        }
+                    });
+
+                    newElementQuote.push(...finalWords.filter(Boolean));
                 } else {
                     newElementQuote.push(word);
                 }
@@ -395,7 +410,6 @@
             }
 
             // console.log("Removing: " + wordsRemoved + " words" + " from " + wordIndices.length + " words");
-
             for (var j = 0; j < wordsRemoved; j++) {
                 var randomIndex = Math.floor(Math.random() * wordIndices.length);
                 var random = wordIndices[randomIndex];
