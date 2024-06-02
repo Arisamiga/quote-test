@@ -13,6 +13,14 @@
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
+    function createElement(type, properties, ...children) {
+        const element = document.createElement(type);
+        Object.assign(element, properties);
+        element.append(...children);
+        return element;
+    }
+    
+
     var url = new URL(window.location.href);
     var quotes = url.searchParams.get("quotes");
     var currentPage = url.pathname.split("/").pop().split(".")[0];
@@ -109,6 +117,8 @@
                         button1.style.display = "none";
                         button2.style.display = "none";
                         button3.style.display = "none";
+                        if (document.getElementById("checkboxdiv") !== null)
+                            document.getElementById("checkboxdiv").style.display = "none";
                         popup.style.animation = "";
                         popupContent.style.animation = "";
                         document.body.style.overflow = "auto";
@@ -218,11 +228,37 @@
                 if (quotes[i].value === "" && !forcedSubmit) {
                     var result = await createPopup("force", "caution", "Please fill in all the words to see your score.")
 
+                    var options = JSON.parse(localStorage.getItem("options")) ?? {};
+                    var skipModal = options.dontShow ?? false;
+
+                    if (skipModal == true) {
+                        break;
+                    }
+    
                     // console.log(result)
                     await delay(700);
                     if (result == true) {
-                        var confirmation = await createPopup("yn", "warning", "Are you sure?")
+                        // Add checkbox to not show again
+                        let checkboxdiv = document.getElementById("checkboxdiv");
+                        if (!checkboxdiv) {
+                            checkboxdiv = createElement("div", { id: "checkboxdiv", style: "display: flex" });
+                            popupContent.appendChild(checkboxdiv);
+
+                            const checkbox = createElement("input", { type: "checkbox", id: "dontShowAgain" });
+                            const label = createElement("span", {}, "Don't show this again");
+
+                            checkboxdiv.append(checkbox, label);
+                        } else {
+                            checkboxdiv.style.display = "flex";
+                        }
+
+                        var confirmation = await createPopup("yn", "warning", "Are you sure?");
+                        var dontShow = document.getElementById("dontShowAgain").checked;
                         if (confirmation == true) {
+                            // Update options for dont show again
+                            var options = JSON.parse(localStorage.getItem("options")) ?? {};
+                            options.dontShow = dontShow;
+                            localStorage.setItem("options", JSON.stringify(options));
                             break;
                         }
                         else {
@@ -268,9 +304,7 @@
                     quote.setAttribute("title", 'Correct Word: "' + inputdata[i][index] + '"');
 
                     // Append child with button to show the correct word inside the input
-                    var button = document.createElement("span");
-                    button.setAttribute("class", "showCorrectWord");
-                    button.innerHTML = " ? ";
+                    var button = createElement("span", { className: "showCorrectWord", innerHTML: " ? " });
 
                     // Check if button is already there
                     if (quote.nextSibling !== null && quote.nextSibling.className === "showCorrectWord") {
@@ -332,8 +366,7 @@
         for (var i = 0; i < quotes.length; i++) {
 
             // Quote text show
-            var template = document.createElement("div");
-            template.setAttribute("class", "quoteShow");
+            var template = createElement("div", { className: "quoteShow" });
 
             // Check if it has a enter character in it
             if (quotes[i].includes("\n")) {

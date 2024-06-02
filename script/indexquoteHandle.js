@@ -1,5 +1,12 @@
 (function () {
 
+function createElement(type, properties, ...children) {
+    const element = document.createElement(type);
+    Object.assign(element, properties);
+    element.append(...children);
+    return element;
+}
+
 function createPopup(buttons, type, content) {
     return new Promise((resolve) => {
         const popup = document.getElementById("popup")
@@ -105,24 +112,16 @@ function createPopup(buttons, type, content) {
 }
 
 function addQuoteElement(quoteList, quotes) {
-    var container = document.createElement("div");
-    container.setAttribute("class", "quoteContainer");
+    var container = createElement("div", { className: "quoteContainer" });
     quoteList.appendChild(container);
 
-
-    var template = document.createElement("textarea");
-    template.setAttribute("class", "quote");
-    template.setAttribute("rows", "4");
-    template.setAttribute("cols", "50");
-    template.setAttribute("placeholder", "Quote");
-    template.value = quotes;
+    var template = createElement("textarea", { className: "quote", rows: "4", cols: "50", placeholder: "Quote" }, quotes);
     container.appendChild(template);
 
 
     // Add a button to also be able to delete the quote
-    var deleteButton = document.createElement("button");
-    deleteButton.setAttribute("class", "deleteButton");
-    deleteButton.innerHTML = "🗑️";
+    var deleteButton = createElement("button", { className: "deleteButton" }, "🗑️");
+
     deleteButton.addEventListener("click", function () {
         var container = this.parentNode;
         container.removeChild(this.previousSibling);

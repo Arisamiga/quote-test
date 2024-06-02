@@ -781,6 +781,94 @@ a {
     user-select: none;
 }
 
+#checkboxdiv {
+    display: none;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+#dontShowAgain {
+    position: relative;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background-color: #7777ff;
+    border-radius: 5px;
+    border: 20px solid rgb(45, 45, 168);
+    margin-right: 10px;
+}
+
+.custom-checkbox {
+    width: 180px;
+    height: 56px;
+    margin: 0 auto;
+}
+
+.custom-checkbox input#status {
+    display: none;
+}
+
+.custom-checkbox input#status + label, 
+.custom-checkbox input#status + label > .status-switch {
+    height: 100%;
+    width: 100%;
+}
+
+.custom-checkbox input#status + label > .status-switch {
+    cursor: pointer;
+    position: relative;
+    background-color: #573ee6;
+    color: white;
+    transition: all 0.5s ease;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.custom-checkbox input#status + label > .status-switch:before, 
+.custom-checkbox input#status + label > .status-switch:after {
+    border-radius: 2px;
+    height: calc(100% - 6px);
+    width: calc(50% - 3px);
+    display: flex;
+    align-items: center;
+    position: absolute;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox input#status + label > .status-switch:before {
+    background-color: white;
+    color: black;
+    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
+    left: 3px;
+    z-index: 10;
+    content: attr(data-unchecked);
+}
+
+.custom-checkbox input#status + label > .status-switch:after {
+    right: 0;
+    content: attr(data-checked);
+}
+
+.custom-checkbox input#status:checked + label > .status-switch:after {
+    left: 0;
+    content: attr(data-unchecked);
+}
+
+.custom-checkbox input#status:checked + label > .status-switch:before {
+    left: 50%;
+    content: attr(data-checked);
+}
+
+hr {
+    /* Make a hr that matches the look of the site */
+    border: 0;
+    height: 2px;
+    margin: 1rem 0;
+    background-color: rgb(87, 62, 230);
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
