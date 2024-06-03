@@ -434,12 +434,16 @@
                 .map(function (item) { return item.index; });
 
             // Calculate the number of words to remove based on the number of words
+            let wordsRemoved = Math.round(wordIndices.length * (intensity / 100));
+
             if (intensity < 10) {
-                var wordsRemoved = Math.ceil(wordIndices.length * (intensity / 100));
+                wordsRemoved = Math.ceil(wordIndices.length * (intensity / 100));
             } else if (intensity < 100) {
-                var wordsRemoved = Math.floor(wordIndices.length * (intensity / 100));
-            } else {
-                var wordsRemoved = Math.round(wordIndices.length * (intensity / 100));
+                wordsRemoved = Math.floor(wordIndices.length * (intensity / 100));
+            }
+            
+            if (wordsRemoved === 0) {
+                wordsRemoved = 1;
             }
 
             // console.log("Removing: " + wordsRemoved + " words" + " from " + wordIndices.length + " words");
