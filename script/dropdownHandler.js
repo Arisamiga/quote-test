@@ -387,8 +387,10 @@
             </div>
             `
             selectionData.innerHTML = html;
-
-            let estimatedHeight = document.getElementsByClassName("selection_items")[0].scrollHeight;
+            
+            // let estimatedHeight = ;
+            // Create estimatedHeight based on newlines
+            let estimatedHeight = html.split("\n").length * 25;
             selectionData.style.minHeight = `${estimatedHeight}px`;
             selectionData.style.maxHeight = `${estimatedHeight}px`;
 
