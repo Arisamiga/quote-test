@@ -371,7 +371,7 @@
                     <div class='grid'>
                     `
             for (var poem in Premade[premadeOption]) {
-                console.log(decodeURIComponent(atob(Premade[premadeOption][poem])))
+                // console.log(decodeURIComponent(atob(Premade[premadeOption][poem])))
                 if (JSON.parse(decodeURIComponent(atob(Premade[premadeOption][poem])))[0] === "") {
                     html += `
                     <div class='grid_item'>${poem} [EMPTY]</div>
@@ -387,10 +387,21 @@
             </div>
             `
             selectionData.innerHTML = html;
-            
-            // let estimatedHeight = ;
-            // Create estimatedHeight based on newlines
-            let estimatedHeight = html.split("\n").length * 25;
+
+            let dummyElement = document.createElement('div');
+            dummyElement.className = 'selection_items';
+            dummyElement.style.visibility = 'hidden'; // Make it invisible
+            dummyElement.style.position = 'absolute'; // Remove it from the document flow
+            dummyElement.innerHTML = html; // Set the inner HTML
+
+            // Append the dummy element to the body
+            document.body.appendChild(dummyElement);
+            // Measure the height
+            let estimatedHeight = dummyElement.scrollHeight + 50;
+
+            // Remove the dummy element from the DOM
+            document.body.removeChild(dummyElement);
+
             selectionData.style.minHeight = `${estimatedHeight}px`;
             selectionData.style.maxHeight = `${estimatedHeight}px`;
 
@@ -701,7 +712,7 @@
             let data;
 
             const option = selections[selections.selectedIndex].value;
-            console.log(topic)
+            // console.log(topic)
             if (option === "Lear") {
                 data = Premade.Lear[act][scene];
             }
